@@ -37,9 +37,9 @@ $di['router'] = function() {
 
 $di->set('db', function() use ($config) {
 	return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
-		'host' => $config->database->host,
-		'username' => $config->database->username,
-		'password' => $config->database->password,
+		'host' => getenv('DB_HOST')? getenv('DB_HOST') : $config->database->host,
+		'username' => getenv('DB_USER')? getenv('DB_USER') : $config->database->username,
+		'password' => getenv('DB_PASSWORD')? getenv('DB_PASSWORD') : $config->database->password,
 		'dbname' => $config->database->dbname
 	));
 });
