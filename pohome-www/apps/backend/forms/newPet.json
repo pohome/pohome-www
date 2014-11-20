@@ -1,0 +1,182 @@
+{
+	"name" : "newPet",
+	"fields" : [
+		{
+			"name" : "name",
+			"type" : "inputText",
+			"label" : "动物名",
+			"attr" : {
+				"required" : true
+			},
+			"max_length" : 80,
+			"unique" : {
+				"table" : "pet",
+				"column" : "name"
+			},
+			"regex" : {
+				"exp" : "^{0-9a-z-A-Z}$",
+				"msg" : "说明"
+			}
+		},
+		{
+			"name" : "species",
+			"type" : "radio",
+			"label" : "物种",
+			"data" : {
+				"汪星人" : "D",
+				"喵星人" : "C"
+			},
+			"attr" : {
+				"required" : true
+			}
+		},
+		{
+			"name" : "gender",
+			"type" : "radio",
+			"label" : "性别",
+			"data" : {
+				"雄性" : "M",
+				"雌性" : "F"
+			},
+			"attr" : {
+				"required" : true
+			}
+		},
+		{
+			"name" : "breed",
+			"type" : "inputText",
+			"label" : "血统",
+			"attr" : {
+				
+			}
+		},
+		{
+			"name" : "birthday",
+			"type" : "inputText",
+			"label" : "生日",
+			"attr" : {
+				"placeholder" : "格式：YYYY-MM-DD 或 xx岁xx个月xx天",
+				"required" : true
+			}
+		},
+		{
+			"name" : "body_size",
+			"type" : "radio",
+			"label" : "体型",
+			"data" : {
+				"大型" : "L",
+				"中型" : "M",
+				"小型" : "S"
+			},
+			"attr" : {
+				"required" : true
+			}
+		},
+		{
+			"name" : "character",
+			"type" : "textarea",
+			"label" : "性格"
+		},
+		{
+			"name" : "health",
+			"type" : "textarea",
+			"label" : "健康状况"
+		},
+		{
+			"name" : "entry_date",
+			"type" : "inputText",
+			"label" : "入院日期",
+			"attr" : {
+				"placeholder" : "格式：YYYY-MM-DD"
+			},
+			"regex" : {
+				"reg" : "",
+				"msg" : ""
+			}
+		},
+		{
+			"name" : "little_angel",
+			"type" : "radio",
+			"label" : "隶属小天使基金",
+			"data" : {
+				"是" : 1,
+				"否" : 0
+			}
+		},
+		{
+			"name" : "little_angel_num",
+			"type" : "inputText",
+			"label" : "小天使编号",
+			"attr" : {
+				
+			}
+		},
+		{
+			"name" : "neutered",
+			"type" : "radio",
+			"label" : "绝育状况",
+			"data" : {
+				"已绝育" : 1,
+				"未绝育" : 0
+			}
+		},
+		{
+			"name" : "location",
+			"type" : "dropdown",
+			"label" : "位置",
+			"default" : "请选择目前动物所在的场所",
+			"data" : {
+				"良乡基地" : 1,
+				"模拟家庭" : 2,
+				"领养家庭" : 3,
+				"寄养家庭" : 10,
+				"小十三里寄养场所" : 11,
+				"宠福鑫动物医院立水桥店" : 100,
+				"万康动物医院良乡店" : 101
+			},
+			"required" : true
+		},
+		{
+			"name" : "status",
+			"type" : "dropdown",
+			"label" : "状态",
+			"default" : "请选择目前动物的状态",
+			"data" : {
+				"正常" : 1,
+				"治疗中" : 2,
+				"康复中" : 3,
+				"训练中" : 4,
+				"已领养" : 10,
+				"走失" : 11,
+				"死亡" : 12
+			},
+			"required" : true
+		},
+		{
+			"name" : "adoptable",
+			"type" : "radio",
+			"label" : "适合领养",
+			"data" : {
+				"是" : 1,
+				"否" : 0
+			}
+		},
+		{
+			"name" : "draft",
+			"type" : "radio",
+			"label" : "草稿",
+			"data" : {
+				"是" : 1,
+				"否" : 0
+			}
+		}
+	],
+	"buttons" : [
+		{
+			"name" : "submit",
+			"label" : "保存",
+			"color" : "teal",
+			"submit" : true
+		}
+	]
+}
