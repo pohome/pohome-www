@@ -23,4 +23,9 @@ class Pets extends \Phalcon\Mvc\Model
 	public $creator_id;
 	public $created_at;
 	public $modified_at;
+	
+	public function validation()
+	{
+		
+	}
 }
