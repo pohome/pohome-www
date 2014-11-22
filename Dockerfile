@@ -10,3 +10,4 @@ ADD pohome-www /data/http
 ADD config/init* /config/
 ADD config/default.conf /etc/nginx/host.d/
 ADD config/fastcgi.conf /etc/nginx/
+ADD config/default-php.conf /etc/nginx/addon.d/
