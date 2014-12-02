@@ -34,4 +34,9 @@ class Pet extends \Phalcon\Mvc\Model
 	{
 		$this->modified_at = date('Y-m-d H:i:s');
 	}
+
+	public function age()
+	{
+		
+	}
 }
