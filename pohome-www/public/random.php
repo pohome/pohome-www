@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 //随机生成验证码的字符串
 function random($len) {
 	$srcstr="ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
@@ -38,4 +39,3 @@ imagerectangle($im,0,0,$width-1,$height-1,$font);//在验证码图像周围绘�
 imagepng($im);//建立一张PNG格式图形
 imagedestroy($im);//将图片handle解构，释于内存空间
 $_SESSION["auth_code"]=$str;
-?>

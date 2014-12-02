@@ -11,6 +11,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 		$loader->registerNamespaces(array(
 			'\Pohome\Frontend\Controllers' => '../apps/frontend/controllers',
 			'\Pohome\Frontend\Models' => '../apps/frontend/models',
+			'Phalcon' => '../library/Phalcon/',
 		));
 		
 		$loader->register();

@@ -12,7 +12,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			'Pohome\Backend\Controllers' => '../apps/backend/controllers/',
 			'Pohome\Backend\Models' => '../apps/backend/models/',
 			'Pohome\SemanticUIForm' => '../library/',
-			'Phalcon' => '../library/incubator/Library/Phalcon/',
+			'Phalcon' => '../library/Phalcon/',
 		));
 		
 		$loader->register();

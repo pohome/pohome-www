@@ -4,6 +4,7 @@
 $ip = $_SERVER['REMOTE_ADDR'];
 echo ip2long($ip).'<br />';
 
+
 // 获取用户访问时间（MySQL数据库里，datatime类型需要用以下格式录入）
 echo date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']).'<br />';
 

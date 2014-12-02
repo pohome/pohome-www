@@ -35,6 +35,7 @@ $di['router'] = function() {
 	return $router;
 };
 
+// 配置Mysql数据库信息，优先使用环境变量中保存的信息
 $di->set('db', function() use ($config) {
 	return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
 		'host' => getenv('DB_HOST')? getenv('DB_HOST') : $config->database->host,
@@ -44,14 +45,20 @@ $di->set('db', function() use ($config) {
 	));
 });
 
+// 配置session使用Redis适配器
 $di->setShared('session', function() {
-	$session = new \Phalcon\Session\Adapter\Files();
+
+	$session = new \Phalcon\Session\Adapter\Redis(array(
+		'path' => 'tcp://127.0.0.1:6379?weight=1'
+	));
+	
 	$session->start();
+	
 	return $session;
 });
 
 $di->set('logger', function() {
-	return new \Phalcon\Logger\Adapter\File('../apps/debug.log');
+	return new \Phalcon\Logger\Adapter\File('../apps/log/debug.log');
 }, true);
 
 $app = new \Phalcon\Mvc\Application($di);
