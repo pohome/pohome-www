@@ -17,8 +17,6 @@ class IndexController extends \Phalcon\Mvc\Controller
 		$user->username = $username;
 		$user->password = $this->security->hash($password);
 		$user->email = $email;
-		$user->last_visit_at = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
-		$user->last_visit_ip = ip2long($_SERVER['REMOTE_ADDR']);
 		
 		if($user->save() == false) {
 			foreach($user->getMessages() as $msg) {
@@ -29,7 +27,7 @@ class IndexController extends \Phalcon\Mvc\Controller
 	
 	public function route404Action()
 	{
-		echo 'page not found!';
+		echo '404!';
 		$this->view->disable();
 	}
 }

@@ -34,8 +34,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 				'.volt' => function($view, $di) {
 					$volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
 					$volt->setOptions(array(
-						'compiledPath' => '../apps/backend/views/compiled',
-						'compileAlways' => false
+						'compiledPath' => '../apps/backend/views/compiled/',
+						'compileAlways' => true
 					));
 					return $volt;
 				}

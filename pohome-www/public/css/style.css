@@ -1,0 +1,31 @@
+body {
+	font-family: "HiraginoSansGB-W3", "Microsoft YaHei", "sans-serif" !important;
+	margin: 25px;
+}
+
+.ui.form {
+	margin: 20px;
+}
+
+.ui.form .inline.field>label {
+	width: 8em;
+	margin-right: 0 !important;
+}
+
+.ui.form .inline.fields>label {
+	width: 8em;
+	margin-right: 0;
+}
+
+.ui.form input[type='text'] {
+	width: 20em !important;
+}
+
+.ui.form .inline.field>textarea {
+	width: 30em !important;
+}
+
+.ui.form .ui.submit.button {
+	width: 12em;
+	margin: 0 auto;
+}
