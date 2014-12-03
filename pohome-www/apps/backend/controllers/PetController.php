@@ -16,6 +16,14 @@ class PetController extends \Phalcon\Mvc\Controller
 			$pet = new Pet();
 			$petExtraInfo = new PetExtraInfo();
 			
+			$pet->name = $this->request->getPost('name');
+			$pet->species = $this->request->getPost('species');
+			$pet->gender = $this->request->getPost('gender');
+			$pet->breed = $this->request->getPost('breed');
+			// ...
+			
+			$pet->create();
+			$petExtraInfo->create();
 			
 			var_dump($_POST);
 			$this->view->disable();
