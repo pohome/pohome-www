@@ -6,76 +6,119 @@ class AuthController extends \Phalcon\Mvc\Controller
 {
 	public function loginAction()
 	{
+		$result = new \Pohome\FormResult();
+		
+		$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+		$this->view->setVar('title', '汪汪喵呜孤儿院 - 后台管理系统');
 				
 		if($this->request->isPost()) {
-
-			$this->view->disable();
-						
-			$result = array(
-				'hasError' => false,
-				'errorMsg' => array(),
-				'errorField' => array(),
-				'url' => ''
-			);
 			
 			// 防止跨脚本攻击
 			if(!$this->security->checkToken()) {
-				echo '请不要非法攻击我们！';
-				die();
+				$this->view->disable();
+				echo 'DO NOT ATTACK US!';
+				//$this->response->redirect('notFound');
 			}
 			
 			// 验证用户信息
-			$username = $this->request->getPost('username');
-			$password = $this->request->getPost('password');
+			$post = $this->request->getPost();
+			$username = $post['username'];
+			$password = $post['password'];
 			
 			// 检查用户名是否存在
-			$user = \Pohome\Backend\Models\Users::findFirstByUsername($username);
+			$user = \Pohome\Backend\Models\User::findFirstByUsername($username);
 						
 			if(!$user) {
 				// 用户不存在
-				$result['hasError'] = true;
-				array_push($result['errorMsg'], '未找到指定用户信息，请检查您是否正确输入了用户名！');
-				array_push($result['errorField'], 'username');
-
-				echo json_encode($result);
+				$result->add('username', '未找到指定用户信息，请检查您是否正确输入了用户名！');
+				$this->view->result = $result;
+				$this->view->tokenKey = $this->security->getTokenKey();
+				$this->view->token = $this->security->getToken();
 				return;
 			} 
 
 			if(!$this->security->checkHash($password, $user->password)) {
 				// 密码错误
-				$result['hasError'] = true;
-				array_push($result['errorMsg'], '用户名和密码错误，请检查您的输入。');
-				$result['errorField'] = array('username', 'password');
-				
-				echo json_encode($result);
+				$result->add('username,password', '用户名和密码错误，请检查您的输入。');
+				$this->view->result = $result;
+				$this->view->tokenKey = $this->security->getTokenKey();
+				$this->view->token = $this->security->getToken();
 				return;
 			} 
 
 			// 用户名密码正确
-			$result['hasError'] = false;
-			$result['url'] = '/function.php';
-			
 			$user->update();
 			
 			$this->session->set('userId', $user->id);
 			$this->session->set('username', $user->username);
+			$this->session->set('permissions', $this->getAllPermissions($user->id));
 			
-			echo json_encode($result);
+			$returnUrl = $this->session->get('returnUrl');
 			
+			if(is_null($returnUrl)) {
+				$this->response->redirect('admin');
+			} else {
+				$this->session->remove('returnUrl');
+				$this->response->redirect($returnUrl);
+			}
 		} else {
-			
-			$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-			$this->view->setVar('title', '汪汪喵呜孤儿院 - 后台管理系统');
-			
-			// 表单防跨域攻击
-			$this->view->setVar('tokenKey', $this->security->getTokenKey());
-			$this->view->setVar('token', $this->security->getToken());
-			
+			$this->view->result = $result;
+			$this->view->tokenKey = $this->security->getTokenKey();
+			$this->view->token = $this->security->getToken();
 		}
 	}
 	
 	public function logoutAction()
 	{
+		$this->session->remove('userId');
+		$this->session->remove('username');
+		$this->session->remove('permissions');
 		
+		$this->response->redirect('admin/login');
+	}
+	
+	public function permissionDeniedAction()
+	{
+		// TODO: 编写更优雅的无权访问页面
+		$this->view->disable();
+		echo 'Permission Denied.';
+	}
+	
+	public function testAction()
+	{
+		$this->view->disable();
+		
+		if(is_null($this->session->get('userId'))) {
+			// 跳转到登录页面
+			$this->response->redirect('admin/auth/login');
+		} else {
+			$userId = $this->session->get('userId');
+			checkPermission($userId, '登录后台');
+		}
+	}
+	
+	private function checkPermission($userId, $permission)
+	{
+		// 检查session中是否有保存该用户的全部权限
+		$p = $this->session->get('permissions');
+		
+		if(!is_null($p)) {
+			return in_array($permission, $p);
+		} else {
+			$p = $this->getAllPermissions($userId);
+			$this->session-set('permissions', $p);
+			return in_array($permission, $p);
+		}
+	}
+	
+	private function getAllPermissions($userId)
+	{
+		$permissions = array();
+		$sql = "select name from permissions where permissions.id in (select permission_id from role_has_permissions where role_id in (select role_id from user_has_roles where user_id=$userId))";
+		$resultset = $this->db->query($sql);
+		foreach($resultset->fetchAll() as $r) {
+			array_push($permissions, $r['name']);
+		}
+		return $permissions;
 	}
 }

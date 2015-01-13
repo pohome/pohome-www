@@ -30,4 +30,10 @@ class Blog extends \Phalcon\Mvc\Model
 	{
 		
 	}
+	
+	public function author()
+	{
+		$user = \Pohome\Backend\Models\User::findFirst($this->author_id);
+		return $user->username;
+	}
 }

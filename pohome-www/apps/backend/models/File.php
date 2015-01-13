@@ -1,6 +1,6 @@
 <?php
 
-namespace \Pohome\Bakcend\Models;
+namespace Pohome\Bakcend\Models;
 
 class File extends \Phalcon\Mvc\Model
 {

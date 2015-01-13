@@ -182,8 +182,47 @@
 	</form>
 </div>
 
+<div class="ui small modal">
+	<div class="header">提示</div>
+	<div class="content">添加动物信息成功！</div>
+	<div class="actions">
+		<div class="ui orange button">确定</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	$(function() {
+		//$(".ui.modal").modal("show");
+		
+		$('form').ajaxForm({
+			success : function(responseText) {
+				console.log(responseText);
+				//$(".ui.modal").modal("show");
+			}
+		});
+		
+		// 添加生日格式的验证
+		$.fn.form.settings.rules.birthday = function(e) {
+			var t = /^[0-9]{4}-\d{1,2}-\d{1,2}$/;
+			if(t.test(e) == true) return true;
+			
+			t = /^(\d{1,2})岁$/;
+			if(t.test(e) == true) return true;
+			
+			t = /^(\d{1,2})个月$/;
+			if(t.test(e) == true) return true;
+			
+			t = /^(\d{1,2})岁零(\d{1,2})个月$/;
+			if(t.test(e) == true) return true;
+			
+			return false;
+		}
+		
+		$.fn.form.settings.rules.date = function(e) {
+			var t = /^[0-9]{4}-\d{1,2}-\d{1,2}$/;
+			return t.test(e);
+		}
+		
 		$('.ui.form').form({
 			name : {
 				identifier : 'name',
@@ -267,6 +306,16 @@
 				rules : [{
 					type : 'empty',
 					prompt : '请填写该动物进入小院儿的日期'
+				}, {
+					type : 'date',
+					prompt : '进入小院儿的日期格式错误'
+				}]
+			},
+			birthday : {
+				identifier : 'birthday',
+				rules : [{
+					type : 'birthday',
+					prompt : '生日的格式不对'
 				}]
 			}
 		});

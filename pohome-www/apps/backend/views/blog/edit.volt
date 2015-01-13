@@ -4,9 +4,9 @@
 		<div class="ui error message">
 		</div>
 		
-		<div class="inline field">
+		<div class="field">
 			<label for="title">标题</label>
-			<input name="title" type="text" style="width: 50em !important" value="{{ blog.title }}">
+			<input name="title" type="text" value="{{ blog.title }}" style="width: 100% !important">
 		</div>
 		
 		<!--
@@ -19,14 +19,14 @@
 		</div>
 -->
 		
-		<div class="inline field">
+		<div class="field">
 			<label for="abstract" style="vertical-align: top; margin-top: 12px">摘要</label>
-			<textarea name="abstract" style="width: 50em !important">{{ blog.abstract }}</textarea>
+			<textarea name="abstract">{{ blog.abstract }}</textarea>
 		</div>
 		
-		<div class="inline field">
+		<div class="field">
 			<label for="content" style="vertical-align: top; margin-top: 12px">正文</label>
-			<textarea name="content" style="width: 48em !important">{{ blog.content }}</textarea>
+			<textarea name="content">{{ blog.content }}</textarea>
 		</div>
 		
 		<div class="inline field">

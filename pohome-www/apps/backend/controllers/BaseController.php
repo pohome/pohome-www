@@ -2,26 +2,20 @@
 	
 namespace Pohome\Backend\Controllers;
 
-class PetController extends \Phalcon\Mvc\Controller
-{
-	public function initialize()
-	{
-		// 通过判断session中有没有userId项来判断用户是否已登录
-		echo $this->session->get('userId');
-		
-	}
-	
+class BaseController extends \Phalcon\Mvc\Controller
+{	
 	private function cleanTags($str)
 	{
 		return strip_tags($str, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h1><h2><h3><h4><h5><h6>');
 	}
 	
-	private function checkPermission($userId, $permission)
+	protected function checkPermission($permission)
 	{
 		// 首先检查session中是否保存了userId
 		if(is_null($this->session->get('userId'))) {
 			// 跳转到登录页面
 			$this->response->redirect('admin/auth/login');
+			return true;
 		} else {
 			$userId = $this->session->get('userId');
 			$p = $this->session->get('permissions');
@@ -32,9 +26,17 @@ class PetController extends \Phalcon\Mvc\Controller
 				$this->session-set('permissions', $p);
 			}
 			
-			return in_array($permission, $p);
+			if(is_array($permission)) {
+				foreach($permission as $t) {
+					if(!in_array($t, $p)) {
+						return false;
+					}
+				}
+				return true;
+			} else {
+				return in_array($permission, $p);
+			}
 		}
-		
 	}
 	
 	private function getAllPermissions($userId)

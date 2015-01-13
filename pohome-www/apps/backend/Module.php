@@ -11,7 +11,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 		$loader->registerNamespaces(array(
 			'Pohome\Backend\Controllers' => '../apps/backend/controllers/',
 			'Pohome\Backend\Models' => '../apps/backend/models/',
-			'Pohome\SemanticUIForm' => '../library/',
+			'Pohome' => '../library/',
 			'Phalcon' => '../library/Phalcon/',
 		));
 		
@@ -20,13 +20,6 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 	
 	public function registerServices($di)
 	{
-		$di->set('dispatcher', function() {
-			$dispatcher = new \Phalcon\Mvc\Dispatcher();
-			
-			$dispatcher->setDefaultNamespace('Pohome\Backend\Controllers');
-			return $dispatcher;
-		});
-		
 		$di->set('view', function() {
 			$view = new \Phalcon\Mvc\View();
 			$view->setViewsDir('../apps/backend/views');
@@ -42,6 +35,42 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			));
 			
 			return $view;
+		});
+		
+		$di->set('dispatcher', function() {
+			$dispatcher = new \Phalcon\Mvc\Dispatcher();
+			$eventManager = new \Phalcon\Events\Manager();
+	
+			$eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher) {
+				$action = $dispatcher->getActionName();
+				if(strpos($action, '-')) {
+					$dispatcher->setActionName(\Phalcon\Text::camelize($action));
+				}
+			});
+			
+			$eventManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
+				if($exception instanceof Phalcon\Mvc\Dispatcher\Exception) {
+					$dispatcher->forward(array('module' => 'backend', 'controller' => 'index', 'action' => 'route404'));
+					return false;
+				}
+				
+				if ($event->getType() == 'beforeException') {
+		            switch ($exception->getCode()) {
+		                case \Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+		                case \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+		                    $dispatcher->forward(array(
+		                        'controller' => 'index',
+		                        'action' => 'route404'
+		                    ));
+		                    return false;
+		            }
+		        }
+			});
+			
+			$dispatcher->setEventsManager($eventManager);
+			$dispatcher->setDefaultNamespace('Pohome\Backend\Controllers');
+			
+			return $dispatcher;
 		});
 	}
 }

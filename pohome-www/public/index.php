@@ -4,13 +4,13 @@ $config = new \Phalcon\Config\Adapter\Ini('../apps/config/config.ini');
 		
 $di = new \Phalcon\DI\FactoryDefault();
 
-$di['router'] = function() {
+$di->set('router', function() {
 	$router = new \Phalcon\Mvc\Router();
-
-	$router->add('/admin/install', array(
+	
+	$router->add('/admin/:controller', array(
 		'module' => 'backend',
-		'controller' => 'index',
-		'action' => 'install'
+		'controller' => 1,
+		'action' => 'index'
 	));
 	
 	$router->add('/admin/login', array(
@@ -26,6 +26,24 @@ $di['router'] = function() {
 		'params' => 3
 	));
 	
+	$router->add('/admin/install', array(
+		'module' => 'backend',
+		'controller' => 'index',
+		'action' => 'install'
+	));
+	
+	$router->add('/admin', array(
+		'module' => 'backend',
+		'controller' => 'index',
+		'action' => 'index',
+	));
+	
+	$router->add('/', array(
+		'module' => 'frontend',
+		'controller' => 'index',
+		'action' => 'index',
+	));
+	
 	$router->notFound(array(
 		'module' => 'backend',
 	    'controller' => 'index',
@@ -33,7 +51,8 @@ $di['router'] = function() {
 	));
 	
 	return $router;
-};
+});
+
 
 // 配置Mysql数据库信息，优先使用环境变量中保存的信息
 $di->set('db', function() use ($config) {
@@ -48,10 +67,12 @@ $di->set('db', function() use ($config) {
 // 配置session使用Redis适配器
 $di->setShared('session', function() {
 
+/*
 	$session = new \Phalcon\Session\Adapter\Redis(array(
 		'path' => 'tcp://127.0.0.1:6379?weight=1'
 	));
-	
+*/
+	$session = new Phalcon\Session\Adapter\Files();
 	$session->start();
 	
 	return $session;

@@ -1,8 +1,9 @@
 body {
 	font-family: "HiraginoSansGB-W3", "Microsoft YaHei", "sans-serif";
-	background-color: #eee;
-	margin: 0;
+	background-color: #4c4c4c;
+	margin: 20px auto;
 	padding: 0;
+	width: 960px;
 }
 
 .ui.inverted.main.menu {
@@ -15,19 +16,6 @@ body {
 	display: inline-block !important;
 	margin-right: 2em !important;
 	width: 6em;
-}
-
-.ui.form .inline.field input {
-	width: 20em !important;
-	font-size: 1em !important;
-}
-
-.ui.form .ui.input {
-	width: 20em !important;
-}
-
-.ui.form .inline.field {
-	margin: 1em;
 }
 
 .ui.form .grouped.fields {
@@ -44,21 +32,6 @@ body {
 
 .ui.checkbox {
 	margin-right: 2em;
-}
-
-.ui.form .inline.field>textarea {
-	display: inline-block;
-	width: 50em;
-}
-
-.ui.form .inline.field .redactor_box {
-	display: inline-block;
-	width: 50em;
-}
-
-.ui.form .inline.field .redactor.label {
-	vertical-align: top;
-	margin-top: 0.6em;
 }
 
 .ui.form .inline.field .multiple.picture.upload {
