@@ -94,6 +94,17 @@
 				echo '</div>';
 				echo '<a href="/">点击跳转至网站首页</a>';
 				echo '</div>';
+				
+				//创建目录
+				mkdir('./upload/blog');
+				mkdir('./upload/blog/feature');
+				mkdir('./upload/blog/feature/thumbnail');
+				mkdir('./upload/blog/photo');
+				mkdir('./upload/pet');
+				mkdir('./upload/pet/avatar');
+				mkdir('./upload/pet/avatar/thumbnail');
+				mkdir('./upload/pet/photo');
+				mkdir('./upload/pet/photo/thumbnail');
 			} else {
 				echo '<div class="ui error message">';
 				echo '<div class="header">';
