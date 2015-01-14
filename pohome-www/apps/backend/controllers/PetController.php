@@ -9,9 +9,11 @@ class PetController extends BaseController
 {
 	public function initialize()
 	{
+/*
 		if(!$this->checkPermission(array('登录后台', '添加新动物信息'))) {
 			$this->response->redirect('admin/auth/permission-denied');
 		}
+*/
 	}
 	
 	public function indexAction()
