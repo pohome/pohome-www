@@ -1,4 +1,5 @@
-mv /app/* /data/http/
+rm -rf /data/http
+mv /app /data/http
 /usr/bin/mysql -u$DB_USER -p$DB_PASSWORD -h $DB_HOST -Dcse_dict < /data/http/sql/pohome.sql
 sed -i -e "s/;date.timezone =/date.timezone = PRC/" /etc/php5/fpm/php.ini
 sed -i -e "s/DB_HOST/$DB_HOST/" /data/http/apps/config/config.ini
