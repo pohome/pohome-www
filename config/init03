@@ -3,3 +3,4 @@ sed -i -e "s/;date.timezone =/date.timezone = PRC/" /etc/php5/fpm/php.ini
 sed -i -e "s/DB_HOST/$DB_HOST/" /data/http/apps/config/config.ini
 sed -i -e "s/DB_USER/$DB_USER/" /data/http/apps/config/config.ini
 sed -i -e "s/DB_PASSWORD/$DB_PASSWORD/" /data/http/apps/config/config.ini
+mv /config/nginx-pohomewww.pohome.cn.conf /data/host/
