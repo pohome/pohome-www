@@ -43,7 +43,7 @@ class BaseController extends \Phalcon\Mvc\Controller
 	{
 		$permissions = array();
 		
-		$sql = "select name from permissions where permissions.id in (select permission_id from role_has_permissions where role_id in (select role_id from user_has_roles where user_id=$userId))";
+		$sql = "select name from permissions where permissions.id in (select permission_id from role_has_permissions where role_id in (select role_id from user_has_roles where user_id='$userId'))";
 		$resultset = $this->db->query($sql);
 		
 		foreach($resultset->fetchAll() as $r) {
