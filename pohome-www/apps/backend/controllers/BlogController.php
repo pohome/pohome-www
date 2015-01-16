@@ -63,45 +63,47 @@ class BlogController extends BaseController
 			}
 			
 			// 处理标签
-			$tags = explode(' ', $post['tag']);
-			foreach($tags as $tag) {
-				$tagId = Tag::findFirstByName($tag);
-					
-				if(!empty($tagId)) {
-					echo $tagId->id, "\n";
-					$blogWithTag = new BlogWithTag();
-					$blogWithTag->blog_id = $blog->id;
-					$blogWithTag->tag_id = $tagId->id;
-					
-					if($blogWithTag->create() == false) {
-						echo '???';
-						foreach($blogWithTag->getMessages() as $message) {
-							echo $message, "\n";
+			if(!empty($post['tag'])) {
+				$tags = explode(' ', $post['tag']);
+				foreach($tags as $tag) {
+					$tagId = Tag::findFirstByName($tag);
+						
+					if(!empty($tagId)) {
+						echo $tagId->id, "\n";
+						$blogWithTag = new BlogWithTag();
+						$blogWithTag->blog_id = $blog->id;
+						$blogWithTag->tag_id = $tagId->id;
+						
+						if($blogWithTag->create() == false) {
+							echo '???';
+							foreach($blogWithTag->getMessages() as $message) {
+								echo $message, "\n";
+							}
+							$this->db->rollback();
+							return;
 						}
-						$this->db->rollback();
-						return;
-					}
-				} else {
-					$newTag = new Tag();
-					$newTag->name = $tag;
-					if($newTag->save() == false) {
-						foreach($newTag->getMessages() as $msg) {
-							echo $msg, "\n";
+					} else {
+						$newTag = new Tag();
+						$newTag->name = $tag;
+						if($newTag->save() == false) {
+							foreach($newTag->getMessages() as $msg) {
+								echo $msg, "\n";
+							}
+							$this->db->rollback();
+							return;
 						}
-						$this->db->rollback();
-						return;
-					}
-					
-					$blogWithTag = new BlogWithTag();
-					$blogWithTag->blog_id = $blog->id;
-					$blogWithTag->tag_id = $newTag->id;
-					
-					if($blogWithTag->save() == false) {
-						foreach($blogWithTag->getMessages() as $msg) {
-							echo $msg, "\n";
+						
+						$blogWithTag = new BlogWithTag();
+						$blogWithTag->blog_id = $blog->id;
+						$blogWithTag->tag_id = $newTag->id;
+						
+						if($blogWithTag->save() == false) {
+							foreach($blogWithTag->getMessages() as $msg) {
+								echo $msg, "\n";
+							}
+							$this->db->rollback();
+							return;
 						}
-						$this->db->rollback();
-						return;
 					}
 				}
 			}
