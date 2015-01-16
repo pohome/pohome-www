@@ -24,41 +24,16 @@
                     <div class="title"><h3>热点博文</h3></div>
                     <div class="content">
                         <ul>
+	                        {% for hotStory in hotStories %}
+	                        <a href="/blog/{{ hotStory.id }}">
                             <li>
-                                <h2>kimbo 是因为怕陌生人而被弃养</h2>
+                                <h2>{{ hotStory.title }}</h2>
                                 <div class="descr">
-                                    北京领养。kimbo 是因为怕陌生人而被弃养，而且主人本来要把他安乐。kimbo 不到一岁。kimbo 还有个问题
+                                    {{ hotStory.abstract }}
                                 </div>
-                                <p class="date">发表时间：2014-05-29</p>
-                            </li>
-                            <li>
-                                <h2>kimbo 是因为怕陌生人而被弃养</h2>
-                                <div class="descr">
-                                    北京领养。kimbo 是因为怕陌生人而被弃养，而且主人本来要把他安乐。kimbo 不到一岁。kimbo 还有个问题
-                                </div>
-                                <p class="date">发表时间：2014-05-29</p>
-                            </li>
-                            <li>
-                                <h2>kimbo 是因为怕陌生人而被弃养</h2>
-                                <div class="descr">
-                                    北京领养。kimbo 是因为怕陌生人而被弃养，而且主人本来要把他安乐。kimbo 不到一岁。kimbo 还有个问题
-                                </div>
-                                <p class="date">发表时间：2014-05-29</p>
-                            </li>
-                            <li>
-                                <h2>kimbo 是因为怕陌生人而被弃养</h2>
-                                <div class="descr">
-                                    北京领养。kimbo 是因为怕陌生人而被弃养，而且主人本来要把他安乐。kimbo 不到一岁。kimbo 还有个问题
-                                </div>
-                                <p class="date">发表时间：2014-05-29</p>
-                            </li>
-                            <li class="last">
-                                <h2>kimbo 是因为怕陌生人而被弃养</h2>
-                                <div class="descr">
-                                    北京领养。kimbo 是因为怕陌生人而被弃养，而且主人本来要把他安乐。kimbo 不到一岁。kimbo 还有个问题
-                                </div>
-                                <p class="date">发表时间：2014-05-29</p>
-                            </li>
+                                <p class="date">发表时间：{{ hotStory.published_at }}</p>
+                            </li></a>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -67,12 +42,9 @@
                     <div class="title"><h3>文章分类</h3></div>
                     <div class="content">
                         <ul>
-                            <li><a href="#">领养故事(18)</a></li>
-                            <li><a href="#">领养故事(18)</a></li>
-                            <li><a class="active" href="#">领养故事(18)</a></li>
-                            <li><a href="#">领养故事(18)</a></li>
-                            <li><a href="#">领养故事(18)</a></li>
-                            <li><a href="#">领养故事(18)</a></li>
+	                        {% for catelog in catelogs %}
+                            <li><a href="\blog\catelog\{{ catelog['id'] }}">{{ catelog['name'] }}({{ catelog['count'] }})</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
