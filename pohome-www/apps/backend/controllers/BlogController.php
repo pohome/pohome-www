@@ -5,9 +5,19 @@ namespace Pohome\Backend\Controllers;
 use \Pohome\Backend\Models\Blog;
 use \Pohome\Backend\Models\Pet;
 use \Pohome\Backend\Models\Catelog;
+use \Pohome\Backend\Models\Tag;
+use \Pohome\Backend\Models\BlogWithTag;
 
-class BlogController extends \Phalcon\Mvc\Controller
+class BlogController extends BaseController
 {
+	
+	public function initialize()
+	{
+		if(!$this->checkPermission(array())) {
+			$this->response->redirect('admin/auth/permission-denied');
+		}
+	}
+	
 	public function indexAction()
 	{
 		$this->view->title = '博文列表';
@@ -39,15 +49,61 @@ class BlogController extends \Phalcon\Mvc\Controller
 			$blog->catelog_id = $post['catelog'];
 			$blog->draft = $post['draft'];
 			$blog->feature_image = $this->saveFeatureImage();
-			$blog->author_id = 1;
+			$blog->author_id = $this->session->get('userId');
 			$blog->published_at = $post['published_at'];
+			
+			$this->db->begin();
 			
 			if($blog->create() == false) {
 				foreach($blog->getMessages() as $message) {
 					echo $message, "\n";
 				}
-				
+				$this->db->rollback();
 				return;
+			}
+			
+			// 处理标签
+			$tags = explode(' ', $post['tag']);
+			foreach($tags as $tag) {
+				$tagId = Tag::findFirstByName($tag);
+					
+				if(!empty($tagId)) {
+					echo $tagId->id, "\n";
+					$blogWithTag = new BlogWithTag();
+					$blogWithTag->blog_id = $blog->id;
+					$blogWithTag->tag_id = $tagId->id;
+					
+					if($blogWithTag->create() == false) {
+						echo '???';
+						foreach($blogWithTag->getMessages() as $message) {
+							echo $message, "\n";
+						}
+						$this->db->rollback();
+						return;
+					}
+				} else {
+					$newTag = new Tag();
+					$newTag->name = $tag;
+					if($newTag->save() == false) {
+						foreach($newTag->getMessages() as $msg) {
+							echo $msg, "\n";
+						}
+						$this->db->rollback();
+						return;
+					}
+					
+					$blogWithTag = new BlogWithTag();
+					$blogWithTag->blog_id = $blog->id;
+					$blogWithTag->tag_id = $newTag->id;
+					
+					if($blogWithTag->save() == false) {
+						foreach($blogWithTag->getMessages() as $msg) {
+							echo $msg, "\n";
+						}
+						$this->db->rollback();
+						return;
+					}
+				}
 			}
 			
 			if(array_key_exists('pet_id', $post)) {
@@ -58,10 +114,12 @@ class BlogController extends \Phalcon\Mvc\Controller
 					foreach($blog->getMessages() as $message) {
 						echo $message, "\n";
 					}
-					
+					$this->db->rollback();
 					return;
 				}
 			}
+			
+			$this->db->commit();
 		}
 	}
 	
