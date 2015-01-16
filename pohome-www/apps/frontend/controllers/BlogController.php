@@ -9,39 +9,21 @@ class BlogController extends \Phalcon\Mvc\Controller
 {
 	public function indexAction()
 	{
-		//$this->view->disable();
-		
-		$this->view->title = '汪汪喵呜孤儿院 - 博客';
+		$this->view->title = '博客';
 		$this->view->blogs = Blog::find(array(
 			"limit" => 10,
 			"order" => "published_at DESC"
 		));
 		
+		// 生成最热5篇博文
 		$this->view->hotStories = Blog::find(array(
 			"limit" => 5,
 			"order" => "viewed DESC",
 		));
 		
 		
-		// 生成博文分类数据
-		$catelogs = Catelog::find();
-		$catelogStats = array();
-		
-		foreach($catelogs as $catelog)
-		{
-			$name = $catelog->name;
-			$id = $catelog->id;
-			$count = Blog::count(array(
-				"catelog_id = $id"
-			));
-			$c['id'] = $id;
-			$c['name'] = $name;
-			$c['count'] = $count;
-			
-			array_push($catelogStats, $c);
-		}
-		
-		$this->view->catelogs = $catelogStats;
+		// 生成博文分类数据		
+		$this->view->catelogs = Catelog::find();
 	}
 	
 	public function viewAction($blogId)
@@ -49,5 +31,15 @@ class BlogController extends \Phalcon\Mvc\Controller
 		$blog = Blog::findFirst($blogId);
 		$this->view->title = $blog->title;
 		$this->view->blog = $blog;
+		
+		// 生成最热5篇博文
+		$this->view->hotStories = Blog::find(array(
+			"limit" => 5,
+			"order" => "viewed DESC",
+		));
+		
+		
+		// 生成博文分类数据		
+		$this->view->catelogs = Catelog::find();
 	}
 }

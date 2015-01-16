@@ -43,7 +43,7 @@
                     <div class="content">
                         <ul>
 	                        {% for catelog in catelogs %}
-                            <li><a href="\blog\catelog\{{ catelog['id'] }}">{{ catelog['name'] }}({{ catelog['count'] }})</a></li>
+                            <li><a href="\blog\catelog\{{ catelog.id }}">{{ catelog.name }}({{ catelog.countBlog() }})</a></li>
                             {% endfor %}
                         </ul>
                     </div>
