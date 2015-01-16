@@ -12,6 +12,7 @@ class UserController extends \Phalcon\Mvc\Controller
 			$user = new User();
 			$post = $this->request->getPost();
 			
+			$user->id = uniqid();
 			$user->username = $post['username'];
 			$user->password = $this->security->hash($post['password']);
 			$user->email = $post['email'];
