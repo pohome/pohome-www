@@ -33,7 +33,7 @@ class Blog extends \Phalcon\Mvc\Model
 	
 	public function author()
 	{
-		$user = \Pohome\Frontend\Models\User::findFirst($this->author_id);
+		$user = \Pohome\Backend\Models\User::findFirst("id='$this->author_id'");
 		return $user->username;
 	}
 }

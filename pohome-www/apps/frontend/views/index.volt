@@ -28,26 +28,26 @@
 			<div id="header">
 		    	<div id="top_wrap">
 					<div class="row w_common">
-		            	<a href="login.html">登录</a>|<a href="register.html">注册</a>|<a>关注我们</a>
+		            	<a href="/login">登录</a>|<a href="register.html">注册</a>|<a>关注我们</a>
 		            </div> 
 		        </div>
 		        <div class="header_wrap">
 		            <div class="w_common header">
-		                <div class="logo"><a href="./index.html"><img src="/img/logo.png" width="266" height="76" /></a></div>
+		                <div class="logo"><a href="/"><img src="/img/logo.png" width="266" height="76" /></a></div>
 		                <div class="top_menu">
 		                    <ul>
 		                        <li class="active"><a href="/">首 页</a></li>
-		                        <li><a href="./about">关于我们</a></li>
+		                        <li><a href="/about">关于我们</a></li>
 		                        <!-- <li><a href="./news.html">汪喵新闻</a></li> -->
-		                        <li><a href="./adoption">领养平台</a></li>
-		                        <li><a href="./blog">博 客</a></li>
-		                        <li><a href="./join.html">加入我们</a></li>
-		                        <li><a href="./contact.html">联系我们</a></li>
-		                        <li><a href="./">公益淘宝</a></li>
+		                        <li><a href="/adoption">领养平台</a></li>
+		                        <li><a href="/blog">博 客</a></li>
+		                        <li><a href="/join.html">加入我们</a></li>
+		                        <li><a href="/contact.html">联系我们</a></li>
+		                        <li><a href="http://pohome.taobao.com">公益淘宝</a></li>
 		                    </ul>
 		                </div>
-		                <!--
-<div class="mini_search">
+<!--
+		                <div class="mini_search">
 		                    <form>
 		                        <input class="input" type="text" name="keyword" value="" placeholder="关键字" /><input class="btn_submit" type="submit" name="submit" value="" />
 		                    </form>
@@ -70,8 +70,8 @@
 		        	<div class="w_common">
 		            	<div class="qrcode">
 		                	<ul>
-		                    	<li><img src="statics/images/qrcode_01.jpg" /><br />微信公众号</li>
-		                        <li><img src="statics/images/logo_f_02.jpg" /><br />官方新浪微博</li>
+		                    	<li><img src="/img//qrcode_01.jpg" /><br />微信公众号</li>
+		                        <li><img src="/img//logo_f_02.jpg" /><br />官方新浪微博</li>
 		                    </ul>
 		                </div>
 		                <div class="text">

@@ -31,70 +31,70 @@
 		                	<ul>
 		                    	<li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
 		                        </li>
 		                        <li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="statics/images/demo/example_home_01.jpg" width="210" height="210" /></a>
+		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
 		                                <a href="view.html" class="view"></a>
 		                            </div>
 		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
@@ -109,24 +109,17 @@
 		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="#">■more</a></span></div>
 		                    <div class="content">
 		                    	<ul>
+			                    	{% for blog in blogs %}
 		                        	<li>
-		                            	<div class="l_image"><a href="blog_view.html"><img src="statics/images/demo/example_home_weibo.jpg" width="265" /></a></div>
+		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/img/demo/example_home_weibo.jpg" width="265" /></a></div>
 		                                <div class="l_info">
-		                                	<h2><a href="blog_view.html">上演现实版《我和狗狗的约定》</a></h2>
-		                                    <p class="descr">14日中午，在张远位于乌鲁木齐市米东区一处偏僻的农家大院的流浪狗救助站里，14日中午，在张远位于乌鲁木齐市米东区一处偏僻的农家大院的流浪狗救农家大院的流里，张远挨个和狗狗们打着招呼——"欢欢、点点、揪片子、心肝儿、宝宝……"</p>
+		                                	<h2><a href="/blog/{{ blog.id }}">{{ blog.title}}</a></h2>
+		                                    <p class="descr"><?php echo mb_substr($blog->abstract, 0, 130) . '...';?></p>
 		                                    <p class="tag">标签：<a>流浪求</a><a>爱情</a><a>狗狗</a> </p>
 		                                </div>
 		                                <div class="clear"></div>
 		                            </li>
-		                            <li class="last">
-		                            	<div class="l_image"><a href="blog_view.html"><img src="statics/images/demo/example_home_weibo.jpg" /></a></div>
-		                                <div class="l_info">
-		                                	<h2><a href="blog_view.html">上演现实版《我和狗狗的约定》</a></h2>
-		                                    <p class="descr">14日中午，在张远位于乌鲁木齐市米东区一处偏僻的农家大院的流浪狗救助站里，14日中午，在张远位于乌鲁木齐市米东区一处偏僻的农家大院的流浪狗救农家大院的流里，张远挨个和狗狗们打着招呼——"欢欢、点点、揪片子、心肝儿、宝宝……"</p>
-		                                    <p class="tag">标签：<a>流浪求</a><a>爱情</a><a>狗狗</a> </p>
-		                                </div>
-		                                <div class="clear"></div>
-		                            </li>
+		                            {% endfor %}
 		                        </ul>
 		                    </div>
 		                </div>
@@ -134,7 +127,7 @@
 		                <div class="f_r box index_story">
 		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="#">■more</a></span></div>
 		                    <div class="content">
-		                    	<img src="statics/images/demo/example_home_lingyang.jpg" width="353"/>
+		                    	<img src="/img/demo/example_home_lingyang.jpg" width="353"/>
 		                    	<span class="date">2014年07月11日</span>
 		                    	<p class="descr">05年我跟我的兄妹出生在小区的绿化带，零下三度冻死了一个兄弟，当晚嘛嘛把我们四个和狗妈妈带进了家里，坐生第五天狗妈妈出去尿尿再也没回来，从来没养过狗的嘛嘛担当起了奶妈，我们四个活下来了，我的兄弟姐妹被嘛嘛分别安排在朋友家里，我们现被留在了嘛嘛身边......<a href="#">[详细]</a></p>
 		                    </div>
