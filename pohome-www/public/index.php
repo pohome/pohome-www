@@ -7,6 +7,12 @@ $di = new \Phalcon\DI\FactoryDefault();
 $di->set('router', function() {
 	$router = new \Phalcon\Mvc\Router();
 	
+	$router->add('/login', array(
+		'module' => 'frontend',
+		'controller' => 'user',
+		'action' => 'login',
+	));
+	
 	$router->add('/blog', array(
 		'module' => 'frontend',
 		'controller' => 'blog',
