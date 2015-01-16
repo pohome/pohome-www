@@ -31,9 +31,9 @@
 		<div class="inline field">
 			<label>博文分类</label>
 			<select class="ui dropdown" name="catelog">
-				<option value="1">活动汇报</option>
-				<option value="2">救助故事</option>
-				<option value="3">知识库</option>
+				{% for catelog in catelogs %}
+				<option value="{{ catelog.id }}">{{ catelog.name }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		

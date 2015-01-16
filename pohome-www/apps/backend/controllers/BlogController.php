@@ -2,6 +2,10 @@
 	
 namespace Pohome\Backend\Controllers;
 
+use \Pohome\Backend\Models\Blog;
+use \Pohome\Backend\Models\Pet;
+use \Pohome\Backend\Models\Catelog;
+
 class BlogController extends \Phalcon\Mvc\Controller
 {
 	public function indexAction()
@@ -20,6 +24,9 @@ class BlogController extends \Phalcon\Mvc\Controller
 			$this->view->petId = $petId;
 		}
 		
+		// 读取博文分类
+		$this->view->catelogs = Catelog::find();
+				
 		if($this->request->isPost()) {
 			$this->view->disable();
 			
