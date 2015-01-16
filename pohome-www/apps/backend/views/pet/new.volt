@@ -1,6 +1,6 @@
 <div class="ui segment">
 	<form class="ui form" enctype="multipart/form-data" method="post">
-		<div class="ui message">
+		<div class="ui yellow message">
 			<div class="header">说明</div>
 			<ul class="list">
 				<li>日期类项目请按照YYYY-MM-DD的格式填写。</li>
