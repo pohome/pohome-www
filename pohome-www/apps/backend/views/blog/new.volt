@@ -38,6 +38,11 @@
 		</div>
 		
 		<div class="inline field">
+			<label form="tag">标签</label>
+			<input name="tag" type="text" placeholder="多个标签请用空格分开">
+		</div>
+		
+		<div class="inline field">
 			<label for="published_at">发布时间</label>
 			<input name="published_at" type="text" value="{{ date('Y-m-d H:i:s') }}">
 		</div>
