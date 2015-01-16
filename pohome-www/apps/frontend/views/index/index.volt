@@ -106,12 +106,12 @@
 		            
 		            <div class="m_30 row">
 		            	<div class="f_l box index_blog">
-		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="#">■more</a></span></div>
+		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="\blog">■more</a></span></div>
 		                    <div class="content">
 		                    	<ul>
 			                    	{% for blog in blogs %}
 		                        	<li>
-		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/img/demo/example_home_weibo.jpg" width="265" /></a></div>
+		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/upload/blog/feature/thumbnail/{{ blog.feature_image }}" width="265" /></a></div>
 		                                <div class="l_info">
 		                                	<h2><a href="/blog/{{ blog.id }}">{{ blog.title}}</a></h2>
 		                                    <p class="descr"><?php echo mb_substr($blog->abstract, 0, 130) . '...';?></p>
@@ -125,11 +125,11 @@
 		                </div>
 		                
 		                <div class="f_r box index_story">
-		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="#">■more</a></span></div>
+		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="\blog\catelog\3">■more</a></span></div>
 		                    <div class="content">
-		                    	<img src="/img/demo/example_home_lingyang.jpg" width="353"/>
-		                    	<span class="date">2014年07月11日</span>
-		                    	<p class="descr">05年我跟我的兄妹出生在小区的绿化带，零下三度冻死了一个兄弟，当晚嘛嘛把我们四个和狗妈妈带进了家里，坐生第五天狗妈妈出去尿尿再也没回来，从来没养过狗的嘛嘛担当起了奶妈，我们四个活下来了，我的兄弟姐妹被嘛嘛分别安排在朋友家里，我们现被留在了嘛嘛身边......<a href="#">[详细]</a></p>
+		                    	<img src="/upload/blog/feature/thumbnail/{{ adoptionStory.feature_image }}" width="353"/>
+		                    	<span class="date">{{ adoptionStory.title }}</span>
+		                    	<p class="descr">{{ adoptionStory.abstract }}<a href="\blog\{{ adoptionStory.id }}">[详细]</a></p>
 		                    </div>
 		                </div>
 		                <div class="clear"></div>

@@ -9,7 +9,10 @@ class BlogController extends \Phalcon\Mvc\Controller
 	public function indexAction()
 	{
 		$this->view->title = '汪汪喵呜孤儿院 - 博客';
-		$this->view->blogs = Blog::find();
+		$this->view->blogs = Blog::find(array(
+			"limit" => 10,
+			"order" => "published_at DESC"
+		));
 		
 	}
 	

@@ -13,6 +13,8 @@ class IndexController extends \Phalcon\Mvc\Controller
 			"limit" => 2,
 			"order" => "published_at DESC"
 		));
-		
+		$this->view->adoptionStory = Blog::findFirst(array(
+			"catelog_id = 3"
+		));
 	}
 }
