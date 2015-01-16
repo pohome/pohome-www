@@ -29,6 +29,11 @@ class BlogController extends \Phalcon\Mvc\Controller
 	public function viewAction($blogId)
 	{
 		$blog = Blog::findFirst($blogId);
+		
+		// 更新博客阅读量
+		$blog->viewed++;
+		$blog->update();
+		
 		$this->view->title = $blog->title;
 		$this->view->blog = $blog;
 		
