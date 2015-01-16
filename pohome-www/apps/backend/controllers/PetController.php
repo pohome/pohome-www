@@ -258,6 +258,9 @@ class PetController extends BaseController
 				$img = new \Imagick();
 				$img->readImage($file->getTempName());
 				
+				//去除图片附加的exif等信息，以防止诸如gps坐标等敏感信息外泄
+				$img->stripImage();
+				
 				$imgSize = $img->getImageGeometry();
 				
 				if($imgSize['width'] >= 1440 && $imgSize['height'] >= 960) {
