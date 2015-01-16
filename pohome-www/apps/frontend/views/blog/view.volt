@@ -16,7 +16,7 @@
                     	<div class="radius_2 title">相关的文章推荐</div>
                     	<ul>
                         	<li class="f_l">
-                            	<div class="f_l image"><img src="statics/images/demo/blog_02.jpg" width="183" height="116" /></div>
+                            	<div class="f_l image"><img src="/img/demo/blog_02.jpg" width="183" height="116" /></div>
                                 <div class="f_r info">
                                 	<h2>有一只流浪狗等你领养</h2>
                                     <div class="descr">
@@ -26,7 +26,7 @@
                                 <div class="clear"></div>
                             </li>
                             <li class="f_r">
-                            	<div class="f_l image"><img src="statics/images/demo/blog_02.jpg" width="183" height="116" /></div>
+                            	<div class="f_l image"><img src="/img/demo/blog_02.jpg" width="183" height="116" /></div>
                                 <div class="f_r info">
                                 	<h2>有一只流浪狗等你领养</h2>
                                     <div class="descr">
