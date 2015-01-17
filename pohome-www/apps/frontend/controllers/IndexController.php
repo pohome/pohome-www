@@ -3,6 +3,7 @@
 namespace Pohome\Frontend\Controllers;
 
 use Pohome\Frontend\Models\Blog;
+use Pohome\Frontend\Models\Pet;
 
 class IndexController extends \Phalcon\Mvc\Controller
 {
@@ -13,8 +14,7 @@ class IndexController extends \Phalcon\Mvc\Controller
 			"limit" => 2,
 			"order" => "published_at DESC"
 		));
-		$this->view->adoptionStory = Blog::findFirst(array(
-			"catelog_id = 3"
-		));
+		$this->view->adoptionStory = Blog::findFirst(array("catelog_id = 3"));
+		$this->view->pets = Pet::find(array("limit" =>10));
 	}
 }

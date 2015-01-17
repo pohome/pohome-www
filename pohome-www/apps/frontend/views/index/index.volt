@@ -29,76 +29,15 @@
 		            	<div class="title"><h3>领养推荐</h3> <span class="num">23new</span> <span class="more"><a href="#">■more</a></span></div>
 		                <div class="content">
 		                	<ul>
+			                	{% for pet in pets %}
 		                    	<li>
 		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
+		                            	<a href="/pet/{{ pet.id }}"><img src="/upload/pet/avatar/{{ pet.avatar }}" width="210" height="210" /></a>
+		                                <a href="/pet/{{ pet.id }}" class="view"></a>
 		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
+		                            <a href="/pet/{{ pet.id }}" class="pet_name">{{ pet.name }}</a>
 		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
-		                        <li>
-		                        	<div class="pet_image">
-		                            	<a href="view.html"><img src="/img/demo/example_home_01.jpg" width="210" height="210" /></a>
-		                                <a href="view.html" class="view"></a>
-		                            </div>
-		                            <a href="view.html" title="帅帅和小乖" class="pet_name">帅帅和小乖</a>
-		                        </li>
+		                        {% endfor %}
 		                    </ul>
 		                    <div class="clear"></div>
 		                </div>
