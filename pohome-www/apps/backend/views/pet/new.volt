@@ -197,8 +197,9 @@
 		$('form').ajaxForm({
 			success : function(responseText) {
 				console.log(responseText);
-				//$(".ui.modal").modal("show");
-			}
+				$(".ui.modal").modal("show");
+			},
+			resetForm : true
 		});
 		
 		// 添加生日格式的验证
