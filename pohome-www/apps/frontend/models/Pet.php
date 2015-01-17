@@ -21,6 +21,12 @@ class Pet extends \Phalcon\Mvc\Model
 	public $creator_id;
 	public $created_at;
 	public $modified_at;
+	
+	public function initialize()
+	{
+		// 在Phalcon v1.3.4中，model的relation中存在命名空间问题的时候存在bug，必须要定义一个alias才能正确识别。
+		$this->hasOne("id", "Pohome\Frontend\Models\PetExtraInfo", "pet_id", array('alias' => 'ExtraInfo'));
+	}
 
 	public function beforeValidationOnUpdate()
 	{
