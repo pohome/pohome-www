@@ -46,9 +46,9 @@ class Pet extends \Phalcon\Mvc\Model
 		// XX岁的格式
 		if(preg_match("/^(\d{1,2})岁$/", $str, $match)) {
 			$year = $match[1];
-		} else if(preg_match("/^(\d{1,2})个月$/", $str)) {
+		} else if(preg_match("/^(\d{1,2})个月$/", $str, $match)) {
 			$month = $match[1];
-		} else if(preg_match("/^(\d{1,2})岁零(\d{1,2})个月$/", $str)) {
+		} else if(preg_match("/^(\d{1,2})岁零(\d{1,2})个月$/", $str, $match)) {
 			$year = $match[1];
 			$month = $match[2];
 		} else {
