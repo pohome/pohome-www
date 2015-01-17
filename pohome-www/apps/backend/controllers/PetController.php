@@ -166,6 +166,7 @@ class PetController extends BaseController
 			$petExtraInfo->health = $this->request->getPost('health');
 			$petExtraInfo->notice = $this->request->getPost('notice');
 			$petExtraInfo->entry_date = $this->request->getPost('entry_date');
+			$petExtraInfo->angel_id = $this->request->getPost('angel_id');
 			
 			if($petExtraInfo->update() == false) {
 				foreach($petExtraInfo->getMessages() as $message) {
