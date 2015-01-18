@@ -59,7 +59,7 @@
 		    </div>
 		    
 		    
-		    <div class="main_wrap">
+		    <div class="main_wrap" id="{{ sectionId }}">
 				{{ content() }}
 		    </div>
 		    
