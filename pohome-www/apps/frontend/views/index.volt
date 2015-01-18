@@ -28,7 +28,7 @@
 			<div id="header">
 		    	<div id="top_wrap">
 					<div class="row w_common">
-		            	<a href="/login">登录</a>|<a href="register.html">注册</a>|<a>关注我们</a>
+		            	<a href="/login">登录</a>|<a href="register">注册</a>|<a>关注我们</a>
 		            </div> 
 		        </div>
 		        <div class="header_wrap">
@@ -41,8 +41,8 @@
 		                        <!-- <li><a href="./news.html">汪喵新闻</a></li> -->
 		                        <li><a href="/pet">领养平台</a></li>
 		                        <li><a href="/blog">博 客</a></li>
-		                        <li><a href="/join.html">加入我们</a></li>
-		                        <li><a href="/contact.html">联系我们</a></li>
+		                        <li><a href="/join">加入我们</a></li>
+		                        <li><a href="/contact">联系我们</a></li>
 		                        <li><a href="http://pohome.taobao.com">公益淘宝</a></li>
 		                    </ul>
 		                </div>
