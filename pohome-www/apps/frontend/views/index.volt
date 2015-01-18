@@ -39,7 +39,7 @@
 		                        <li class="active"><a href="/">首 页</a></li>
 		                        <li><a href="/about">关于我们</a></li>
 		                        <!-- <li><a href="./news.html">汪喵新闻</a></li> -->
-		                        <li><a href="/adoption">领养平台</a></li>
+		                        <li><a href="/pet">领养平台</a></li>
 		                        <li><a href="/blog">博 客</a></li>
 		                        <li><a href="/join.html">加入我们</a></li>
 		                        <li><a href="/contact.html">联系我们</a></li>

@@ -26,7 +26,7 @@
 		            </div>
 		            
 		            <div class="adopt_recommond">
-		            	<div class="title"><h3>领养推荐</h3> <span class="num">23new</span> <span class="more"><a href="#">■more</a></span></div>
+		            	<div class="title"><h3>领养推荐</h3> <!-- <span class="num">23new</span> --> <span class="more"><a href="/pet">■ more</a></span></div>
 		                <div class="content">
 		                	<ul>
 			                	{% for pet in pets %}
@@ -45,7 +45,7 @@
 		            
 		            <div class="m_30 row">
 		            	<div class="f_l box index_blog">
-		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="\blog">■more</a></span></div>
+		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="\blog">■ more</a></span></div>
 		                    <div class="content">
 		                    	<ul>
 			                    	{% for blog in blogs %}
@@ -64,7 +64,7 @@
 		                </div>
 		                
 		                <div class="f_r box index_story">
-		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="\blog\catelog\3">■more</a></span></div>
+		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="\blog\catelog\3">■ more</a></span></div>
 		                    <div class="content">
 		                    	<img src="/upload/blog/feature/thumbnail/{{ adoptionStory.feature_image }}" width="353"/>
 		                    	<span class="date">{{ adoptionStory.title }}</span>

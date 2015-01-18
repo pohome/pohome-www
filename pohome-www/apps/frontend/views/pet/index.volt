@@ -98,23 +98,22 @@
                         <div class="adopt_search_row">
                             <div class="separate">
                                 <span class="label">类型：</span> 
-                                <label><input type="radio" name="type" />全部</label>
-                                <label><input type="radio" name="type" />汪汪</label>
-                                <label><input type="radio" name="type" />喵喵</label>
-                                <label><input type="radio" name="type" />其他</label>
+                                <label><input type="radio" name="type" {% if species == 'ALL' %}checked=""{% endif %}/> 全部</label>
+                                <label><input type="radio" name="type" {% if species == 'D' %}checked=""{% endif %}/> 汪汪</label>
+                                <label><input type="radio" name="type" {% if species == 'C' %}checked=""{% endif %}/> 喵喵</label>
                             </div>
                             <div class="separate">
                                 <span class="label">性别：</span> 
-                                <label><input type="radio" name="sex" />全部</label>
-                                <label><input type="radio" name="sex" />公</label>
-                                <label><input type="radio" name="sex" />母</label>
+                                <label><input type="radio" name="sex" {% if gender == 'ALL' %}checked=""{% endif %}/> 全部</label>
+                                <label><input type="radio" name="sex" {% if gender == 'M' %}checked=""{% endif %}/> 公</label>
+                                <label><input type="radio" name="sex" {% if gender == 'F' %}checked=""{% endif %}/> 母</label>
                             </div>
                             <div class="separate last">
                                 <span class="label">体型：</span> 
-                                <label><input type="radio" name="size" />全部</label>
-                                <label><input type="radio" name="size" />大型犬</label>
-                                <label><input type="radio" name="size" />中型犬</label>
-                                <label><input type="radio" name="size" />小型犬</label>
+                                <label><input type="radio" name="size" {% if body_size == 'ALL' %}checked=""{% endif %}/> 全部</label>
+                                <label><input type="radio" name="size" {% if body_size == 'L' %}checked=""{% endif %}/> 大型</label>
+                                <label><input type="radio" name="size" {% if body_size == 'M' %}checked=""{% endif %}/> 中型</label>
+                                <label><input type="radio" name="size" {% if body_size == 'S' %}checked=""{% endif %}/> 小型</label>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -127,8 +126,8 @@
 	                        {% for pet in pets %}
                             <li>
                                 <div class="pet_image">
-                                    <a href="adopt_view.html"><img src="/upload/pet/avatar/{{ pet.avatar }}" width="220" height="220" alt="" /></a>
-                                    <a class="more" href="adopt_view.html"></a>
+                                    <a href="/pet/{{ pet.id }}"><img src="/upload/pet/avatar/{{ pet.avatar }}" width="220" height="220" alt="" /></a>
+                                    <a class="more" href="/pet/{{ pet.id }}"></a>
                                 </div>
                                 <h2>{{ pet.getSpecies() }}名：{{ pet.name }}</h2>
                                 <p>性别：{{ pet.getGender() }}   年龄：{{ pet.getAge() }}</p>
