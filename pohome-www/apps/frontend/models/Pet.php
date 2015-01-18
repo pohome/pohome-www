@@ -75,17 +75,18 @@ class Pet extends \Phalcon\Mvc\Model
 		$age = '';
 		if($interval->y > 0) {
 			$age .= $interval->y . '岁';
+			return $age;
 		}
 		
 		if($interval->m > 0) {
 			$age .= $interval->m . '个月';
+			return $age;
 		}
 		
 		if($interval->d > 0) {
 			$age .= $interval->d . '天';
+			return $age;
 		}
-		
-		return $age;
 	}
 	
 	public function getSpecies()
@@ -102,9 +103,9 @@ class Pet extends \Phalcon\Mvc\Model
 	public function getGender()
 	{
 		if($this->gender == 'M') {
-			return '雄性';
+			return '男孩';
 		} elseif($this->gender == 'F') {
-			return '雌性';
+			return '女孩';
 		} else {
 			return '未知';
 		}
