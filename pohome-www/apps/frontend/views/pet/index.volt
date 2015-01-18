@@ -80,21 +80,23 @@
             <div class="w_common main">
                 <div class="adopt_search_wrap">
                 	<ul class="tab">
-                    	<li class="wait"><a href="#">等待领养的汪喵</a></li>
-                        <li class="success active"><a href="#">成功被领养汪喵</a></li>
-                        <li class="super"><a href="#">汪喵超级搜索</a></li>
+                    	<li class="wait active"><a href="#">等待领养的汪喵</a></li>
+                        <li class="success"><a href="#">成功被领养汪喵</a></li>
+                        <li class="super"><a href="#">去世的汪喵</a></li>
                     </ul>
                     <div class="clear"></div>
                     <div class="adopt_condition">
                         <div class="adopt_search_row">
                             <span class="label">排序：</span> <span class="s_unit active"><a href="#">发布时间</a></span> <span class="s_unit"><a href="#">人气最高</a></span>
                         </div>
-                        <div class="adopt_search_row">
+ <!--
+                       <div class="adopt_search_row">
                             <span class="label">地区：</span> <select class="select" name="p"><option value="">省份不限</option></select> <select class="select" name="c"><option value="">城市不限</option></select>
 							<div class="mini">
                             <input class="input" type="text" name="keyword" value="" /> <input class="btn_submit" type="submit" name="dosubmit" value="搜索" />
                             </div>
                         </div>
+-->
                         <div class="adopt_search_row">
                             <div class="separate">
                                 <span class="label">类型：</span> 
