@@ -1,4 +1,6 @@
 <?php
+	
+require '../library/mailgun-php/vendor/autoload.php';
 
 $config = new \Phalcon\Config\Adapter\Ini('../apps/config/config.ini');
 		
@@ -24,6 +26,24 @@ $di->set('router', function() {
 		'module' => 'frontend',
 		'controller' => 'user',
 		'action' => 'login',
+	));
+	
+	$router->add('/register', array(
+		'module' => 'frontend',
+		'controller' => 'user',
+		'action' => 'register'
+	));
+	
+	$router->add('/register/success', array(
+		'module' => 'frontend',
+		'controller' => 'user',
+		'action' => 'success'
+	));
+	
+	$router->add('/forgot', array(
+		'module' => 'frontend',
+		'controller' => 'user',
+		'action' => 'forgot'
 	));
 		
 	$router->add('/blog/:int', array(
@@ -102,6 +122,10 @@ $di->setShared('session', function() {
 	$session->start();
 	
 	return $session;
+});
+
+$di->set('mail', function() {
+	return new \Mailgun\Mailgun('key-aae0bf1cde210918f71cee58ce5b2485');
 });
 
 $di->set('logger', function() {
