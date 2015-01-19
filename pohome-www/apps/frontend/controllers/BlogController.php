@@ -47,4 +47,20 @@ class BlogController extends \Phalcon\Mvc\Controller
 		// 生成博文分类数据		
 		$this->view->catelogs = Catelog::find();
 	}
+	
+	public function catelogAction($catelogId)
+	{
+		$catelog = Catelog::findFirst($catelogId);
+		$this->view->title = '博客 - ' . $catelog->name;
+		$this->view->blogs = Blog::find(array('conditions' => "catelog_id = $catelogId"));
+		
+		// 生成最热5篇博文
+		$this->view->hotStories = Blog::find(array(
+			"limit" => 5,
+			"order" => "viewed DESC",
+		));
+		
+		// 生成博文分类数据		
+		$this->view->catelogs = Catelog::find();
+	}
 }

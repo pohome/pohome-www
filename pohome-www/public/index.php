@@ -53,6 +53,13 @@ $di->set('router', function() {
 		'blogId' => 1,
 	));
 	
+	$router->add('/blog/catelog/:int', array(
+		'module' => 'frontend',
+		'controller' => 'blog',
+		'action' => 'catelog',
+		'catelogId' => 1,
+	));
+	
 	$router->add('/admin/:controller', array(
 		'module' => 'backend',
 		'controller' => 1,
