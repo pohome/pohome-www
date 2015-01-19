@@ -70,8 +70,8 @@
 		        	<div class="w_common">
 		            	<div class="qrcode">
 		                	<ul>
-		                    	<li><img src="/img//qrcode_01.jpg" /><br />微信公众号</li>
-		                        <li><img src="/img//logo_f_02.jpg" /><br />官方新浪微博</li>
+		                    	<li><img src="/img//qrcode_weixin.jpg" /><br />微信公众号</li>
+		                        <li><img src="/img//qrcode_weibo.png" /><br />官方新浪微博</li>
 		                    </ul>
 		                </div>
 		                <div class="text">
