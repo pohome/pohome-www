@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		{% if meta is defined %}{{ meta }}{% endif %}
 		
-		<title>{{ title }}</title>
+		<title>{% if title is defined %}{{ title }}{% endif %}</title>
 		
 		<link href="/css/frontend.css" rel="stylesheet" type="text/css" />
 		
