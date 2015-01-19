@@ -5,7 +5,7 @@
         <div class="w_common box2_wrap">
         	<div class="box2">
             	<div class="contact">
-                    <div class="form">
+                    <form class="form" method="post">
                         <div class="row">
                             <span class="label">姓名</span>
                             <input class="input" type="text" name="name" value="" />
@@ -26,12 +26,12 @@
                             <span class="label"></span>
                             <input class="input btn_submit" type="submit" name="submit" value="发送邮件" />
                         </div>
-                    </div>
+                    </form>
                     
                     <div class="address">
                         <ul>
-                            <li><img src="/img/qrcode_contact_weixin.jpg" /><br />官方微信公众号</li>
-                            <li><img src="/img/qrcode_contact_weibo.jpg" /><br />官方微博</li>
+                            <li><img src="/img/qrcode_weixin.jpg" /><br />官方微信公众号</li>
+                            <li><img src="/img/qrcode_weibo.png" /><br />官方微博</li>
                         </ul>
                         <div class="clear"></div>
                         <h2>汪汪喵呜孤儿院</h2>
