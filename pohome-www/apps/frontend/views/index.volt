@@ -29,7 +29,11 @@
 			<div id="header">
 		    	<div id="top_wrap">
 					<div class="row w_common">
-		            	<a href="/login">登录</a>|<a href="register">注册</a>|<a>关注我们</a>
+						{% if username is not defined %}
+		            	<a href="/login">登录</a>|<a href="register">注册</a>
+		            	{% else %}
+		            	<a href="/user/{{ userId }}">{{ username }}</a>|<a href="logout">退出登录</a>
+		            	{% endif %}
 		            </div> 
 		        </div>
 		        <div class="header_wrap">

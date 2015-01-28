@@ -28,6 +28,12 @@ $di->set('router', function() {
 		'action' => 'login',
 	));
 	
+	$router->add('/logout', array(
+		'module' => 'frontend',
+		'controller' => 'user',
+		'action' => 'logout',
+	));
+	
 	$router->add('/register', array(
 		'module' => 'frontend',
 		'controller' => 'user',

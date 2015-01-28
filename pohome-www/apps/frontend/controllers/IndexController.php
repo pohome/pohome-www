@@ -5,7 +5,7 @@ namespace Pohome\Frontend\Controllers;
 use Pohome\Frontend\Models\Blog;
 use Pohome\Frontend\Models\Pet;
 
-class IndexController extends \Phalcon\Mvc\Controller
+class IndexController extends BaseController
 {
 	public function indexAction()
 	{
