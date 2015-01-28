@@ -7,6 +7,7 @@ ENV DB_PASSWORD admin!
 RUN apt-get update
 RUN apt-get install --no-install-recommends -y -q mysql-client-5.5 openssh-server
 ADD pohome-www /app
+RUN mkdir /app/public/upload /app/apps/frontend/views/compiled /app/apps/backend/views/compiled
 RUN chmod 777 /app/public/upload /app/apps/frontend/views/compiled /app/apps/backend/views/compiled
 ADD config/init* /config/
 ADD config/nginx* /config/
