@@ -4,11 +4,46 @@ namespace Pohome\Frontend\Controllers;
 
 use Pohome\Frontend\Models\User;
 
-class UserController extends \Phalcon\Mvc\Controller
+class UserController extends BaseController
 {
 	public function loginAction()
 	{
 		$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+		
+		if($this->request->isPost()) {
+			$post = $this->request->getPost();
+			$error = array();
+			
+			$user = User::findFirstByUsername($post['username']);
+			if($user == false) {
+				$error['用户名不存在'] = true;
+				echo '用户名不存在！';
+			} else {
+				if(!$this->security->checkHash($post['password'], $user->password)) {
+					$error['密码错误'] = true;
+					echo '密码错误!';
+				}
+			}
+			
+			if(empty($error)) {
+				$user->update();
+				$this->session->set('userId', $user->id);
+				$this->session->set('username', $user->username);
+				//$this->session->set('permissions', $this->getAllPermissions($user->id));
+				
+				$this->response->redirect('');
+			} else {
+				$this->view->error = $error;
+			}
+		}
+	}
+	
+	public function logoutAction()
+	{
+		$this->session->remove('userId');
+		$this->session->remove('username');
+		//$this->session->remove('permissions');
+		$this->response->redirect('');
 	}
 	
 	public function registerAction()
@@ -57,6 +92,7 @@ class UserController extends \Phalcon\Mvc\Controller
 					$user->create();
 					
 					// 发送验证邮件
+					// TODO: 完成邮件地址验证功能
 					
 					// 跳转页面
 					$this->response->redirect('register/success');
@@ -74,16 +110,6 @@ class UserController extends \Phalcon\Mvc\Controller
 	
 	public function forgotAction()
 	{
-		/*
-$result = $this->mail->sendMessage('pohome.cn', array(
-			'from' => 'Webmaster <webmaster@pohome.cn>',
-			'to' => 'Yan <zhaoyan@me.com>',
-			'subject' => '测试一下',
-			'text' => '我们要测试一下Mailgun的效果如何！'
-		));
 		
-		var_dump($result);
-		$this->view->disable();
-*/
 	}
 }
