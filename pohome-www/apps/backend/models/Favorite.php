@@ -2,13 +2,13 @@
 
 namespace Pohome\Backend\Models;
 
-class PetPhoto extends \Phalcon\Mvc\Model
+class Favorite extends \Phalcon\Mvc\Model
 {
 	public $pet_id;
-	public $filename;
+	public $user_id;
 	
 	public function getSource()
 	{
-		return 'pet_photo';
+		return 'favorite';
 	}
 }

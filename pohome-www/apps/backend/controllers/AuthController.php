@@ -1,6 +1,8 @@
 <?php
 	
 namespace Pohome\Backend\Controllers;
+
+use \Pohome\Backend\Models\User;
 	
 class AuthController extends \Phalcon\Mvc\Controller
 {
@@ -9,7 +11,7 @@ class AuthController extends \Phalcon\Mvc\Controller
 		$result = new \Pohome\FormResult();
 		
 		$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-		$this->view->setVar('title', '汪汪喵呜孤儿院 - 后台管理系统');
+		$this->view->title = '汪汪喵呜孤儿院 - 后台管理系统';
 				
 		if($this->request->isPost()) {
 			
@@ -26,7 +28,7 @@ class AuthController extends \Phalcon\Mvc\Controller
 			$password = $post['password'];
 			
 			// 检查用户名是否存在
-			$user = \Pohome\Backend\Models\User::findFirstByUsername($username);
+			$user = User::findFirstByUsername($username);
 						
 			if(!$user) {
 				// 用户不存在

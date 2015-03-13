@@ -3,7 +3,77 @@
 namespace Pohome\Backend\Controllers;
 
 class BaseController extends \Phalcon\Mvc\Controller
-{	
+{
+	public $result = array();
+	
+	public function initialize()
+	{
+		
+	}
+	
+	private function saveData(&$model, &$post, $type)
+	{
+		if($model->$type($post) == false)
+		{
+			foreach($model->getMessages() as $msg)
+			{
+				$field = $msg->getField();
+				$this->result[] = array('field' => $field, 'type' => $msg->getType(), 'value' => $post[$field]);
+			}
+		}
+	}
+	
+	private function saveImage($id = null)
+	{
+		if($this->request->hasFile())
+		{
+			foreach($this->request->getUploadedFiles() as $file)
+			{
+				$fileType = $file->getRealType();
+				
+				if(preg_match("/^image\/(jpeg|png|gif)$/", $fileType, $matches) == 0) {
+					continue;
+				}
+				
+				// 生成文件名的uuid	
+				if(is_null($id)) {
+					$fileId = gen_uuid();
+				}
+				
+				$filename = $id . '.' . $matches[1];
+				
+				$img = new \Imagick($file->getTempName());
+				resizeImage($img, $filename);				
+								
+				$f = new \Pohome\Backend\Models\File();
+				$f->id = $filename;
+				$f->original_filename = $file->getName();
+				$f->file_type = $matches[1];
+				$f->file_size = $file->getSize();
+			}
+		}
+	}
+	
+	private function resizeImage(&$img, $filename)
+	{
+		$basePath = '/upload/image/';
+		
+		$size = $img->getImageGeometry();
+		$width = $size['width'];
+		$height = $size['height'];
+		
+		for($d = 2048; $d >= 64; $d /= 2)
+		{
+			if($width < $d && $height < $d) {
+				continue;
+			}
+			
+			$img->resizeImage($d, $d, \Imagick::FILTER_CATROM, 0.95, true);
+			$img->writeImage($basePath . $d . '/' . $filename);
+		}
+		
+	}
+	
 	private function cleanTags($str)
 	{
 		return strip_tags($str, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h1><h2><h3><h4><h5><h6>');
@@ -11,45 +81,11 @@ class BaseController extends \Phalcon\Mvc\Controller
 	
 	protected function checkPermission($permission)
 	{
-		// 首先检查session中是否保存了userId
-		if(is_null($this->session->get('userId'))) {
-			// 跳转到登录页面
-			$this->response->redirect('admin/auth/login');
-			return true;
-		} else {
-			$userId = $this->session->get('userId');
-			$p = $this->session->get('permissions');
-			
-			// 如果session中尚无权限信息，则从数据库中取出该用户拥有的全部权限
-			if(is_null($p)) {
-				$p = $this->getAllPermissions($userId);
-				$this->session-set('permissions', $p);
-			}
-			
-			if(is_array($permission)) {
-				foreach($permission as $t) {
-					if(!in_array($t, $p)) {
-						return false;
-					}
-				}
-				return true;
-			} else {
-				return in_array($permission, $p);
-			}
-		}
+		
 	}
 	
 	private function getAllPermissions($userId)
 	{
-		$permissions = array();
 		
-		$sql = "select name from permissions where permissions.id in (select permission_id from role_has_permissions where role_id in (select role_id from user_has_roles where user_id='$userId'))";
-		$resultset = $this->db->query($sql);
-		
-		foreach($resultset->fetchAll() as $r) {
-			array_push($permissions, $r['name']);
-		}
-		
-		return $permissions;
 	}
 }

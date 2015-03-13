@@ -9,6 +9,7 @@ $di = new \Phalcon\DI\FactoryDefault();
 $di->set('router', function() {
 	$router = new \Phalcon\Mvc\Router();
 	
+/*
 	$router->add('/:controller', array(
 		'module' => 'frontend',
 		'controller' => 1,
@@ -108,6 +109,9 @@ $di->set('router', function() {
 	    'controller' => 'index',
 	    'action' => 'route404'
 	));
+*/
+	
+	$router->add('/admin/')
 	
 	return $router;
 });

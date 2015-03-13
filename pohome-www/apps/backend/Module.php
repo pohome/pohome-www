@@ -13,6 +13,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			'Pohome\Backend\Models' => '../apps/backend/models/',
 			'Pohome' => '../library/',
 			'Phalcon' => '../library/Phalcon/',
+			'Pohome\Validator' => '../apps/validator/'
 		));
 		
 		$loader->register();
@@ -40,7 +41,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 		$di->set('dispatcher', function() {
 			$dispatcher = new \Phalcon\Mvc\Dispatcher();
 			$eventManager = new \Phalcon\Events\Manager();
-	
+			
+			// 将以"-"分割的action转换为以驼峰法命名的action
 			$eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher) {
 				$action = $dispatcher->getActionName();
 				if(strpos($action, '-')) {
@@ -48,6 +50,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 				}
 			});
 			
+			// 将未吻合的route重定向到404页面
 			$eventManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
 				if($exception instanceof Phalcon\Mvc\Dispatcher\Exception) {
 					$dispatcher->forward(array('module' => 'backend', 'controller' => 'index', 'action' => 'route404'));

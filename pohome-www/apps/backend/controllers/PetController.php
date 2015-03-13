@@ -9,176 +9,64 @@ class PetController extends BaseController
 {
 	public function initialize()
 	{
-/*
-		if(!$this->checkPermission(array('登录后台', '添加新动物信息'))) {
-			$this->response->redirect('admin/auth/permission-denied');
-		}
-*/
+
 	}
 	
 	public function indexAction()
 	{
-		$this->view->title = '全部动物列表';
+		$this->view->title = '汪汪喵呜孤儿院 - 全部动物列表';
 		$this->view->pets = Pet::find();
 	}
 	
 	public function newAction()
 	{
-		$this->view->setVar('title', '汪汪喵呜孤儿院 - 添加新动物');
+		$this->view->title = '汪汪喵呜孤儿院 - 新添动物信息';
 		
 		// 处理提交的表单数据
 		if($this->request->isPost()) {
 			
 			$this->view->disable();
-			$result = new FormResult();
 			
-			$this->db->begin();
+			$post = $this->request->getPost();
 			
-			$pet = new Pet();
-			$petExtraInfo = new PetExtraInfo();
+			$id = gen_uuid();
 						
-			$pet->name = $this->request->getPost('name');
-			$pet->species = $this->request->getPost('species');
-			$pet->gender = $this->request->getPost('gender');
-			$pet->breed = $this->request->getPost('breed');
+			$pet = new Pet();
+			$pet->id = $id;
+			$this->saveData($pet, $post, 'create');
 			
-			// 处理年龄
-			$birthday = $this->request->getPost('birthday');
-			if(preg_match('/^\d{4}-\d{1,2}-\d{1,2}$/', $birthday)) {
-				$pet->birthday = $birthday;
-			} else {
-				$pet->birthday = $pet->parseAge($birthday);
-			}
+			$pped = new PohomePetExtraData();
+			$pped->pet_id = $id;
+			$this->saveData($pped, $post, 'create');
 			
-			if($pet->birthday == false) {
-				$result->add('birthday', '生日的格式错误');
-				$result->show();
-				return;
-			}
-			
-			$pet->body_size = $this->request->getPost('body_size');
-			$pet->avatar = $this->saveAvatar();
-			$pet->neutered = $this->request->getPost('neutered');
-			$pet->location = $this->request->getPost('location');
-			$pet->status = $this->request->getPost('status');
-			$pet->adoptable = $this->request->getPost('adoptable');
-			$pet->draft = $this->request->getPost('draft');
-			
-			if($pet->create() == false) {
-				foreach ($pet->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				
-				$this->db->rollback();
-				return;
-			}
-			
-			$petExtraInfo->pet_id = $pet->id;
-			$petExtraInfo->character = $this->request->getPost('character');
-			$petExtraInfo->health = $this->request->getPost('health');
-			$petExtraInfo->notice = $this->request->getPost('notice');
-			$petExtraInfo->entry_date = $this->request->getPost('entry_date');
-			
-			if($petExtraInfo->create() == false) {
-				foreach($petExtraInfo->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				
-				$this->db->rollback();
-				return;
-			}
-			
-			$this->db->commit();
-			$result->show();
+			$this->saveImage($id);
+						
+			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
 	}
 	
 	public function editAction($petId)
 	{
-		$this->view->title = '编辑动物信息';
+		$this->view->title = '汪汪喵呜孤儿院 - 编辑动物信息';
 		
 		if(!$this->request->isPost()) {
-			$this->view->pet = Pet::findFirstById($petId);
-			$this->view->petExtraInfo = PetExtraInfo::findFirstByPetId($petId);
+			
+			$this->view->pet = Pet::findFirst($petId);
+			//$this->view->petExtraInfo = PetExtraInfo::findFirstByPetId($petId);
+			
 		} else {
+			
 			$this->view->disable();
-			$result = new FormResult();
 			
-			$this->db->begin();
+			$post = $this->request->getPost();
+									
+			$pet = Pet::findFirst($petId);
+			$this->saveData($pet, $post, 'update');
 			
-			$pet = Pet::findFirstById($petId);
-			$petExtraInfo = PetExtraInfo::findFirstByPetId($petId);
-						
-			$pet->name = $this->request->getPost('name');
-			$pet->species = $this->request->getPost('species');
-			$pet->gender = $this->request->getPost('gender');
-			$pet->breed = $this->request->getPost('breed');
+			$pped = PohomePetExtraData::findFirst($petId);
+			$this->saveData($pped, $post, 'update');
 			
-			// 处理年龄
-			$birthday = $this->request->getPost('birthday');
-			if(preg_match('/^\d{4}-\d{1,2}-\d{1,2}$/', $birthday)) {
-				$pet->birthday = $birthday;
-			} else {
-				$pet->birthday = $pet->parseAge($birthday);
-			}
-			
-			if($pet->birthday == false) {
-				$result->add('birthday', '生日的格式错误');
-				$result->show();
-				return;
-			}
-			
-			$pet->body_size = $this->request->getPost('body_size');
-			
-			if($this->request->hasFiles()) {
-				// 删除旧的头像文件
-				$oldAvatar = $pet->avatar;
-				$path = $_SERVER['DOCUMENT_ROOT'] . '/upload/pet/avatar/';
-				unlink($path . $oldAvatar);
-				unlink($path . 'thumbnail/'. $oldAvatar);
-				
-				// 删除旧的高清头像文件
-				$filename = explode('.', $oldAvatar);
-				$oldAvatar = $filename[0] . '@2x.' . $filename[1];
-				unlink($path . $oldAvatar);
-				unlink($path . 'thumbnail/'. $oldAvatar);
-				
-				$pet->avatar = $this->saveAvatar();
-			}
-			
-			$pet->neutered = $this->request->getPost('neutered');
-			$pet->location = $this->request->getPost('location');
-			$pet->status = $this->request->getPost('status');
-			$pet->adoptable = $this->request->getPost('adoptable');
-			$pet->draft = $this->request->getPost('draft');
-			
-			if($pet->update() == false) {
-				foreach ($pet->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				
-				$this->db->rollback();
-				return;
-			}
-			
-			$petExtraInfo->pet_id = $pet->id;
-			$petExtraInfo->character = $this->request->getPost('character');
-			$petExtraInfo->health = $this->request->getPost('health');
-			$petExtraInfo->notice = $this->request->getPost('notice');
-			$petExtraInfo->entry_date = $this->request->getPost('entry_date');
-			$petExtraInfo->angel_id = $this->request->getPost('angel_id');
-			
-			if($petExtraInfo->update() == false) {
-				foreach($petExtraInfo->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				
-				$this->db->rollback();
-				return;
-			}
-			
-			$this->db->commit();
-			$result->show();
+			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
 		
 	}

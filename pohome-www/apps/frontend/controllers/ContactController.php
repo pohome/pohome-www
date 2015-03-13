@@ -8,5 +8,10 @@ class ContactController extends \Phalcon\Mvc\Controller
 	{
 		$this->view->title = '联系我们';
 		$this->view->sectionId = 'contact';
+		
+		if($this->request->isPost())
+		{
+			
+		}
 	}
 }
