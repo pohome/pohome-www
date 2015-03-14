@@ -111,7 +111,12 @@ $di->set('router', function() {
 	));
 */
 	
-	$router->add('/admin/')
+	$router->add('/admin/:controller/:action/:params', array(
+		'module' => 'backend',
+		'controller' => 1,
+		'action' => 2,
+		'params' => 3
+	));
 	
 	return $router;
 });
@@ -129,13 +134,7 @@ $di->set('db', function() use ($config) {
 
 // 配置session使用Redis适配器
 $di->setShared('session', function() {
-
-/*
-	$session = new \Phalcon\Session\Adapter\Redis(array(
-		'path' => 'tcp://127.0.0.1:6379?weight=1'
-	));
-*/
-	$session = new Phalcon\Session\Adapter\Files();
+	$session = new \Phalcon\Session\Adapter\Redis(array('path' => 'tcp://127.0.0.1:6379?weight=1'));
 	$session->start();
 	
 	return $session;
@@ -144,10 +143,6 @@ $di->setShared('session', function() {
 $di->set('mail', function() {
 	return new \Mailgun\Mailgun('key-aae0bf1cde210918f71cee58ce5b2485');
 });
-
-$di->set('logger', function() {
-	return new \Phalcon\Logger\Adapter\File('../apps/log/debug.log');
-}, true);
 
 $app = new \Phalcon\Mvc\Application($di);
 
