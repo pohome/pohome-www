@@ -4,37 +4,40 @@ namespace Pohome\Backend\Controllers;
 
 use Pohome\Backend\Models\User;
 
-class UserController extends \Phalcon\Mvc\Controller
+
+class UserController extends BaseController
 {
-    public function newAction()
-    {
+    public function registerAction()
+    {        
         if($this->request->isPost()) {
             $user = new User();
             $post = $this->request->getPost();
-            
-            $user->id = uniqid();
-            $user->username = $post['username'];
-            $user->password = $this->security->hash($post['password']);
-            $user->email = $post['email'];
-            
-            
-            // TODO: 处理用户权限的问题
-            
-            $user->create();
+                        
+            //$post['user_type'] = 'individual';
+            $this->saveData($user, $post, 'create');
             
             $this->view->disable();
-            echo 'New user created.';
+            echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
         }
     }
     
-    public function listAction()
+    public function listAction($page = 1)
     {
-        $this->view->title = '用户列表';
-        $this->view->users = User::find();
+        $this->view->title = '汪汪喵呜孤儿院 - 用户列表';
+        
+        $paginator = new \Phalcon\Paginator\Adapter\Model(array(
+            'data' => User::find(),
+            'limit' => 10,
+            'page' => $page,
+        ));
+        
+        $this->view->page = $paginator->getPaginate();
     }
     
     public function loginAction()
     {
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
             $username = $post['username'];
@@ -43,22 +46,39 @@ class UserController extends \Phalcon\Mvc\Controller
             $user = User::findFirstByUsername($username);
             
             if (!$user) {
+                
                 $result = array('field' => 'username', 'type' => '用户名不存在', 'value' => '');
+                
             } else {
+                
                 if (!$this->security->checkHash($password, $user->password)) {
+                    
                     $result = array('field' => 'password', 'type' => '密码错误', 'value' => '');
+                    
                 } else {
+                    
                     $this->session->set('userId', $user->id);
-                    $this->session->set('username', $user->name);
+                    $this->session->set('username', $user->username);
                     $this->session->set('permission', $user->permission);
                     
                     $user->update();
                     
-                    $this->response->redirect('/admin');
+                    if ($this->session->has('_url')) {
+                        
+                        $url = substr($this->session->get('_url'), 1);
+                        $this->session->remove('_url');
+                        $this->response->redirect($url);
+                        
+                    } else {
+                        
+                        $this->response->redirect('admin/pet/new');
+                    }
                 }
             }
             
-            $this->view->result = $result;
+            //$this->view->result = $result;
+            $this->view->disable();
+            echo json_encode($result, JSON_UNESCAPED_UNICODE);
         }
     }
     
@@ -68,6 +88,6 @@ class UserController extends \Phalcon\Mvc\Controller
         $this->session->remove('username');
         $this->session->remove('permission');
         
-        $this->response->redirect('/');
+        $this->response->redirect('admin/user/login');
     }
 }

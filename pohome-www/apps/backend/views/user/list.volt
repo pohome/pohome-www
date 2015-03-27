@@ -9,7 +9,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for user in users %}
+		{% for user in page.items %}
 		<tr>
 			<td>{{ user.id }}</td>
 			<td>{{ user.username }}</td>
