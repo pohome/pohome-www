@@ -9,13 +9,13 @@
 		</div>
 		
 		<div class="inline field">
-			<label for="begin">起始时间</label>
-			<input name="begin" type="text">
+			<label for="begin_at">开始时间</label>
+			<input name="begin_at" type="text">
 		</div>
 		
 		<div class="inline field">
-			<label for="end">结束时间</label>
-			<input name="end" type="text">
+			<label for="end_at">结束时间</label>
+			<input name="end_at" type="text">
 		</div>
 		
 		<div class="inline field">
@@ -28,7 +28,7 @@
 			<input name="location" type="text">
 		</div>
 		
-		<div class="inline field">
+		<div class="field">
 			<label for="content" style="vertical-align: top; margin-top: 12px;">正文</label>
 			<textarea name="content"></textarea>
 		</div>
@@ -39,10 +39,10 @@
 		</div>
 		
 		<div class="inline field">
-			<label>博文分类</label>
-			<select class="ui dropdown" name="catelog">
-				{% for catelog in catelogs %}
-				<option value="{{ catelog.id }}">{{ catelog.name }}</option>
+			<label>活动分类</label>
+			<select class="ui dropdown" name="event_type_id">
+				{% for key, value in eventType %}
+				<option value="{{ key }}">{{ value }}</option>
 				{% endfor %}
 			</select>
 		</div>
@@ -54,11 +54,13 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	$(document).ready(function() {
 		$('textarea[name="content"]').redactor({
 			lang : 'zh_cn',
 			minHeight : 500,
-			imageUpload : '/admin/blog/upload'
+			imageUpload : '/admin/file/upload'
 		});
+		
+		$('.dropdown').dropdown();
 	});
 </script>

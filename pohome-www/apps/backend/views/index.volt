@@ -90,8 +90,14 @@
     		<a class="item" href="/admin/pet/index">动物</a>
     		<a class="item" href="/admin/adoption/application">领养申请</a>
     		<a class="item" href="/admin/blog/index">博客</a>
-    		<a class="item" href="/admin/event/list">活动</a>
-    		<a class="item" href="/admin/user/list">用户</a>
+    		<div class="item">
+        		活动
+        		<div class="menu">
+            		<a class="item" href="/admin/event/index">活动列表</a>
+            		<a class="item" href="/admin/event/audition">活动报名审核</a>
+        		</div>
+    		</div>
+    		<a class="item" href="/admin/user/index">用户</a>
     		<div class="item">设置
     			<div class="menu">
     				<a class="item" href="">全局</a>
