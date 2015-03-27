@@ -11,7 +11,7 @@ class BlogController extends BaseController
 {   
     public function indexAction($page = 1)
     {
-        $this->view->title = '博文列表';
+        $this->view->title = '博文列表 - 汪汪喵呜孤儿院';
         $blogs = Blog::find(array(
             "order" => "published_at DESC"
         ));
