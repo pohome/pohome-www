@@ -13,11 +13,13 @@ class PasswordValidator extends Validator implements ValidatorInterface
 
 		$value = $model->$field;
 		
-//		echo $value;
-
-		if(preg_match('/^[a-zA-Z0-9][a-zA-Z0-9!@#\$%\^&*()_+\-=]{7,20}$/', $value) == 0 ||
-		   preg_match('/^(.*?)\d+(.*?)$/', $value) == 0 ||
-		   preg_match('/^(.*?)[a-zA-Z]+(.*?)$/', $value) == 0) {
+		if (preg_match('/^\$2a\$.{56}$/', $value)) {
+    		return true;
+		}
+		
+		if (preg_match('/^[a-zA-Z0-9][a-zA-Z0-9!@#\$%\^&*()_+\-=]{7,20}$/', $value) == 0 &&
+		    preg_match('/^(.*?)\d+(.*?)$/', $value) == 0 &&
+		    preg_match('/^(.*?)[a-zA-Z]+(.*?)$/', $value) == 0) {
 			$this->appendMessage(
 				'Invalid password format.',
 				$field,
