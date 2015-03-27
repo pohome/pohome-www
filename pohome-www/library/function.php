@@ -1,24 +1,25 @@
 <?php
-	
+
+static $sequence = 0;
+static $last_timestamp = 0;
+$twepoch = 1419120000; // 60 * 60 * 24 * 365 * (2015 - 1970)
+
 function gen_uuid()
 {
-    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        // 32 bits for "time_low"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-
-        // 16 bits for "time_mid"
-        mt_rand( 0, 0xffff ),
-
-        // 16 bits for "time_hi_and_version",
-        // four most significant bits holds version number 4
-        mt_rand( 0, 0x0fff ) | 0x4000,
-
-        // 16 bits, 8 bits for "clk_seq_hi_res",
-        // 8 bits for "clk_seq_low",
-        // two most significant bits holds zero and one for variant DCE1.1
-        mt_rand( 0, 0x3fff ) | 0x8000,
-
-        // 48 bits for "node"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-    );
+	$timestamp = time();
+	$machine_id = rand(0, 16);
+	$random = rand(0, 1048576);
+	
+	global $last_timestamp, $sequence, $twepoch;
+	
+	if($timestamp == $last_timestamp) {
+		$sequence++;
+		$sequence %= 64;
+	} else {
+		$sequence = 0;
+		$last_timestamp = $timestamp;
+	}
+	
+	$uuid = ($timestamp - $twepoch) << 30 | ($machine_id << 26) | ($random << 6) | $sequence;
+	return $uuid;
 }
