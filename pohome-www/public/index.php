@@ -1,6 +1,8 @@
 <?php
 	
 require '../library/mailgun-php/vendor/autoload.php';
+require '../library/function.php';
+require '../library/global.php';
 
 $config = new \Phalcon\Config\Adapter\Ini('../apps/config/config.ini');
 		
