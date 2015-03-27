@@ -17,7 +17,7 @@
 		
 		<div class="inline field">
 			<label for="avatar" style="vertical-align: top">头像</label>
-			<img src="/upload/pet/avatar/{{ pet.avatar }}" width="128" height="128">
+			<img src="/upload/image/128/{{ pet.id }}.jpeg" width="128" height="128">
 			<input name="avatar" type="file">
 		</div>
 		
@@ -68,51 +68,56 @@
 			<label for="body_size">体型</label>
 			<div class="field">
 				<div class="ui radio checkbox">
-					<input type="radio" name="body_size" value="L" {% if pet.body_size == 'L' %} checked="" {% endif %}>
+					<input type="radio" name="size" value="L" {% if pet.size == 'L' %} checked="" {% endif %}>
 					<label>大型</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="ui radio checkbox">
-					<input type="radio" name="body_size" value="M" {% if pet.body_size == 'M' %} checked="" {% endif %}>
+					<input type="radio" name="size" value="M" {% if pet.size == 'M' %} checked="" {% endif %}>
 					<label>中型</label>
 				</div>
 			</div>
 			
 			<div class="field">
 				<div class="ui radio checkbox">
-					<input type="radio" name="body_size" value="S" {% if pet.body_size == 'S' %} checked="" {% endif %}>
+					<input type="radio" name="size" value="S" {% if pet.size == 'S' %} checked="" {% endif %}>
 					<label>小型</label>
 				</div>
 			</div>
 		</div>
 		
 		<div class="inline field">
-			<label for="character">性格</label>
-			<input name="character" type="text" value="{{ petExtraInfo.character }}">
-		</div>
-		
-		<div class="inline field">
-			<label for="health">健康</label>
-			<input name="health" type="text" value="{{ petExtraInfo.health }}">
-		</div>
+            <label>亲人指数</label>
+            <div class="ui star rating" id="friendly_index_rating" data-rating="{{ pet.friendly_index }}"></div>
+        </div>
+        
+        <div class="inline field">
+            <label>能量指数</label>
+            <div class="ui star rating" id="energy_index_rating" data-rating="{{ pet.energy_index }}"></div>
+        </div>
+        
+        <div class="inline field">
+            <label>适应指数</label>
+            <div class="ui star rating" id="adaptability_index_rating" data-rating="{{ pet.adaptability_index }}"></div>
+        </div>
 		
 		<div class="inline field">
 			<label for="notice">领养须知</label>
-			<textarea name="notice">{{ petExtraInfo.notice }}</textarea>
+			<textarea name="notice">{{ pet.notice }}</textarea>
 		</div>
 		
 		<div class="inline fields">
 			<label for="neutered">已绝育</label>
 			<div class="field">
 				<div class="ui radio checkbox">
-					<input type="radio" name="neutered" value="1" {% if pet.neutered == '1' %} checked="" {% endif %}>
+					<input type="radio" name="neutered" value="1" {% if pped.neutered == '1' %} checked="" {% endif %}>
 					<label>是</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="ui radio checkbox">
-					<input type="radio" name="neutered" value="0" {% if pet.neutered == '0' %} checked="" {% endif %}>
+					<input type="radio" name="neutered" value="0" {% if pped.neutered == '0' %} checked="" {% endif %}>
 					<label>否</label>
 				</div>
 			</div>
@@ -120,29 +125,30 @@
 		
 		<div class="inline field">
 			<label>目前位于</label>
-			<select class="ui dropdown" name="location">
-				<option value="1" {% if pet.location == '1' %} selected="" {% endif %}>良乡基地</option>
-				<option value="2" {% if pet.location == '2' %} selected="" {% endif %}>模拟家庭</option>
+			<select class="ui dropdown" name="location_id">
+    			{% for key, value in location %}
+				<option value="{{ key }}" {% if pped.location_id == key %} selected="" {% endif %}>{{ value }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		
 		<div class="inline field">
 			<label>目前状态</label>
-			<select class="ui dropdown" name="status">
-				<option value="1" {% if pet.status == '1' %} selected="" {% endif %}>等待领养</option>
-				<option value="2" {% if pet.status == '2' %} selected="" {% endif %}>模拟家庭受训</option>
-				<option value="3" {% if pet.status == '3' %} selected="" {% endif %}>入院治疗</option>
+			<select class="ui dropdown" name="status_id">
+    			{% for key, value in status %}
+				<option value="{{ key }}" {% if pped.status_id == key %} selected="" {% endif %}>{{ value }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		
 		<div class="inline field">
 			<label for="angel_id">小天使编号</label>
-			<input name="angel_id" type="text" placeholder="如果该动物不属于小天使基金请留空" value="{{ petExtraInfo.angel_id }}">
+			<input name="angel_id" type="text" placeholder="如果该动物不属于小天使基金请留空" value="{{ pped.angel_id }}">
 		</div>
 		
 		<div class="inline field">
 			<label for="entry_date">进入小院的日期</label>
-			<input name="entry_date" type="text" value="{{ petExtraInfo.entry_date }}">
+			<input name="entry_date" type="text" value="{{ pped.entry_date }}">
 		</div>
 		
 		<div class="inline fields">
@@ -162,6 +168,22 @@
 		</div>
 		
 		<div class="inline fields">
+            <label for="belongs_to_pohome">属于汪汪喵呜</label>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="belongs_to_pohome" value="1" {% if pet.belongs_to_pohome == '1' %} checked="" {% endif %}>
+                    <label>是</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="belongs_to_pohome" value="0" {% if pet.belongs_to_pohome == '0' %} checked="" {% endif %}>
+                    <label>否</label>
+                </div>
+            </div>
+        </div>
+		
+		<div class="inline fields">
 			<label for="draft">草稿</label>
 			<div class="field">
 				<div class="ui radio checkbox">
@@ -176,6 +198,10 @@
 				</div>
 			</div>
 		</div>
+		
+		<input type="hidden" name="friendly_index" id="friendly_index_field" value="1">
+        <input type="hidden" name="energy_index" id="energy_index_field" value="1">
+        <input type="hidden" name="adaptability_index" id="adaptability_index_field" value="1">
 		
 		<div style="text-align: center">
 			<input type="submit" class="ui submit orange button" value="提交">
@@ -193,12 +219,33 @@
 
 <script type="text/javascript">
 	$(function() {
+    	
+    	$('.rating').rating({
+            maxRating: 5
+        });
+        
+        $('.ui.checkbox').checkbox();
+    	$('.ui.radio.checkbox').checkbox();
+    	$('select.dropdown').dropdown();
+        
+        $('#friendly_index_rating').rating('setting', 'onRate', function(value) {
+            $('#friendly_index_field').val(value);
+        });
+        
+        $('#energy_index_rating').rating('setting', 'onRate', function(value) {
+            $('#energy_index_field').val(value);
+        });
+        
+        $('#adaptability_index_rating').rating('setting', 'onRate', function(value) {
+            $('#adaptability_index_field').val(value);
+        });
+        
 		// 通过ajax方式递交表单
 		$('form').ajaxForm({
 			dateType : 'json',
 			success : function(responseText) {
-				var result = $.parseJSON(responseText);
-				if(result.hasError == false) {
+    			console.log($.parseJSON(responseText));
+    			if(responseText == '[]') {
 					$(".ui.modal .content").text("修改动物信息成功！");
 					$(".ui.modal").modal({
 						onHidden : function() {
@@ -214,6 +261,7 @@
 		});
 		
 		// 添加生日格式的验证
+/*
 		$.fn.form.settings.rules.birthday = function(e) {
 			var t = /^[0-9]{4}-\d{1,2}-\d{1,2}$/;
 			if(t.test(e) == true) return true;
@@ -234,7 +282,9 @@
 			var t = /^[0-9]{4}-\d{1,2}-\d{1,2}$/;
 			return t.test(e);
 		}
+*/
 		
+/*
 		$('.ui.form').form({
 			name : {
 				identifier : 'name',
@@ -272,24 +322,10 @@
 				}]
 			},
 			body_size : {
-				identifier : 'body_size',
+				identifier : 'size',
 				rules : [{
 					type : 'checked',
 					prompt : '请选择动物的体型'
-				}]
-			},
-			character : {
-				identifier : 'character',
-				rules : [{
-					type : 'empty',
-					prompt : '请填写动物的性格特征'
-				}]
-			},
-			health : {
-				identifier : 'health',
-				rules : [{
-					type : 'empty',
-					prompt : '请填写动物的健康状况'
 				}]
 			},
 			neutered : {
@@ -324,6 +360,7 @@
 				}]
 			}
 		});
+*/
 		
 		$('#species-dog').click(function() {
 			$('input[name="breed"]').val('中华田园犬');

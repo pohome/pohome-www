@@ -1,6 +1,9 @@
 <?php
+    
+namespace Pohome\Backend\Models;
 	
 use Phalcon\Mvc\Model\Validator\Numericality;
+use Pohome\Validator\DatetimeValidator;
 	
 class PohomePetExtraData extends \Phalcon\Mvc\Model
 {
@@ -9,6 +12,8 @@ class PohomePetExtraData extends \Phalcon\Mvc\Model
 	public $location_id;
 	public $status_id;
 	public $angel_id;
+	public $neutered;
+	public $taobao_url;
 	
 	public function getSource()
 	{
@@ -20,16 +25,23 @@ class PohomePetExtraData extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 	
+	private function setTaobao_url($url)
+	{
+    	
+	}
+	
 	public function validation()
 	{
 		$this->validate(new DatetimeValidator(array(
-			'field' => 'entry_data',
+			'field' => 'entry_date',
 		)));
 		
 		if(!empty($this->angel_id)) {
 			$this->validate(new Numericality(array(
 				'field' => 'angel_id',
 			)));
+		} else {
+    		$this->angel_id = null;
 		}
 		
 		if($this->validationHasFailed() == true) {

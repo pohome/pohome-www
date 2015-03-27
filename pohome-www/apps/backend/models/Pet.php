@@ -4,6 +4,8 @@ namespace Pohome\Backend\Models;
 
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Phalcon\Mvc\Model\Validator\Numericality;
+use Pohome\Validator\PetnameValidator;
+use Pohome\Validator\DatetimeValidator;
 
 class Pet extends \Phalcon\Mvc\Model
 {
@@ -37,6 +39,21 @@ class Pet extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 	
+	public function setName($name)
+	{
+    	$this->name = strip_tags($name);
+	}
+	
+	public function setBreed($breed)
+	{
+    	$this->breed = strip_tags($breed);
+	}
+	
+	public function setNotice($notice)
+	{
+    	$this->notice = strip_tags($notice);
+	}
+		
 	public function getAge()
 	{
 		$today = new \DateTime();
@@ -80,23 +97,23 @@ class Pet extends \Phalcon\Mvc\Model
 		}
 	}
 	
+	public function setStory($story)
+	{
+    	$this->story = $this->cleanTags($story);
+	}
+	
 	public function setBirthday($birthday)
 	{
-		if(preg_match("/^d{4}-d{1,2}-d{1,2}$/", $str)) {
+		if(preg_match("/^\d{4}-\d{1,2}-\d{1,2}$/", $birthday)) {
 			$this->birthday = $birthday;
 		} else {
 			$this->birthday = $this->parseAge($birthday);
 		}
 	}
-
-	public function beforeValidationOnUpdate()
-	{
-		$this->modified_at = date('Y-m-d H:i:s');
-	}
 	
 	public function beforeValidationOnCreate()
 	{
-		$this->creator_id = $this->session->get('userID');
+		//$this->creator_id = $this->session->get('userId');
 		$this->created_at = date('Y-m-d H:i:s');
 		$this->modified_at = date('Y-m-d H:i:s');
 		$this->viewed = 0;
@@ -147,7 +164,7 @@ class Pet extends \Phalcon\Mvc\Model
 		$match = array();
 		$year = 0;
 		$month = 0;
-		
+				
 		// XX岁的格式
 		if(preg_match("/^(\d{1,2})岁$/", $str, $match)) {
 			$year = $match[1];
