@@ -12,7 +12,9 @@ class BlogController extends BaseController
     public function indexAction($page = 1)
     {
         $this->view->title = '博文列表';
-        $blogs = Blog::find();
+        $blogs = Blog::find(array(
+            "order" => "published_at DESC"
+        ));
         
         $paginator = new \Phalcon\Paginator\Adapter\Model(array(
             "data" => $blogs,

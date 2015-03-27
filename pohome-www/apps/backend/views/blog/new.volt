@@ -1,4 +1,4 @@
-<div class="ui segment">
+<div>
 	{% if petName is defined %}<a class="ui orange ribbon label">{{ petName }}</a>{% endif %}
 	<form class="ui form" enctype="multipart/form-data" method="post">
 		{% if petName is defined %}
@@ -30,16 +30,11 @@
 		
 		<div class="inline field">
 			<label>博文分类</label>
-			<select class="ui dropdown" name="catelog">
-				{% for catelog in catelogs %}
-				<option value="{{ catelog.id }}">{{ catelog.name }}</option>
+			<select class="ui dropdown" name="catelog_id">
+				{% for key, value in catelogs %}
+				<option value="{{ key }}">{{ value }}</option>
 				{% endfor %}
 			</select>
-		</div>
-		
-		<div class="inline field">
-			<label form="tag">标签</label>
-			<input name="tag" type="text" placeholder="多个标签请用空格分开">
 		</div>
 		
 		<div class="inline field">
@@ -74,7 +69,13 @@
 		$('textarea[name="content"]').redactor({
 			lang : 'zh_cn',
 			minHeight : 500,
-			imageUpload : '/admin/blog/upload'
+			imageUpload : '/admin/file/upload'
 		});
+		
+		$('#redactor').redactor({
+    		pastePlainText: true
+		});
+		
+		$('.dropdown').dropdown();
 	});
 </script>

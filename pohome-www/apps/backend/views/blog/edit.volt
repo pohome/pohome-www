@@ -14,7 +14,7 @@
 			<label for="feature_image">精选图片</label>
 			<div class="feature image">
 				<img src="img/blog/feature/{{ blog.feature_image }}">
-				<input name="feature_imsage" type="file">
+				<input name="feature_image" type="file">
 			</div>
 		</div>
 -->
@@ -31,10 +31,10 @@
 		
 		<div class="inline field">
 			<label>博文分类</label>
-			<select class="ui dropdown" name="catelog">
-				<option value="1" {% if blog.catelog_id == 1 %}}checked=""{% endif %}>活动汇报</option>
-				<option value="2" {% if blog.catelog_id == 2 %}}checked=""{% endif %}>救助故事</option>
-				<option value="3" {% if blog.catelog_id == 3 %}}checked=""{% endif %}>知识库</option>
+			<select class="ui dropdown" name="catelog_id">
+				{% for key, value in catelogs %}
+				<option value="{{ key }}" {% if blog.catelog_id == key %} selected="" {% endif %}>{{ value }}</option>
+				{% endfor %}
 			</select>
 		</div>
 		
@@ -70,7 +70,13 @@
 		$('textarea[name="content"]').redactor({
 			lang : 'zh_cn',
 			minHeight : 500,
-			imageUpload : '/admin/blog/upload'
+			imageUpload : '/admin/file/upload'
 		});
+		
+		$('#redactor').redactor({
+    		pastePlainText: true
+		});
+		
+		$('.dropdown').dropdown();
 	});
 </script>
