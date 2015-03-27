@@ -1,251 +1,261 @@
 <?php
-	
+    
 namespace Pohome\Backend\Controllers;
 
 use \Pohome\Backend\Models\Blog;
 use \Pohome\Backend\Models\Pet;
-use \Pohome\Backend\Models\Catelog;
-use \Pohome\Backend\Models\Tag;
-use \Pohome\Backend\Models\BlogWithTag;
+use \Pohome\Backend\Models\PetStory;
+use \Pohome\Backend\Models\File;
 
 class BlogController extends BaseController
-{
-	
-	public function initialize()
+{   
+    public function indexAction($page = 1)
+    {
+        $this->view->title = '博文列表';
+        $blogs = Blog::find();
+        
+        $paginator = new \Phalcon\Paginator\Adapter\Model(array(
+            "data" => $blogs,
+            "limit" => 20,
+            "page" => $page
+        ));
+        
+        $this->view->page = $paginator->getPaginate();
+    }
+    
+    public function newAction($petId = null)
+    {
+        $this->view->title = '撰写新博文 - 汪汪喵呜孤儿院';
+        
+        if(!is_null($petId)) {
+            $pet = \Pohome\Backend\Models\Pet::findFirst($petId);
+            $this->view->petName = $pet->name;
+            $this->view->petId = $petId;
+        }
+        
+        global $blogCatelog;
+        $this->view->catelogs = $blogCatelog;
+                        
+        if ($this->request->isPost()) {
+            $this->view->disable();
+            
+            $post = $this->request->getPost();
+            $blog = new Blog();
+            
+            $files = $this->saveImage();
+            $post['author_id'] = $this->session->get('userId');
+            $post['feature_image'] = $files[0]['id'];
+            
+            $this->saveData($blog, $post, 'create');
+            
+            if (!empty($this->result)) {
+                // 删除已上传的文件
+            }
+            
+            if (!is_null($petId)) {
+                $petStory = new PetStory();
+                $data['pet_id'] = $petId;
+                $data['blog_id'] = $blog->id;
+                $this->saveData($petStory, $data, 'create');
+            }
+        }
+    }
+    
+    public function editAction($blogId)
+    {
+        //$this->view->disable();
+        global $blogCatelog;
+        $this->view->catelogs = $blogCatelog;
+        
+        $blog = Blog::findFirst($blogId);
+        $this->view->blog = $blog;
+        
+        if($this->request->isPost()) {
+            
+            $this->view->disable();
+            $post = $this->request->getPost();
+            
+            //$files = $this->saveImage();
+            //$post['author_id'] = $this->session->get('userId');
+            //$post['feature_image'] = $files[0]['id'];
+            
+            $this->saveData($blog, $post, 'update');
+        }
+    }
+    
+    public function deleteAction($blogId)
+    {
+        // 需要在删除数据库中指定博文前，将其博文内容中包含的照片都删除掉
+        $this->view->disable();
+        
+        $blog = Blog::findFirst($blogId);
+        
+        // 删除feature image
+        $featureImage = $blog->feature_image;
+        $file = File::findFirst($featureImage);
+        
+        if ($file) {
+            $file->deleteRealFile();
+            $file->delete();
+        }
+        
+        // 删除正文中包含的图片
+        
+        
+        // 删除博文数据库记录
+        //$result = $blog->delete();
+
+        //$this->response-redirect('/admin/blog/index');
+    }
+    
+    public function importAction($action = null)
+    {
+        // 导入新浪博客上的历史博文
+       // $this->view->disable();
+       
+       if ($this->request->isPost()) {
+           $this->view->disable();
+           if ($this->request->getPost('action') == 'generate') {
+               // 生成全部博文列表
+               $result = array();
+               for($page = 1; $page < 22; $page++)
+               {
+                    $url = 'http://blog.sina.com.cn/s/articlelist_1340306694_0_' . $page . '.html';
+                    $html = file_get_contents($url);
+                    $html = str_replace("\n", '', $html);
+                    
+                    preg_match_all("#<span class=\"atc_title\".*?href=\"(http.*?html).*?span>#", $html, $match);
+                    $result = array_merge($result, $match[1]);
+               }
+               echo json_encode($result);
+           } else {
+               $this->importBlog($this->request->getPost('url'));
+               echo json_encode($this->request->getPost());
+           }
+       }
+    }
+    
+    public function uploadAction()
+    {
+        $this->view->disable();
+        
+        if($this->request->hasFiles()) {
+            foreach($this->request->getUploadedFiles() as $file) {
+                // 检查文件类型是否为JPEG图片
+                if(preg_match('/image/', $file->getType()) == 0) {
+                    echo 'wrong type';
+                    return;
+                }
+                
+                $filename = date('Ymdhis') . rand(100, 999);
+                $extension = $file->getExtension();
+                
+                // 处理图片的尺寸
+                $img = new \Imagick();
+                $img->readImage($file->getTempName());
+                
+                $imgSize = $img->getImageGeometry();
+                
+                if($imgSize['width'] >= 1440 && $imgSize['height'] >= 960) {
+                    $img->resizeImage(1440, 960, \Imagick::FILTER_CATROM, 0.95, true);
+                    $img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '@2x.' . $extension);
+                }
+                    
+                $img->resizeImage(720, 480, \Imagick::FILTER_CATROM, 0.95, true);
+                $img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '.' . $extension);
+                    
+                $img->destroy();
+                
+                $a = array('filelink' => '/upload/blog/photo/' . $filename . '.' . $extension);
+                echo stripslashes(json_encode($a));
+            }
+        }
+    }
+    
+    public function importImage($url)
 	{
-		if(!$this->checkPermission(array())) {
-			$this->response->redirect('admin/auth/permission-denied');
-		}
+    	$fileId = gen_uuid();
+    	$filename = $fileId . '.jpeg';
+    	
+    	$img = new \Imagick($url);
+    	
+    	$this->resizeImage($img, $filename);
+    	
+    	$f = new \Pohome\Backend\Models\File();
+                
+        $post = array(
+            'id' => $fileId,
+            'original_filename' => $filename,
+            'file_type' => 'jpeg',
+            'file_size' => $img->getImageLength(),
+            'uploader_id' => $this->session->get('userId')
+        );
+        
+        $this->saveData($f, $post, 'create');
+        
+        return $filename;
 	}
 	
-	public function indexAction()
+	public function importBlog($url)
 	{
-		$this->view->title = '博文列表';
-		$this->view->blog = \Pohome\Backend\Models\Blog::find();
+    	ini_set('max_execution_time', '0');
+    	$html = file_get_contents($url);
+	
+    	$begin = strpos($html, '<h2');
+    	$end = strpos($html, '</h2>');
+    	
+    	$title = substr($html, $begin, $end - $begin + 1);
+    	preg_match("/>(.*?)</", $title, $match);
+    	$title = $match[1];
+    	
+    	preg_match("/<span class=\"time SG_txtc\">\((.*?)\)<\/span>/", $html, $match);
+    	$published_at = $match[1];
+    	
+    	$begin = strpos($html, '<!-- 正文开始 -->');
+    	$end = strpos($html, '<!-- 正文结束 -->');
+    	
+    	$content = substr($html, $begin, $end - $begin + 1);
+    	$content = strip_tags($content,'<a>');
+    	
+    	// 获取博文中包含的图像链接
+    	preg_match_all("/<a.*?url=(http:.*?)\".*?a>/i", $content, $match);
+    	
+    	$a = $match[0];
+    	$images = $match[1];
+    	
+    	for ($i = 0; $i < count($images); $i++)
+    	{
+        	$filename = $this->importImage($images[$i]);
+        	$images[$i] = '<p><img src="/upload/image/' . $this->getImageMaxSize($filename) .'/' . $filename . '"></p>';
+    	}
+    	
+    	$content = str_replace('&nbsp;', '', $content);
+    	$content = str_ireplace($a, $images, $content, $count);
+    	
+    	$blog = new Blog();
+    	$blog->title = $title;
+    	$blog->feature_image = 0;
+    	$blog->abstract = '摘要';
+    	$blog->content = $content;
+    	$blog->catelog_id = 8;
+    	$blog->published_at = $published_at;
+    	$blog->draft = 1;
+    	$blog->author_id = $this->session->get('userId');
+    	if($blog->create() == false) {
+        	$msg = $blog->getMessages();
+        	var_dump($msg);
+    	}
 	}
 	
-	public function newAction($petId = null)
+	public function getImageMaxSize($filename)
 	{
-		$this->view->title = '撰写新博文';
-		
-		if(!is_null($petId)) {
-			$pet = \Pohome\Backend\Models\Pet::findFirst($petId);
-			$this->view->petName = $pet->name;
-			$this->view->petId = $petId;
-		}
-		
-		// 读取博文分类
-		$this->view->catelogs = Catelog::find();
-				
-		if($this->request->isPost()) {
-			$this->view->disable();
-			
-			$post = $this->request->getPost();
-			
-			$blog = new \Pohome\Backend\Models\Blog();
-			$blog->title = $post['title'];
-			$blog->abstract = $post['abstract'];
-			$blog->content = $post['content'];
-			$blog->catelog_id = $post['catelog'];
-			$blog->draft = $post['draft'];
-			$blog->feature_image = $this->saveFeatureImage();
-			$blog->author_id = $this->session->get('userId');
-			$blog->published_at = $post['published_at'];
-			
-			$this->db->begin();
-			
-			if($blog->create() == false) {
-				foreach($blog->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				$this->db->rollback();
-				return;
-			}
-			
-			// 处理标签
-			if(!empty($post['tag'])) {
-				$tags = explode(' ', $post['tag']);
-				foreach($tags as $tag) {
-					$tagId = Tag::findFirstByName($tag);
-						
-					if(!empty($tagId)) {
-						echo $tagId->id, "\n";
-						$blogWithTag = new BlogWithTag();
-						$blogWithTag->blog_id = $blog->id;
-						$blogWithTag->tag_id = $tagId->id;
-						
-						if($blogWithTag->create() == false) {
-							echo '???';
-							foreach($blogWithTag->getMessages() as $message) {
-								echo $message, "\n";
-							}
-							$this->db->rollback();
-							return;
-						}
-					} else {
-						$newTag = new Tag();
-						$newTag->name = $tag;
-						if($newTag->save() == false) {
-							foreach($newTag->getMessages() as $msg) {
-								echo $msg, "\n";
-							}
-							$this->db->rollback();
-							return;
-						}
-						
-						$blogWithTag = new BlogWithTag();
-						$blogWithTag->blog_id = $blog->id;
-						$blogWithTag->tag_id = $newTag->id;
-						
-						if($blogWithTag->save() == false) {
-							foreach($blogWithTag->getMessages() as $msg) {
-								echo $msg, "\n";
-							}
-							$this->db->rollback();
-							return;
-						}
-					}
-				}
-			}
-			
-			if(array_key_exists('pet_id', $post)) {
-				$blogStory = new \Pohome\Backend\Models\PetStory();
-				$blogStory->pet_id = $post['pet_id'];
-				$blogStory->blog_id = $blog->id;
-				if($blogStory->create() == false) {
-					foreach($blog->getMessages() as $message) {
-						echo $message, "\n";
-					}
-					$this->db->rollback();
-					return;
-				}
-			}
-			
-			$this->db->commit();
-		}
+    	$baseUrl = $_SERVER['DOCUMENT_ROOT'] . '/upload/image/';
+    	
+    	for($i = 1024; $i >= 64; $i /= 2)
+    	{
+            if(file_exists($baseUrl . $i . '/' . $filename)) {
+                return $i;
+            }	
+    	}
 	}
-	
-	public function editAction($blogId)
-	{
-		//$this->view->disable();
-		
-		$blog = \Pohome\Backend\Models\Blog::findFirstById($blogId);
-		$this->view->blog = $blog;
-		
-		if($this->request->isPost()) {
-			$post = $this->request->getPost();
-			
-			$blog = \Pohome\Backend\Models\Blog::findFirst($blogId);
-			
-			$blog->title = $post['title'];
-			$blog->abstract = $post['abstract'];
-			$blog->content = $post['content'];
-			$blog->catelog_id = $post['catelog'];
-			$blog->draft = $post['draft'];
-			$blog->author_id = 1;
-			$blog->published_at = $post['published_at'];
-			
-			if($blog->update() == false) {
-				foreach($blog->getMessages() as $message) {
-					echo $message, "\n";
-				}
-				
-				return;
-			}
-			
-			$this->view->disable();
-			echo 'blog updated!';
-		}
-	}
-	
-	public function uploadAction()
-	{
-		$this->view->disable();
-		
-		if($this->request->hasFiles()) {
-			foreach($this->request->getUploadedFiles() as $file) {
-				// 检查文件类型是否为JPEG图片
-				if(preg_match('/image/', $file->getType()) == 0) {
-					echo 'wrong type';
-					return;
-				}
-				
-				$filename = date('Ymdhis') . rand(100, 999);
-				$extension = $file->getExtension();
-				
-				// 处理图片的尺寸
-				$img = new \Imagick();
-				$img->readImage($file->getTempName());
-				
-				$imgSize = $img->getImageGeometry();
-				
-				if($imgSize['width'] >= 1440 && $imgSize['height'] >= 960) {
-					$img->resizeImage(1440, 960, \Imagick::FILTER_CATROM, 0.95, true);
-					$img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '@2x.' . $extension);
-				}
-					
-				$img->resizeImage(720, 480, \Imagick::FILTER_CATROM, 0.95, true);
-				$img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '.' . $extension);
-					
-				$img->destroy();
-				
-				$a = array('filelink' => '/upload/blog/photo/' . $filename . '.' . $extension);
-				echo stripslashes(json_encode($a));
-			}
-		}
-	}
-	
-	private function saveFeatureImage()
-	{
-		$normal = array('width' => 788, 'height' => 526);
-		$retina = array('width' => 265, 'height' => 177);
-		return $this->resizeImage($normal, $retina, '/upload/blog/feature/');
-	}
-	
-	public function resizeImage($normal, $thumbnail, $path)
-	{
-		if($this->request->hasFiles()) {
-			foreach($this->request->getUploadedFiles() as $file) {
-				// 检查文件类型是否为JPEG图片
-				if(preg_match('/image/', $file->getType()) == 0) {
-					echo 'wrong type';
-					return;
-				}
-				
-				// 生成随机产生的文件名和对应的高清文件名
-				$filename = date('Ymdhis') . rand(100, 999);
-				$extension = $file->getExtension();
-				$retinaFilename = $filename . '@2x.' . $extension;
-				$filename = $filename . '.' . $extension;
-				
-				// 处理图片的尺寸
-				$img = new \Imagick();
-				$img->readImage($file->getTempName());
-				
-				$imgSize = $img->getImageGeometry();
-				
-				if($imgSize['width'] >= $normal['width'] * 2 && $imgSize['height'] >= $normal['height'] * 2) {
-					$img->resizeImage($normal['width'] * 2, $normal['height'] * 2, \Imagick::FILTER_CATROM, 0.95, true);
-					$img->writeImage($_SERVER['DOCUMENT_ROOT'] . $path . $retinaFilename);
-				}
-					
-				$img->resizeImage($normal['width'], $normal['height'], \Imagick::FILTER_CATROM, 0.95, true);
-				$img->writeImage($_SERVER['DOCUMENT_ROOT'] . $path . $filename);
-				
-				if($normal['width'] >= $thumbnail['width'] *2 && $normal['height'] >= $thumbnail['height']) {
-					$img->resizeImage($thumbnail['width'] * 2, $thumbnail['height'] * 2, \Imagick::FILTER_CATROM, 0.95, true);
-					$img->writeImage($_SERVER['DOCUMENT_ROOT'] . $path . 'thumbnail/' . $retinaFilename);
-				}
-				
-				$img->resizeImage($thumbnail['width'], $thumbnail['height'], \Imagick::FILTER_CATROM, 0.95, true);
-				$img->writeImage($_SERVER['DOCUMENT_ROOT'] . $path . 'thumbnail/' . $filename);
-					
-				$img->destroy();
-				
-				//unlink($file->getTempFile());
-				return $filename;
-			}
-		}
-	}
-	
 }
