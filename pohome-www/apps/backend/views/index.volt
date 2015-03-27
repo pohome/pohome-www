@@ -3,95 +3,128 @@
 		<meta charset="utf-8">
 		
 		<link href="/css/semantic.min.css" rel="stylesheet">
-		<link href="/css/style.css" rel="stylesheet">
+<!-- 		<link href="/css/style.css" rel="stylesheet"> -->
 		<link href="/css/redactor.css" rel="stylesheet">
-		<link href="/css/backend.css" rel="stylesheet">
+<!-- 		<link href="/css/backend.css" rel="stylesheet"> -->
 		
 
 		<script src="/js/jquery-2.1.1.min.js"></script>
 		<script src="/js/jquery.form.js"></script>
-		<script src="/js/semantic.min.js"></script>
-		<script src="/js/redactor.min.js"></script>
+		<script src="/js/semantic.js"></script>
+		<script src="/js/redactor.js"></script>
 		<script src="/js/zh_cn.js"></script>
-		<script src="/js/backend.js"></script>
+<!-- 		<script src="/js/backend.js"></script> -->
+		
+		<style type="text/css">
+    		    
+        	#logo {
+        		width: 200px;
+        	}
+    
+        	.ui.inverted.vertical.menu {
+        		width: 200px;
+        		height: 100%;
+        		position: fixed;
+        		top: 0;
+        		left: 0;
+        		border-radius: 0;
+        	}
+    
+        	#main {
+        		width: auto;
+        		margin-left: 200px;
+        		position: relative;
+        		overflow: auto;
+        	}
+        	
+        	#top_menu {
+            	border-radius: 0;
+        	}
+        	
+        	#container {
+            	margin: 20px;
+            	padding: 20px;
+            	background: white;
+        	}
+        	
+        	.ui.breadcrumb {
+            	margin: 0 20px;
+        	}
+        	
+        	.ui.form {
+            	width: 40em;
+        	}
+        	
+        	.inline.field label {
+            	width: 8em !important;
+        	}
+        	
+        	.inline.fields>label {
+            	width: 8em !important;
+        	}
+        	
+        	.inline.field textarea {
+            	display: inline-block !important;
+            	width: 32em
+        	}
+        	
+        	.inline.field input[type='text'] {
+            	width: 20em !important;
+        	}
+        	
+        	.ui.dropdown {
+            	width: 20em !important;
+        	}
+        	
+        	.ui.button {
+            	margin: 10px 0px;
+        	}
+    	</style>
 		
 		<title>{{ title }}</title>
 	</head>
 	
 	<body>
-		<!-- 顶部导航菜单 -->
-		<header class="ui main menu">
-			<a href="/" class="item"><i class="home icon"></i>汪汪喵呜孤儿院</a>
-			<div class="right menu">
-				<div class="item">
-					<!-- <div class="ui transparent input"><input type="text" placeholder="搜索..."></div> -->
-					<?php echo $this->session->get('username'); ?>
-				</div>
-				<div class="item"><a href="admin/auth/logout">退出</a></div>
-			</div>
-		</header>
-		
-		<div class="ui grid">	
-			<!-- 左侧主菜单 -->
-			<div class="four wide column">
-				<div class="ui vertical menu">
-					<div class="item">
-						<i class="home icon"></i>动物
-						<div class="menu">
-							<a class="item" href="/admin/pet">全部列表</a>
-							<a class="item" href="/admin/pet/new">添加新动物</a>
-							<!-- <a class="item" href="/admin/pet/donator">长期助养人</a> -->
-							<a class="item" href="/admin/pet/statistics">统计</a>
-						</div>
-					</div>
-					
-					<div class="item">
-						<i class="home icon"></i>领养申请
-						<div class="menu">
-							<a class="item" href="/admin/adoption/processing"/>待处理领养申请</a>
-							<a class="item" href="/admin/adoption/archived"/>已存档领养申请</a>
-						</div>
-					</div>
-					
-					<div class="item">
-						<i class="home icon"></i>博客
-						<div class="menu">
-							<a class="item" href="/admin/blog">博文列表</a>
-							<a class="item" href="/admin/blog/new">添加新博文</a>
-							<a class="item" href="/admin/blog/catelog">编辑博文分类</a>
-						</div>
-					</div>
-					
-					<div class="item">
-						<i class="home icon"></i>活动
-						<div class="menu">
-							<a class="item" href="/admin/event">活动列表</a>
-							<a class="item" href="/admin/event/new">添加新活动</a>
-						</div>
-					</div>
-					
-					<div class="item">
-						<i class="home icon"></i>用户
-						<div class="menu">
-							<a class="item" href="/admin/user/list">用户列表</a>
-							<a class="item" href="/admin/user/volunteer">志愿者统计</a>
-						</div>
-					</div>
-					
-					<div class="item">
-						<i class="home icon"></i>设置
-						<div class="menu">
-							<a class="item" href="/admin/setting">网站设置</a>
-						</div>
-					</div>
-					
-				</div>
-						
-			</div>
-			
-			<div class="twelve wide column">
-				{{ content() }}
-			</div>
-		</div>
+    	<nav class="ui inverted vertical menu">
+    		<a href="/"><img src="/img/backend/logo.png" id="logo"></a>
+    		<a class="item" href="/admin/pet/index">动物</a>
+    		<a class="item" href="/admin/adoption/application">领养申请</a>
+    		<a class="item" href="/admin/blog/index">博客</a>
+    		<a class="item" href="/admin/event/list">活动</a>
+    		<a class="item" href="/admin/user/list">用户</a>
+    		<div class="item">设置
+    			<div class="menu">
+    				<a class="item" href="">全局</a>
+    				<a class="item" href="">博客</a>
+    			</div>
+    		</div>
+    	</nav>
+    	<div id="main">
+    		<div class="ui menu" id="top_menu">
+    			<div class="item">
+        			<div class="ui transparent icon input">
+            			<input type="text" placeholder="搜索...">
+            			<i class="search link icon"></i>
+        			</div>
+    			</div>
+    			<div class="right menu">
+        			<a class="item"><i class="inbox icon"></i></a>
+    				<a class="item"><?php echo $this->session->get('username'); ?></a>
+    				<a class="item" href="/admin/user/logout"><i class="sign out icon"></i></a>
+    			</div>
+    		</div>
+    		
+    		<div class="ui breadcrumb">
+                <a class="section" href="/admin/index/index">首页</a>
+                <div class="divider"> / </div>
+                <a class="section" href="/admin/pet/index">动物</a>
+                <div class="divider"> / </div>
+                <div class="active section">列表</div>
+            </div>
+                
+            <div id="container">
+        		{{ content() }}
+            </div>
+    	</div>
 	</body>
 </html>
