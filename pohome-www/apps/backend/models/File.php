@@ -1,6 +1,6 @@
 <?php
 
-namespace Pohome\Bakcend\Models;
+namespace Pohome\Backend\Models;
 
 class File extends \Phalcon\Mvc\Model
 {
@@ -21,9 +21,25 @@ class File extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 
+	public function getFilename()
+	{
+    	return $this->id . '.' . $this->file_type;
+	}
+	
+	public function deleteRealFile()
+	{
+    	$baseUrl = $_SERVER['DOCUMENT_ROOT'] . '/upload/image/';
+    	
+    	for ($i = 64; $i <= 2048; $i *= 2) {
+        	$filename = $baseUrl . $i . '/' . $this->getFilename();
+        	if (file_exists($filename)) {
+            	unlink($filename);
+        	}
+    	}
+	}
+
 	public function beforeValidationOnCreate()
 	{
-		$this->upload_at = date('Y-m-d H:i:s');
-		$this->uploader_id = $this->session->get('userId');
+		$this->uploaded_at = date('Y-m-d H:i:s');
 	}
 }
