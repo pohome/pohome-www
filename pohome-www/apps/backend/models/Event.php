@@ -2,13 +2,17 @@
 	
 namespace Pohome\Backend\Models;
 
+use Phalcon\Mvc\Model\Validator\StringLength;
+use Phalcon\Mvc\Model\Validator\Numericality;
+use Pohome\Validator\DatetimeValidator;
+
 class Event extends \Phalcon\Mvc\Model
 {
 	public $id;
 	public $title;
 	public $begin_at;
 	public $end_at;
-	public $deadline；
+	public $deadline;
 	public $location;
 	public $content;
 	public $member_limit;
@@ -18,7 +22,7 @@ class Event extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'blog';
+		return 'event';
 	}
 	
 	public function initialize()
@@ -26,7 +30,17 @@ class Event extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 	
-	public function validation()
+	public function remain()
+	{
+    	// 计算此活动的剩余报名人数
+	}
+	
+	public function creator()
+	{
+    	// 返回此活动发布者
+	}
+	
+	private function validation()
 	{
 		$this->validate(new StringLength(array(
 			'field' => 'title',
@@ -59,10 +73,9 @@ class Event extends \Phalcon\Mvc\Model
 		}
 	}
 	
-	public function beforeValidationOnCreate()
+	private function beforeValidationOnCreate()
 	{
 		$this->content = strip_tags($this->content, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h1><h2><h3><h4><h5><h6>');
-		$this->creator_id = $this->session->get('userId');
 		$this->created_at = date('Y-m-d H:i:s');
 	}
 }
