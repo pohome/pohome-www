@@ -16,7 +16,7 @@ $.Redactor.opts.langs['zh_cn'] = {
 	header2: '二级标题',
 	header3: '三级标题',
 	header4: '四级标题',
-	header5: '五级标题',
+	header5: 'Header 5',
 	bold:  '粗体',
 	italic: '斜体',
 	fontcolor: '字体颜色',
@@ -65,11 +65,11 @@ $.Redactor.opts.langs['zh_cn'] = {
 	fullscreen: '全屏',
 	deleted: '删除',
 	anchor: '锚点',
-	link_new_tab: 'Open link in new tab',
+	link_new_tab: '在新标签页打开',
 	underline: '下划线',
-	alignment: 'Alignment',
+	alignment: '对齐',
 	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: '编辑',
+	center: '居中'
 };
 })( jQuery );
