@@ -100,11 +100,7 @@ $di->set('router', function() {
 		'action' => 'index',
 	));
 	
-	$router->add('/', array(
-		'module' => 'frontend',
-		'controller' => 'index',
-		'action' => 'index',
-	));
+	
 	
 	$router->notFound(array(
 		'module' => 'backend',
@@ -112,6 +108,11 @@ $di->set('router', function() {
 	    'action' => 'route404'
 	));
 */
+	$router->add('/', array(
+		'module' => 'frontend',
+		'controller' => 'index',
+		'action' => 'index',
+	));
 	
 	$router->add('/admin/:controller/:action/:params', array(
 		'module' => 'backend',
