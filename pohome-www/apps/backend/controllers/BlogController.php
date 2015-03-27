@@ -137,44 +137,7 @@ class BlogController extends BaseController
        }
     }
     
-    public function uploadAction()
-    {
-        $this->view->disable();
-        
-        if($this->request->hasFiles()) {
-            foreach($this->request->getUploadedFiles() as $file) {
-                // 检查文件类型是否为JPEG图片
-                if(preg_match('/image/', $file->getType()) == 0) {
-                    echo 'wrong type';
-                    return;
-                }
-                
-                $filename = date('Ymdhis') . rand(100, 999);
-                $extension = $file->getExtension();
-                
-                // 处理图片的尺寸
-                $img = new \Imagick();
-                $img->readImage($file->getTempName());
-                
-                $imgSize = $img->getImageGeometry();
-                
-                if($imgSize['width'] >= 1440 && $imgSize['height'] >= 960) {
-                    $img->resizeImage(1440, 960, \Imagick::FILTER_CATROM, 0.95, true);
-                    $img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '@2x.' . $extension);
-                }
-                    
-                $img->resizeImage(720, 480, \Imagick::FILTER_CATROM, 0.95, true);
-                $img->writeImage($_SERVER['DOCUMENT_ROOT'].'/upload/blog/photo/' . $filename . '.' . $extension);
-                    
-                $img->destroy();
-                
-                $a = array('filelink' => '/upload/blog/photo/' . $filename . '.' . $extension);
-                echo stripslashes(json_encode($a));
-            }
-        }
-    }
-    
-    public function importImage($url)
+    private function importImage($url)
 	{
     	$fileId = gen_uuid();
     	$filename = $fileId . '.jpeg';
@@ -198,7 +161,7 @@ class BlogController extends BaseController
         return $filename;
 	}
 	
-	public function importBlog($url)
+	private function importBlog($url)
 	{
     	ini_set('max_execution_time', '0');
     	$html = file_get_contents($url);
@@ -249,7 +212,7 @@ class BlogController extends BaseController
     	}
 	}
 	
-	public function getImageMaxSize($filename)
+	private function getImageMaxSize($filename)
 	{
     	$baseUrl = $_SERVER['DOCUMENT_ROOT'] . '/upload/image/';
     	

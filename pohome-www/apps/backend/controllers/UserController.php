@@ -21,9 +21,9 @@ class UserController extends BaseController
         }
     }
     
-    public function listAction($page = 1)
+    public function indexAction($page = 1)
     {
-        $this->view->title = '汪汪喵呜孤儿院 - 用户列表';
+        $this->view->title = '用户列表 - 汪汪喵呜孤儿院';
         
         $paginator = new \Phalcon\Paginator\Adapter\Model(array(
             'data' => User::find(),
