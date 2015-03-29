@@ -25,24 +25,6 @@
 		                <div class="clear"></div>
 		            </div>
 		            
-		            <div class="adopt_recommond">
-		            	<div class="title"><h3>领养推荐</h3> <!-- <span class="num">23new</span> --> <span class="more"><a href="/pet">■ more</a></span></div>
-		                <div class="content">
-		                	<ul>
-			                	{% for pet in pets %}
-		                    	<li>
-		                        	<div class="pet_image">
-		                            	<a href="/pet/{{ pet.id }}"><img src="/upload/pet/avatar/{{ pet.avatar }}" width="210" height="210" /></a>
-		                                <a href="/pet/{{ pet.id }}" class="view"></a>
-		                            </div>
-		                            <a href="/pet/{{ pet.id }}" class="pet_name">{{ pet.name }}</a>
-		                        </li>
-		                        {% endfor %}
-		                    </ul>
-		                    <div class="clear"></div>
-		                </div>
-		            </div>
-		            
 		            <div class="m_30 row">
 		            	<div class="f_l box index_blog">
 		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="\blog">■ more</a></span></div>
@@ -50,11 +32,11 @@
 		                    	<ul>
 			                    	{% for blog in blogs %}
 		                        	<li>
-		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/upload/blog/feature/thumbnail/{{ blog.feature_image }}" width="265" /></a></div>
+		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/upload/image/512/{{ blog.feature_image }}.jpeg" width="265" /></a></div>
 		                                <div class="l_info">
 		                                	<h2><a href="/blog/{{ blog.id }}">{{ blog.title}}</a></h2>
-		                                    <p class="descr"><?php echo mb_substr($blog->abstract, 0, 130) . '...';?></p>
-		                                    <p class="tag">标签：<a>流浪求</a><a>爱情</a><a>狗狗</a> </p>
+		                                    <p class="descr"><?php echo mb_substr(strip_tags($blog->content) , 0, 130) . '...';?></p>
+		                                    <!-- <p class="tag">标签：<a>流浪求</a><a>爱情</a><a>狗狗</a> </p> -->
 		                                </div>
 		                                <div class="clear"></div>
 		                            </li>
@@ -66,12 +48,30 @@
 		                <div class="f_r box index_story">
 		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="\blog\catelog\3">■ more</a></span></div>
 		                    <div class="content">
-		                    	<img src="/upload/blog/feature/thumbnail/{{ adoptionStory.feature_image }}" width="353"/>
+		                    	<img src="/upload/image/512/{{ adoptionStory.feature_image }}.jpeg" width="353"/>
 		                    	<span class="date">{{ adoptionStory.title }}</span>
-		                    	<p class="descr">{{ adoptionStory.abstract }}<a href="\blog\{{ adoptionStory.id }}">[详细]</a></p>
+		                    	<p class="descr"><?php echo mb_substr(strip_tags($adoptionStory->content) , 0, 130) . '...';?><a href="\blog\{{ adoptionStory.id }}">[详细]</a></p>
 		                    </div>
 		                </div>
 		                <div class="clear"></div>
+		                
+		                <div class="adopt_recommond">
+    		            	<div class="title"><h3>领养推荐</h3> <!-- <span class="num">23new</span> --> <span class="more"><a href="/pet">■ more</a></span></div>
+    		                <div class="content">
+    		                	<ul>
+    			                	{% for pet in pets %}
+    		                    	<li>
+    		                        	<div class="pet_image">
+    		                            	<a href="/pet/{{ pet.id }}"><img src="/upload/image/256/{{ pet.id }}.jpeg" width="210" height="210" /></a>
+    		                                <a href="/pet/{{ pet.id }}" class="view"></a>
+    		                            </div>
+    		                            <a href="/pet/{{ pet.id }}" class="pet_name">{{ pet.name }}</a>
+    		                        </li>
+    		                        {% endfor %}
+    		                    </ul>
+    		                    <div class="clear"></div>
+    		                </div>
+    		            </div>
 		            </div>
 		            <div class="clear"></div>
 		    	</div>

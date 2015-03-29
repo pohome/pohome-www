@@ -1,9 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		{% if meta is defined %}{{ meta }}{% endif %}
-		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
 		<title>{% if title is defined %}{{ title }}{% endif %}</title>
 		
 		<link href="/css/frontend.css" rel="stylesheet" type="text/css" />
@@ -41,13 +39,13 @@
 		                <div class="logo"><a href="/"><img src="/img/logo.png" width="266" height="76" /></a></div>
 		                <div class="top_menu">
 		                    <ul>
-		                        <li class="active"><a href="/">首 页</a></li>
+		                        <li class="active"><a href="/">首页</a></li>
 		                        <li><a href="/about">关于我们</a></li>
-		                        <!-- <li><a href="./news.html">汪喵新闻</a></li> -->
-		                        <li><a href="/pet">领养平台</a></li>
-		                        <li><a href="/blog">博 客</a></li>
-		                        <li><a href="/join">加入我们</a></li>
-		                        <li><a href="/contact">联系我们</a></li>
+		                        <li><a href="/pet">领养&助养</a></li>
+		                        <li><a href="/blog">博客</a></li>
+		                        <li><a href="/event">活动</a></li>
+		                        <li><a href="/volunteer">加入我们</a></li>
+		                        <li><a href="/faq">常见问题</a></li>
 		                        <li><a href="http://pohome.taobao.com">公益淘宝</a></li>
 		                    </ul>
 		                </div>
@@ -64,7 +62,7 @@
 		    </div>
 		    
 		    
-		    <div class="main_wrap" id="{{ sectionId }}">
+		    <div class="main_wrap">
 				{{ content() }}
 		    </div>
 		    

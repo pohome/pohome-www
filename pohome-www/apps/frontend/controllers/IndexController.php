@@ -14,7 +14,7 @@ class IndexController extends BaseController
 			"limit" => 2,
 			"order" => "published_at DESC"
 		));
-		$this->view->adoptionStory = Blog::findFirst(array("catelog_id = 3"));
-		$this->view->pets = Pet::find(array("limit" =>10));
+		$this->view->adoptionStory = Blog::findFirst();
+		$this->view->pets = Pet::find(array("limit" =>5));
 	}
 }
