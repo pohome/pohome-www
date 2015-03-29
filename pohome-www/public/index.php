@@ -108,10 +108,41 @@ $di->set('router', function() {
 	    'action' => 'route404'
 	));
 */
+/*
+    $router->add('/:controller/:action/:params', array(
+        'module' => 'frontend',
+        'controller' => 1,
+        'action' => 2,
+        'params' => 3
+    ));
+*/
+
+    $router->add('/:controller', array(
+        'module' => 'frontend',
+        'controller' => 1,
+        'action' => 'index',
+    ));
+
 	$router->add('/', array(
 		'module' => 'frontend',
 		'controller' => 'index',
 		'action' => 'index',
+	));
+	
+	
+	
+	$router->add('/:controller/:action/:params', array(
+    	'module' => 'frontend',
+    	'controller' => 1,
+    	'action' => 2,
+    	'params' => 3
+	));
+	
+	$router->add('/:controller/:int', array(
+    	'module' => 'frontend',
+    	'controller' => 1,
+    	'action' => 'view',
+    	'params' => 2
 	));
 	
 	$router->add('/admin/:controller/:action/:params', array(
