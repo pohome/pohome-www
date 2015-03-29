@@ -137,7 +137,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `pohome`.`file` (
   `id` BIGINT UNSIGNED NOT NULL,
   `original_filename` VARCHAR(255) NOT NULL,
-  `file_type` ENUMjpeg, png, gif, pdf, doc, xls, zip NOT NULL,
+  `file_type` ENUM('jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'xls', 'zip') NOT NULL,
   `file_size` INT UNSIGNED NOT NULL,
   `uploader_id` BIGINT UNSIGNED NOT NULL,
   `uploaded_at` DATETIME NOT NULL,
