@@ -16,15 +16,16 @@
 			}
 		</style>
 		
-		<title>汪汪喵呜孤儿院管理系统安装程序</title>
+		<title>汪汪喵呜孤儿院管理系统</title>
 	</head>
 	
 	<body>
 		<?php
+        require('../library/function.php');
 		if(empty($_POST)) {
 			$uploadCanWrite = is_writeable('upload');
-			$frontendCompiledCanWrite = is_writeable('../apps/frontend/views/compiled');
-			$backendCompiledCanWrite = is_writeable('../apps/backend/views/compiled');
+			$frontendCompiledCanWrite = is_writeable('../apps/frontend/compiled');
+			$backendCompiledCanWrite = is_writeable('../apps/backend/compiled');
 			
 			if(!$uploadCanWrite || !$frontendCompiledCanWrite || !$backendCompiledCanWrite) {
 		?>
@@ -78,15 +79,17 @@
 			
 			$app = new \Phalcon\Mvc\Application($di);
 			
-			$id = uniqid();
+			$id = gen_uuid();
 			$username = $_POST['username'];
 			$password = $app->security->hash($_POST['password']);
 			$email = $_POST['email'];
+			$permission = 4294967295;
+			$user_type = 'individual';
 			$created_at = date('Y-m-d H:i:s');
-			$last_visit_at = date('Y-m-d H:i:s');
-			$last_visit_ip = ip2long($_SERVER['REMOTE_ADDR']);
+			$last_login_at = date('Y-m-d H:i:s');
+			$last_login_ip = ip2long($_SERVER['REMOTE_ADDR']);
 			
-			$sql = "INSERT INTO user (id, username, password, email, created_at, last_visit_at, last_visit_ip) VALUES ('$id', '$username', '$password', '$email', '$created_at', '$last_visit_at', '$last_visit_ip')";
+			$sql = "INSERT INTO user (id, username, password, email, permission, user_type, email_verified, mobile_verified, max_allowed_pet_application_num, max_allowed_pet_post_num, created_at, last_login_at, last_login_ip) VALUES ('$id', '$username', '$password', '$email', '$permission', '$user_type', 0, 0, 3.0, 3.0, '$created_at', '$last_login_at', '$last_login_ip')";
 			if($app->db->execute($sql)) {
 				echo '<div class="ui positive message">';
 				echo '<div class="header">';
@@ -94,17 +97,6 @@
 				echo '</div>';
 				echo '<a href="/">点击跳转至网站首页</a>';
 				echo '</div>';
-				
-				//创建目录
-				mkdir('./upload/blog');
-				mkdir('./upload/blog/feature');
-				mkdir('./upload/blog/feature/thumbnail');
-				mkdir('./upload/blog/photo');
-				mkdir('./upload/pet');
-				mkdir('./upload/pet/avatar');
-				mkdir('./upload/pet/avatar/thumbnail');
-				mkdir('./upload/pet/photo');
-				mkdir('./upload/pet/photo/thumbnail');
 			} else {
 				echo '<div class="ui error message">';
 				echo '<div class="header">';
