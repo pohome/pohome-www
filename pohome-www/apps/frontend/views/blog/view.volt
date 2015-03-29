@@ -64,8 +64,8 @@
                     <div class="title"><h3>文章分类</h3></div>
                     <div class="content">
                         <ul>
-	                        {% for catelog in catelogs %}
-                            <li><a href="\blog\catelog\{{ catelog.id }}">{{ catelog.name }}({{ catelog.countBlog() }})</a></li>
+	                        {% for key,value in catelogs %}
+                            <li><a href="\blog\catelog\{{ key }}">{{ value }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

@@ -2,14 +2,15 @@
 	
 namespace Pohome\Frontend\Controllers;
 
+use \Phalcon\Mvc\View;
 use \Pohome\Frontend\Models\Blog;
-use \Pohome\Frontend\Models\Catelog;
 
-class BlogController extends \Phalcon\Mvc\Controller
+class BlogController extends BaseController
 {
 	public function indexAction()
 	{
 		$this->view->title = '博客';
+		
 		$this->view->blogs = Blog::find(array(
 			"limit" => 10,
 			"order" => "published_at DESC"
@@ -21,9 +22,9 @@ class BlogController extends \Phalcon\Mvc\Controller
 			"order" => "viewed DESC",
 		));
 		
-		
-		// 生成博文分类数据		
-		$this->view->catelogs = Catelog::find();
+		// 生成博文分类数据
+		global $blogCatelog;
+		$this->view->catelogs = $blogCatelog;
 	}
 	
 	public function viewAction($blogId)
@@ -45,11 +46,14 @@ class BlogController extends \Phalcon\Mvc\Controller
 		
 		
 		// 生成博文分类数据		
-		$this->view->catelogs = Catelog::find();
+		global $blogCatelog;
+		$this->view->catelogs = $blogCatelog;
 	}
 	
 	public function catelogAction($catelogId)
 	{
+    	$this->view->disable();
+    	return;
 		$catelog = Catelog::findFirst($catelogId);
 		$this->view->title = '博客 - ' . $catelog->name;
 		$this->view->blogs = Blog::find(array('conditions' => "catelog_id = $catelogId"));

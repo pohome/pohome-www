@@ -1,11 +1,11 @@
-<div class="w_common main">
+        <div class="w_common main">
         	<div class="f_l blog">
 	        	{% for blog in blogs %}
             	<div class="m_30 unit">
                 	<h2>{{ blog.title }}</h2>
                     <p class="date">发表时间：{{ blog.published_at }}</p>
                     <div class="blog_desrc">
-                    	<p><img src="upload/blog/feature/{{ blog.feature_image }}" width="788" height="503" /></p>
+                    	<p><img src="upload/image/512/{{ blog.feature_image }}.jpeg" width="788" height="503" /></p>
                         <p>{{ blog.abstract }}</p>
                     </div>
                     <a class="more" href="/blog/{{ blog.id }}">查看全文</a>
@@ -15,7 +15,6 @@
                     </div>
 -->
                 </div>
-                
                 {% endfor %}
         	</div>
             
@@ -42,8 +41,8 @@
                     <div class="title"><h3>文章分类</h3></div>
                     <div class="content">
                         <ul>
-	                        {% for catelog in catelogs %}
-                            <li><a href="\blog\catelog\{{ catelog.id }}">{{ catelog.name }}({{ catelog.countBlog() }})</a></li>
+	                        {% for key, value in catelogs %}
+                            <li><a href="\blog\catelog\{{ key }}">{{ value }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

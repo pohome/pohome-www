@@ -200,7 +200,7 @@ class BlogController extends BaseController
     	$blog = new Blog();
     	$blog->title = $title;
     	$blog->feature_image = 0;
-    	$blog->abstract = '摘要';
+    	$blog->abstract = mb_substr(strip_tags($content), 0, 400);
     	$blog->content = $content;
     	$blog->catelog_id = 8;
     	$blog->published_at = $published_at;
