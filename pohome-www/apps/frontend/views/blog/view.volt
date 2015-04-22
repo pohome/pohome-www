@@ -12,6 +12,7 @@
                     </div>
 -->
                     
+<!--
                     <div class="m_30 related_blog">
                     	<div class="radius_2 title">相关的文章推荐</div>
                     	<ul>
@@ -38,6 +39,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
+-->
                 </div>
             </div>
             

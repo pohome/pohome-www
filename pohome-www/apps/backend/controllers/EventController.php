@@ -8,7 +8,19 @@ class EventController extends BaseController
 {
     public function indexAction()
     {
-        $this->view->title = '活动列表 - 汪汪喵呜孤儿院';
+        $this->view->title = '活动列表 - 汪汪喵呜孤儿院后台管理';
+                
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '活动',
+                'link' => '/admin/event/index'
+            ),
+            array(
+                'name' => '列表',
+                'active' => true
+            )
+        );
+        
         $events = Event::find(array(
             'order' => 'created_at DESC'
         ));
@@ -24,6 +36,19 @@ class EventController extends BaseController
     
     public function newAction()
     {
+        $this->view->title = '添加新活动 - 汪汪喵呜孤儿院后台管理';
+        
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '活动',
+                'link' => '/admin/event/index'
+            ),
+            array(
+                'name' => '添加新活动',
+                'active' => true
+            )
+        );
+        
         global $eventType;
         $this->view->eventType = $eventType;
         
@@ -39,8 +64,32 @@ class EventController extends BaseController
         }
     }
     
-    public function editAction()
+    public function editAction($eventId)
     {
+        $this->view->title = '编辑活动 - 汪汪喵呜孤儿院后台管理';
         
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '活动',
+                'link' => '/admin/event/index'
+            ),
+            array(
+                'name' => '编辑活动',
+                'active' => true
+            )
+        );
+        
+        global $eventType;
+        $this->view->eventType = $eventType;
+        $this->view->event = Event::findFirst($eventId);
+        
+        if ($this->request->isPost()) {
+            
+            $this->view->disable();
+            
+            $post = $this->request->getPost();
+            $event = Event::findFirst($eventId);
+            $this->saveData($event, $post, 'update');
+        }
     }
 }

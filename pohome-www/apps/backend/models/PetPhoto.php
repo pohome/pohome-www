@@ -5,7 +5,7 @@ namespace Pohome\Backend\Models;
 class PetPhoto extends \Phalcon\Mvc\Model
 {
 	public $pet_id;
-	public $filename;
+	public $file_id;
 	
 	public function getSource()
 	{

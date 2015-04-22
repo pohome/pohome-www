@@ -25,6 +25,17 @@ class UserController extends BaseController
     {
         $this->view->title = '用户列表 - 汪汪喵呜孤儿院';
         
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '用户',
+                'link' => '/admin/event/index'
+            ),
+            array(
+                'name' => '列表',
+                'active' => true
+            )
+        );
+        
         $paginator = new \Phalcon\Paginator\Adapter\Model(array(
             'data' => User::find(),
             'limit' => 10,

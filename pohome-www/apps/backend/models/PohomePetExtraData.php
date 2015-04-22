@@ -25,9 +25,9 @@ class PohomePetExtraData extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 	
-	private function setTaobao_url($url)
+	public function getTaobaoUrl()
 	{
-    	
+    	return 'http://item.taobao.com/item.htm?id=' . $this->taobao_url;
 	}
 	
 	public function validation()

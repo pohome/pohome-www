@@ -4,6 +4,7 @@ namespace Pohome\Backend\Controllers;
 
 use Pohome\Backend\Models\Pet;
 use Pohome\Backend\Models\PohomePetExtraData;
+use Pohome\Backend\Models\PetPhoto;
 
 class PetController extends BaseController
 {
@@ -14,7 +15,19 @@ class PetController extends BaseController
     
 	public function indexAction($page = 1)
 	{
-		$this->view->title = '汪汪喵呜孤儿院 - 全部动物列表';
+		$this->view->title = '动物列表 - 汪汪喵呜孤儿院后台管理';
+		
+		$this->view->breadcrumb = array(
+            array(
+                'name' => '动物',
+                'link' => '/admin/pet/index'
+            ),
+            array(
+                'name' => '列表',
+                'active' => true
+            )
+        );
+        
 		$pets = Pet::find();
 		
 		$paginator = new \Phalcon\Paginator\Adapter\Model(array(
@@ -29,7 +42,20 @@ class PetController extends BaseController
 	public function newAction()
 	{
     	global $petStatus, $petLocation;
-		$this->view->title = '汪汪喵呜孤儿院 - 新添动物信息';
+		
+		$this->view->title = '新添动物信息 - 汪汪喵呜孤儿院后台管理';
+		
+		$this->view->breadcrumb = array(
+            array(
+                'name' => '动物',
+                'link' => '/admin/pet/index'
+            ),
+            array(
+                'name' => '添加新动物信息',
+                'active' => true
+            )
+        );
+		
 		$this->view->location = $petLocation;
 		$this->view->status = $petStatus;
 		
@@ -45,22 +71,46 @@ class PetController extends BaseController
 			$pet = new Pet();
 			$post['id'] = $id;
 			$post['creator_id'] = $this->session->get('userId');
+			if(empty($post['angel_id'])) {
+    			$post['angel_id'] = null;
+			}
 			$this->saveData($pet, $post, 'create');
 			
 			$pped = new PohomePetExtraData();
 			$post['pet_id'] = $id;
+			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
 			$this->saveData($pped, $post, 'create');
 			
 			$this->saveImage($id);
-						
+			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
+			
+/*
+			if(empty($this->result)) {
+                $this->response->redirect('admin/pet/new');
+			} else {
+    			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
+			}
+*/
 		}
 	}
 	
 	public function editAction($petId)
 	{
     	global $petStatus, $petLocation;
-		$this->view->title = '汪汪喵呜孤儿院 - 编辑动物信息';
+    	
+		$this->view->title = '编辑动物信息 - 汪汪喵呜孤儿院后台管理';
+		
+		$this->view->breadcrumb = array(
+            array(
+                'name' => '动物',
+                'link' => '/admin/pet/index'
+            ),
+            array(
+                'name' => '编辑动物信息',
+                'active' => true
+            )
+        );
 		
 		$this->view->location = $petLocation;
 		$this->view->status = $petStatus;
@@ -75,6 +125,7 @@ class PetController extends BaseController
 			$this->view->disable();
 			
 			$post = $this->request->getPost();
+			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
 									
 			$this->saveData($pet, $post, 'update');
 			$this->saveData($pped, $post, 'update');
@@ -82,5 +133,30 @@ class PetController extends BaseController
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
 		
+	}
+	
+	public function photoAction($petId)
+	{
+    	//$this->view->disable();
+    	if($this->request->isPost()) {
+        	$files = $this->saveImage();
+        	
+        	foreach($files as $file)
+        	{
+            	$pp = new PetPhoto();
+            	$pp->pet_id = $petId;
+            	$pp->file_id = $file['id'];
+            	$pp->create();
+        	}
+    	}    	
+	}
+	
+	private function parseTaobaoId($url)
+	{
+    	if(preg_match('#^.*?id=(\d+)$#', $url, $match)) {
+        	return $match[1];
+    	} else {
+        	return '0';
+    	}
 	}
 }

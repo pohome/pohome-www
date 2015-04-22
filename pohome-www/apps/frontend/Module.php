@@ -12,7 +12,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			'Pohome\Frontend\Controllers' => '../apps/frontend/controllers',
 			'Pohome\Frontend\Models' => '../apps/frontend/models',
 			'Phalcon' => '../library/Phalcon/',
-			'Pohome' => '../library/'
+			'Pohome' => '../library/',
+			'Pohome\Validator' => '../apps/validator/'
 		));
 		
 		$loader->register();
@@ -44,8 +45,11 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			$eventManager = new \Phalcon\Events\Manager();
 	
 			$eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher) {
-    			echo $dispatcher->getControllerName();
+/*
     			echo $dispatcher->getActionName();
+    			echo $dispatcher->getControllerName();
+    			var_dump($dispatcher->getParams());
+*/
 				$action = $dispatcher->getActionName();
 				if(strpos($action, '-')) {
 					$dispatcher->setActionName(\Phalcon\Text::camelize($action));

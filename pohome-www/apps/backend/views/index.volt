@@ -5,7 +5,7 @@
 		<link href="/css/semantic.min.css" rel="stylesheet">
 <!-- 		<link href="/css/style.css" rel="stylesheet"> -->
 		<link href="/css/redactor.css" rel="stylesheet">
-<!-- 		<link href="/css/backend.css" rel="stylesheet"> -->
+		<link href="/css/backend.css" rel="stylesheet">
 		
 
 		<script src="/js/jquery-2.1.1.min.js"></script>
@@ -13,7 +13,7 @@
 		<script src="/js/semantic.js"></script>
 		<script src="/js/redactor.js"></script>
 		<script src="/js/zh_cn.js"></script>
-<!-- 		<script src="/js/backend.js"></script> -->
+		<script src="/js/backend.js"></script>
 		
 		<style type="text/css">
     		    
@@ -52,7 +52,7 @@
         	}
         	
         	.ui.form {
-            	width: 40em;
+            	width: 60%;
         	}
         	
         	.inline.field label {
@@ -88,7 +88,7 @@
     	<nav class="ui inverted vertical menu">
     		<a href="/"><img src="/img/backend/logo.png" id="logo"></a>
     		<a class="item" href="/admin/pet/index">动物</a>
-    		<a class="item" href="/admin/adoption/application">领养申请</a>
+    		<a class="item" href="/admin/adoption/index">领养申请</a>
     		<a class="item" href="/admin/blog/index">博客</a>
     		<div class="item">
         		活动
@@ -98,6 +98,7 @@
         		</div>
     		</div>
     		<a class="item" href="/admin/user/index">用户</a>
+    		<a class="item" href="/admin/faq/index">常见问题</a>
     		<div class="item">设置
     			<div class="menu">
     				<a class="item" href="">全局</a>
@@ -123,9 +124,14 @@
     		<div class="ui breadcrumb">
                 <a class="section" href="/admin/index/index">首页</a>
                 <div class="divider"> / </div>
-                <a class="section" href="/admin/pet/index">动物</a>
-                <div class="divider"> / </div>
-                <div class="active section">列表</div>
+                {% for item in breadcrumb %}
+                    {% if item['active'] is defined %}
+                    <div class="active section">{{ item['name'] }}</div>
+                    {% else %}
+                    <a class="section" href="{{ item['link'] }}">{{ item['name'] }}</a>
+                    <div class="divider"> / </div>
+                    {% endif %}
+                {% endfor %}
             </div>
                 
             <div id="container">

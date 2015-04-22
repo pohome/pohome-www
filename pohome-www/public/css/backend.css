@@ -1,75 +1,13 @@
-body {
-	font-family: "HiraginoSansGB-W3", "Microsoft YaHei", "sans-serif";
-	background-color: #4c4c4c;
-	margin: 20px auto;
-	padding: 0;
-	width: 960px;
+#avatar {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    right: 60px;
+    border: 1px solid rgba(39,41,43,.15);
+    font-size: 0.7em;
+    text-align: center;
 }
 
-.ui.inverted.main.menu {
-	border-radius: 0 !important;
-}
-
-
-/* Semantic表单 */
-.ui.form .inline.field>label {
-	display: inline-block !important;
-	margin-right: 2em !important;
-	width: 6em;
-}
-
-.ui.form .grouped.fields {
-	margin: 0 0 !important;
-}
-
-.ui.form .grouped.inline.fields .field {
-	display: inline-block !important;
-}
-
-.grouped.inline.fields {
-	display: inline-block !important;
-}
-
-.ui.checkbox {
-	margin-right: 2em;
-}
-
-.ui.form .inline.field .multiple.picture.upload {
-	display: inline-block;
-	width: 750px;
-}
-
-.photo.box {
-	position: relative;
-	display: inline-block;
-	margin: 0 5px 5px 0;
-	width: 180px;
-	height: 180px;
-	border: #bbb 1px solid;
-}
-
-.photo.wrap {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-}
-
-.photo.upload.box {
-	width: 180px;
-	height: 180px;
-	border: #bbb 1px dashed;
-	display: inline-block;
-	margin: 0 5px 5px 0;
-	position: relative;
-	text-align: center;
-}
-
-.photo.upload.wrap {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	font-size: 0.75em;
-	width: 160px;
+#avatar span{
+    line-height: 120px;
 }

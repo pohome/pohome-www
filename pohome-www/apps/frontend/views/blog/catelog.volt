@@ -5,7 +5,7 @@
                 	<h2>{{ blog.title }}</h2>
                     <p class="date">发表时间：{{ blog.published_at }}</p>
                     <div class="blog_desrc">
-                    	<p><img src="/upload/blog/feature/{{ blog.feature_image }}" width="788" height="503" /></p>
+                    	<p><img src="/upload/image/512/{{ blog.feature_image }}.jpeg" width="788" /></p>
                         <p>{{ blog.abstract }}</p>
                     </div>
                     <a class="more" href="/blog/{{ blog.id }}">查看全文</a>
@@ -20,6 +20,17 @@
         	</div>
             
             <div class="f_r blog_side">
+                <div class="m_30 side_box blog_cat">
+                    <div class="title"><h3>文章分类</h3></div>
+                    <div class="content">
+                        <ul>
+	                        {% for k, v in catelogs %}
+                            <li><a href="\blog\catelog\{{ k }}">{{ v }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
             	<div class="m_30 side_box hot_blog">
                     <div class="title"><h3>热点博文</h3></div>
                     <div class="content">
@@ -33,17 +44,6 @@
                                 </div>
                                 <p class="date">发表时间：{{ hotStory.published_at }}</p>
                             </li></a>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="m_30 side_box blog_cat">
-                    <div class="title"><h3>文章分类</h3></div>
-                    <div class="content">
-                        <ul>
-	                        {% for catelog in catelogs %}
-                            <li><a href="\blog\catelog\{{ catelog.id }}">{{ catelog.name }}({{ catelog.countBlog() }})</a></li>
                             {% endfor %}
                         </ul>
                     </div>

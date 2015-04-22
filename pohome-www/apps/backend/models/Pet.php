@@ -182,4 +182,9 @@ class Pet extends \Phalcon\Mvc\Model
 		$date->sub($interval);
 		return $date->format('Y-m-d');
 	}
+	
+	private function cleanTags($str)
+    {
+        return strip_tags($str, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h1><h2><h3><h4><h5><h6>');
+    }
 }

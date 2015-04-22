@@ -27,11 +27,23 @@ class UserController extends BaseController
 			
 			if(empty($error)) {
 				$user->update();
+				
 				$this->session->set('userId', $user->id);
 				$this->session->set('username', $user->username);
-				//$this->session->set('permissions', $this->getAllPermissions($user->id));
 				
-				$this->response->redirect('');
+				// 如果勾选了7天内免登录
+				if($this->request->getPost('remember_me') == 'on') {
+    				$this->view->disable();
+    				$uuid = $this->generateCookieUUID($user->username);
+    				$this->cookies->set('uuid', $uuid, time() + 7 * 86400);
+    				$this->redis->set($uuid, $user->id, 7 * 86400);
+				}
+				
+				if($this->session->has('returnURL')) {
+    				$this->response->redirect(substr($this->session->get('returnURL'), 1));
+				} else {
+    				$this->response->redirect('');
+				}
 			} else {
 				$this->view->error = $error;
 			}
@@ -40,6 +52,11 @@ class UserController extends BaseController
 	
 	public function logoutAction()
 	{
+    	// 移除cookie中保存的登录token
+    	$uuid = $this->cookies->get('uuid');
+    	$this->cookies->delete('uuid');
+    	$userId = $this->redis->del($uuid);
+    	
 		$this->session->remove('userId');
 		$this->session->remove('username');
 		//$this->session->remove('permissions');
@@ -48,7 +65,7 @@ class UserController extends BaseController
 	
 	public function registerAction()
 	{
-		$this->view->title = '新用户注册';
+		$this->view->title = '汪汪喵呜孤儿院 - 新用户注册';
 		
 		if($this->request->isPost()) {
 			$post = $this->request->getPost();
@@ -86,20 +103,30 @@ class UserController extends BaseController
 				} else {
 					// 保存用户数据
 					$user = new User();
-					$user->username = $post['username'];
-					$user->password = $this->security->hash($post['password']);
-					$user->email = $post['email'];
-					$user->create();
+					$post['user_type'] = 'individual';
+					$this->saveData($user, $post, 'create');
+
+					$this->view->disable();
 					
 					// 发送验证邮件
 					// TODO: 完成邮件地址验证功能
+					$key = $user->id;
+					$value = md5($user->id . $user->created_at . $user->last_login_ip);
+					$this->redis->set($key, $value);
+					$this->redis->expire($key, 86400); // 一天之内完成邮件验证
+					$verifyUrl = sprintf('http://beta2014.pohome.cn/user/verify-email/%s/%s', $key, $value);
+					$this->mail->sendMessage('pohome.cn', array(
+    					'from' => 'noreply@pohome.cn',
+    					'to' => $user->email,
+    					'title' => '欢迎您加入汪汪喵呜孤儿院！',
+    					'html'=>'<h1>欢迎您加入汪汪喵呜孤儿院！</h1><p>请点击此链接以完成邮箱验证：<a href="' . $verifyUrl . '">' . $verifyUrl . '</p>'
+					));
 					
 					// 跳转页面
-					$this->response->redirect('register/success');
+					//$this->response->redirect('/user/success');
 					
 				}
 			}
-			//$this->view->disable();
 		}
 	}
 	
@@ -111,5 +138,20 @@ class UserController extends BaseController
 	public function forgotAction()
 	{
 		
+	}
+	
+	public function verifyEmailAction($userId, $verifyCode)
+	{
+    	$this->view->disable();
+
+    	if($this->redis->get($userId) == $verifyCode) {
+        	$user = User::findFirst($userId);
+        	$user->email_verified = 1;
+        	$user->update();
+        	$this->redis->del($userId);
+        	echo '邮箱验证通过！';
+    	} else {
+        	echo '邮箱验证失败!';
+    	}
 	}
 }

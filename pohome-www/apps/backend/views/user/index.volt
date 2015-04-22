@@ -23,4 +23,6 @@
 	</tbody>
 </table>
 
+
+
 <a href="/admin/user/new"><button class="ui orange button">添加用户</button></a>

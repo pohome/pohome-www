@@ -27,9 +27,9 @@
 	                    {% if error['密码错误'] is defined %}
 	                    <div>密码错误</div>
 	                    {% endif %}
-	                    <p><input type="checkbox" name="remember_password" /> 记住密码 <a class="f_r" href="#">忘记登录密码？</a></p>
+	                    <p><input type="checkbox" name="remember_me" /> 7天内免登录 <a class="f_r" href="/user/forgot">忘记登录密码？</a></p>
 	                    <div class="row"><input class="radius_2 btn_submit" type="submit" name="submit" value="登 陆" /></div>
-	                    <p><!-- <a href="#"><img src="/img/icon_qq.png" /> QQ登陆</a> <a href="#"><img src="/img/icon_weibo.png" /> 微博登陆</a> --> <a class="f_r" href="#">注册</a></p>
+	                    <p><a class="f_r" href="/user/register">注册</a></p>
 	                </div>
 	            </form>
 	            <div class="clear"></div>

@@ -11,7 +11,19 @@ class BlogController extends BaseController
 {   
     public function indexAction($page = 1)
     {
-        $this->view->title = '博文列表 - 汪汪喵呜孤儿院';
+        $this->view->title = '博文列表 - 汪汪喵呜孤儿院后台管理';
+        
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '博客',
+                'link' => '/admin/blog/index'
+            ),
+            array(
+                'name' => '列表',
+                'active' => true
+            )
+        );
+        
         $blogs = Blog::find(array(
             "order" => "published_at DESC"
         ));
@@ -27,10 +39,21 @@ class BlogController extends BaseController
     
     public function newAction($petId = null)
     {
-        $this->view->title = '撰写新博文 - 汪汪喵呜孤儿院';
+        $this->view->title = '撰写新博文 - 汪汪喵呜孤儿院后台管理';
+        
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '博客',
+                'link' => '/admin/blog/index'
+            ),
+            array(
+                'name' => '添加新博客',
+                'active' => true
+            )
+        );
         
         if(!is_null($petId)) {
-            $pet = \Pohome\Backend\Models\Pet::findFirst($petId);
+            $pet = Pet::findFirst($petId);
             $this->view->petName = $pet->name;
             $this->view->petId = $petId;
         }
@@ -39,8 +62,6 @@ class BlogController extends BaseController
         $this->view->catelogs = $blogCatelog;
                         
         if ($this->request->isPost()) {
-            $this->view->disable();
-            
             $post = $this->request->getPost();
             $blog = new Blog();
             
@@ -51,7 +72,9 @@ class BlogController extends BaseController
             $this->saveData($blog, $post, 'create');
             
             if (!empty($this->result)) {
-                // 删除已上传的文件
+                // 返回错误信息
+                $this->view->errors = $this->result;
+                return;
             }
             
             if (!is_null($petId)) {
@@ -65,23 +88,51 @@ class BlogController extends BaseController
     
     public function editAction($blogId)
     {
-        //$this->view->disable();
+        $this->view->title = '编辑博客 - 汪汪喵呜孤儿院后台管理';
+        
+        $this->view->breadcrumb = array(
+            array(
+                'name' => '博客',
+                'link' => '/admin/blog/index'
+            ),
+            array(
+                'name' => '编辑博客',
+                'active' => true
+            )
+        );
+        
         global $blogCatelog;
         $this->view->catelogs = $blogCatelog;
         
         $blog = Blog::findFirst($blogId);
         $this->view->blog = $blog;
         
+        // 从博文中包含的照片选择展示照片
+        $content = $blog->content;
+        preg_match_all('#<img src="/upload/image/\d+?/(\d+?.jpeg)".*?>#', $content, $match);
+        $this->view->photos = $match[1];
+        
+        
         if($this->request->isPost()) {
-            
-            $this->view->disable();
             $post = $this->request->getPost();
             
+            // 从博文中包含的照片选择展示照片
+            if(array_key_exists('feature_image', $post)) {
+                $filename = $post['feature_image'];
+                $tmp = explode('.', $filename);
+                $post['feature_image'] = $tmp[0];
+            }
+                        
             //$files = $this->saveImage();
             //$post['author_id'] = $this->session->get('userId');
             //$post['feature_image'] = $files[0]['id'];
             
             $this->saveData($blog, $post, 'update');
+            if(empty($this->result)) {
+                $this->response->redirect('admin/blog/index/' . floor($blogId / 20));
+            } else {
+                $this->view->errors = $this->result;
+            }
         }
     }
     
@@ -172,6 +223,9 @@ class BlogController extends BaseController
     	$title = substr($html, $begin, $end - $begin + 1);
     	preg_match("/>(.*?)</", $title, $match);
     	$title = $match[1];
+    	if(mb_strlen($title) > 20) {
+        	$title = mb_substr($title, 0, 20);
+    	}
     	
     	preg_match("/<span class=\"time SG_txtc\">\((.*?)\)<\/span>/", $html, $match);
     	$published_at = $match[1];
@@ -223,4 +277,53 @@ class BlogController extends BaseController
             }	
     	}
 	}
+	
+/*
+	public function updateAction()
+	{
+    	$this->view->disable();
+    	set_time_limit(60);
+    	
+        $blogs = Blog::find();
+        foreach($blogs as $blog)
+        {
+            $content = $blog->content;
+            
+            preg_match_all('#<p>*?<img src="/upload/image/(\d+?)/(\d+?).jpeg".*?>#', $content, $match);
+            
+            foreach($match[2] as $fileId)
+            {
+                $file = File::findFirst($fileId);
+                $max_size = min($file->max_size, 1024);
+                if($file->type == 'L') {
+                    $w = '80%';
+                } else {
+                    $w = '60%';
+                }
+                
+                $i = sprintf('#<p>*?<img src="/upload/image/(\d+?)/%s.jpeg".*?>#', $fileId);
+                $r = sprintf('<p style="text-align: center;"><img src="/upload/image/%s/%s.jpeg" style="width: %s;">', $max_size, $fileId, $w);
+                $content = preg_replace($i, $r, $content);
+            }
+            
+            $blog->content = $content;
+            $blog->update();
+        }
+	}
+	
+	public function updatetAction()
+	{
+    	$this->view->disable();
+    	set_time_limit(60);
+    	
+        $blogs = Blog::find();
+        foreach($blogs as $blog)
+        {
+            $content = $blog->content;
+            
+            $blog->content =  preg_replace('#\#*?(<p*?<img src="/upload/image/\d+?/\d+?.jpeg".*?>)*?\##', '${1}', $content);
+            $blog->update();
+        }
+	}
+*/
 }

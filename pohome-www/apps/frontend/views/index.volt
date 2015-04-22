@@ -5,9 +5,11 @@
 		<title>{% if title is defined %}{{ title }}{% endif %}</title>
 		
 		<link href="/css/frontend.css" rel="stylesheet" type="text/css" />
+<!-- 		<link href="/css/flexslider.css" rel="stylesheet" type="text/css" /> -->
 		
 		<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
+		<script type="text/javascript" src="/js/jquery.flexslider.js"></script>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {				
 				$(".adopt_recommond li").hover(
@@ -28,24 +30,26 @@
 		    	<div id="top_wrap">
 					<div class="row w_common">
 						{% if username is not defined %}
-		            	<a href="/login">登录</a>|<a href="register">注册</a>
+		            	<a href="/user/login">登录</a>|<a href="/user/register">注册</a>
 		            	{% else %}
-		            	<a href="/user/{{ userId }}">{{ username }}</a>|<a href="logout">退出登录</a>
+		            	<a href="/user/center/{{ userId }}">{{ username }}</a>|<a href="/user/logout">退出登录</a>
 		            	{% endif %}
 		            </div> 
 		        </div>
 		        <div class="header_wrap">
 		            <div class="w_common header">
-		                <div class="logo"><a href="/"><img src="/img/logo.png" width="266" height="76" /></a></div>
+		                <div class="logo"><a href="/"><img src="/img/logo-origin.png" width="266" height="76" /></a></div>
 		                <div class="top_menu">
 		                    <ul>
-		                        <li class="active"><a href="/">首页</a></li>
-		                        <li><a href="/about">关于我们</a></li>
-		                        <li><a href="/pet">领养&助养</a></li>
-		                        <li><a href="/blog">博客</a></li>
-		                        <li><a href="/event">活动</a></li>
-		                        <li><a href="/volunteer">加入我们</a></li>
-		                        <li><a href="/faq">常见问题</a></li>
+		                        <li {% if menu_frontpage is defined %}class="active"{% endif %}><a href="/">首页</a></li>
+		                        <li {% if menu_about is defined %}class="active"{% endif %}><a href="/about">关于我们</a></li>
+		                        <li {% if menu_pet is defined %}class="active"{% endif %}><a href="/pet">领养&助养</a></li>
+		                        <li {% if menu_blog is defined %}class="active"{% endif %}><a href="/blog">博客</a></li>
+		                        <li {% if menu_event is defined %}class="active"{% endif %}><a href="/event">活动</a></li>
+<!--
+		                        <li {% if menu_volunteer is defined %}class="active"{% endif %}><a href="/volunteer">加入我们</a></li>
+		                        <li {% if menu_faq is defined %}class="active"{% endif %}><a href="/faq">常见问题</a></li>
+-->
 		                        <li><a href="http://pohome.taobao.com">公益淘宝</a></li>
 		                    </ul>
 		                </div>
@@ -77,13 +81,16 @@
 		                        <li><img src="/img//qrcode_weibo.png" /><br />官方新浪微博</li>
 		                    </ul>
 		                </div>
-		                <div class="text">
-		                    <p>电话：010-88800999 15011293294</p>
-		                    <p>邮箱：xiaoxingren@163.com</p>
+		                <div class="text" style="margin-top: 40px;">
+<!-- 		                    <p>电话：010-88800999 15011293294</p> -->
+		                    <p>邮箱：contact@pohome.cn</p>
+<!--
 		                    <p>传真：010-88800999</p>
 		                    <p>地址：北京市广渠门外大街名敦道11号楼1112</p>
-		                    <p>Copyright © 2012-2014 汪汪喵呜孤儿院.All right reserved  ICP京B2-20130762 技术支持：逸品广告</p>
+-->                         <p>技术支持：逸品广告</p>
+		                    <p>Copyright © 2007-2015 汪汪喵呜孤儿院.All right reserved  京ICP备13030860号-2</p>
 		                </div>
+<!--
 		                <div class="subscribe">
 		                	<h3>加入邮件列表</h3>
 		                    <div>
@@ -93,6 +100,7 @@
 		                    </div>
 		                    <p>我们会通过电子邮件将最新的活动信息发到您的邮箱。</p>
 		                </div>
+-->
 		                <div class="clear"></div>
 		            </div>
 		        </div>

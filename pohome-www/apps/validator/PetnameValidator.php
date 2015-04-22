@@ -16,7 +16,7 @@ class PetnameValidator extends Validator implements ValidatorInterface
 
 		$value = $model->$field;
 
-		$exp = sprintf('/^[a-zA-Z\x{4e00}-\x{9fa5}]{%d,%d}$/u', $min, $max);
+		$exp = sprintf('/^[a-zA-Z \x{4e00}-\x{9fa5}]{%d,%d}$/u', $min, $max);
 
 		if(preg_match($exp, $value) == 0) {
 			$this->appendMessage(

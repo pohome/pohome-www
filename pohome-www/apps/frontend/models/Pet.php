@@ -10,7 +10,7 @@ class Pet extends \Phalcon\Mvc\Model
 	public $gender;
 	public $breed;
 	public $birthday;
-	public $body_size;
+	public $size;
 	public $neutered;
 	public $location;
 	public $status;
@@ -109,5 +109,20 @@ class Pet extends \Phalcon\Mvc\Model
 		} else {
 			return '未知';
 		}
+	}
+	
+	public function getBodySize()
+	{
+    	switch($this->size)
+    	{
+        	case 'L':
+        	    return '大型';
+        	    
+            case 'M':
+                return '中型';
+                
+            case 'S':
+                return '小型';
+    	}
 	}
 }

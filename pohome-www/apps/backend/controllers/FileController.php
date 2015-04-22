@@ -3,6 +3,8 @@
 namespace Pohome\Backend\Controllers;
 
 use \Pohome\Backend\Models\File;
+use \Pohome\Backend\Models\Blog;
+use \Pohome\Backend\Models\Pet;
 
 class FileController extends BaseController
 {
@@ -39,5 +41,87 @@ class FileController extends BaseController
         );
         
         echo stripslashes(json_encode($result));
+    }
+    
+    public function cleanAction()
+    {
+        $this->view->disable();
+        
+        $usedFiles = array();
+        
+        // 确认博客包含的照片
+        $blogs = Blog::find();
+        foreach($blogs as $blog)
+        {
+            $content = $blog->content;
+            preg_match_all('#<img src="/upload/image/\d+?/(\d+?.jpeg)".*?>#', $content, $match);
+            foreach($match[1] as $filename)
+            {
+                $usedFiles[] = $filename;
+            }
+        }
+        
+        // 确认动物的照片
+        $pets = Pet::find();
+        foreach($pets as $pet)
+        {
+            $usedFiles[] = $pet->id.'jpeg';
+        }
+        
+        
+        $savedFiles = scandir($_SERVER['DOCUMENT_ROOT'] . '/upload/image/64');
+        
+        $diff = array_diff($usedFiles, $savedFiles);
+        foreach($diff as $img)
+        {
+            echo $img;
+            printf('<img src="/upload/image/128/%s" width=400>', $img);
+        }
+    }
+    
+    public function updateAction()
+    {
+        $this->view->disable();
+        set_time_limit(60);
+        
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/upload/image/';
+
+        $files = File::find();
+        foreach($files as $file)
+        {
+            if(is_null($file->type)) {
+                $filename = $file->id . '.' . $file->file_type;
+                $img = new \Imagick($path.'64/'.$filename);
+                $size = $img->getImageGeometry();
+                
+                $width = $size['width'];
+                $height = $size['height'];
+                
+                if($width > $height) {
+                    $type = 'L';
+                } elseif($width < $height) {
+                    $type = 'P';
+                } else {
+                    $type = 'S';
+                }
+                
+                for($d = 2048; $d >= 64; $d /= 2)
+                {
+                    if(file_exists($path.$d.'/'.$filename)) {
+                        $max_size = $d;
+                        break;
+                    }
+                }
+                
+/*
+                echo $type . "\n";
+                echo $max_size . "\n";
+*/
+                $file->type = $type;
+                $file->max_size = $max_size;
+                $file->update();
+            }
+        }        
+        
     }
 }

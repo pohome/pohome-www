@@ -23,6 +23,12 @@ class Faq extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 	}
 	
+	public function getCatelogName()
+	{
+    	global $faqCatelog;
+    	return $faqCatelog[$this->catelog_id];
+	}
+	
 	public function validation()
 	{
 		$this->validate(new StringLength(array(
@@ -42,7 +48,6 @@ class Faq extends \Phalcon\Mvc\Model
 	
 	public function beforeValidationOnCreate()
 	{
-		$this->creator_id = $this->session->get('userId');
 		$this->created_at = date('Y-m-d H:i:s');
 	}
 }

@@ -7,14 +7,23 @@ use \Pohome\Frontend\Models\Blog;
 
 class BlogController extends BaseController
 {
-	public function indexAction()
+	public function indexAction($page = 1)
 	{
-		$this->view->title = '博客';
+		$this->view->title = '汪汪喵呜孤儿院 - 博客列表';
+		$this->view->menu_blog = true;
 		
-		$this->view->blogs = Blog::find(array(
-			"limit" => 10,
+		$blogs = Blog::find(array(
+     		"draft = false",
 			"order" => "published_at DESC"
 		));
+		
+		$paginator = new \Phalcon\Paginator\Adapter\Model(array(
+    		'data' => $blogs,
+    		'limit' => 20,
+    		'page' => $page
+		));
+		
+		$this->view->page = $paginator->getPaginate();
 		
 		// 生成最热5篇博文
 		$this->view->hotStories = Blog::find(array(
@@ -25,17 +34,23 @@ class BlogController extends BaseController
 		// 生成博文分类数据
 		global $blogCatelog;
 		$this->view->catelogs = $blogCatelog;
+		
+		if($this->session->has('username')) {
+    		$this->view->userId = $this->session->get('userId');
+    		$this->view->username = $this->session->get('username');
+		}
 	}
 	
 	public function viewAction($blogId)
 	{
 		$blog = Blog::findFirst($blogId);
-		
+				
 		// 更新博客阅读量
 		$blog->viewed++;
 		$blog->update();
 		
 		$this->view->title = $blog->title;
+		$this->view->menu_blog = true;
 		$this->view->blog = $blog;
 		
 		// 生成最热5篇博文
@@ -48,15 +63,23 @@ class BlogController extends BaseController
 		// 生成博文分类数据		
 		global $blogCatelog;
 		$this->view->catelogs = $blogCatelog;
+		
+		if($this->session->has('username')) {
+    		$this->view->userId = $this->session->get('userId');
+    		$this->view->username = $this->session->get('username');
+		}
 	}
 	
 	public function catelogAction($catelogId)
 	{
-    	$this->view->disable();
-    	return;
-		$catelog = Catelog::findFirst($catelogId);
-		$this->view->title = '博客 - ' . $catelog->name;
-		$this->view->blogs = Blog::find(array('conditions' => "catelog_id = $catelogId"));
+    	global $blogCatelog;
+    	
+		$this->view->title = '博客 - ' . $blogCatelog[$catelogId];
+		$this->view->menu_blog = true;
+		
+		$this->view->blogs = Blog::find(array(
+		    "catelog_id = $catelogId"
+        ));
 		
 		// 生成最热5篇博文
 		$this->view->hotStories = Blog::find(array(
@@ -65,6 +88,11 @@ class BlogController extends BaseController
 		));
 		
 		// 生成博文分类数据		
-		$this->view->catelogs = Catelog::find();
+		$this->view->catelogs = $blogCatelog;
+		
+		if($this->session->has('username')) {
+    		$this->view->userId = $this->session->get('userId');
+    		$this->view->username = $this->session->get('username');
+		}
 	}
 }

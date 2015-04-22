@@ -33,9 +33,9 @@
     </head>
     <body>
         <div class="main">
-            <form method="post" class="ui form">
+            <form method="post" class="ui form" id="login_form">
                 <div class="field">
-                    <label for="username">用户名</label>
+                    <label for="username">账户名</label>
                     <input name="username" type="text" />
                 </div>
                 <div class="field">
@@ -47,3 +47,25 @@
         </div>
     </body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#login_form').form({
+            username : {
+                identifier : 'username',
+                rules : [
+                    {type : 'empty', prompt : '账户名不能为空'}
+                ]
+            },
+            password : {
+                identifier : 'password',
+                rules : [
+                    {type : 'empty', prompt : '密码不能为空'}
+                ]
+            }
+        }, {
+            inline : true,
+            on : 'blur'
+        });
+    });
+</script>
