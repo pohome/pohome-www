@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model\Validator,
 	
 class IdCardValidator extends Validator implements ValidatorInterface
 {
-	public function validate($model)
+	public function validate(\Phalcon\Mvc\ModelInterface $model)
 	{
 		$field = $this->getOption('field');
 		

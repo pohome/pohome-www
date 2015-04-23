@@ -4,7 +4,7 @@ namespace Pohome\Backend;
 
 class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 {
-	public function registerAutoloaders()
+	public function registerAutoloaders(\Phalcon\DiInterface $dependencyInjector = null)
 	{
 		$loader = new \Phalcon\Loader();
 		
@@ -19,7 +19,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 		$loader->register();
 	}
 	
-	public function registerServices($di)
+	public function registerServices(\Phalcon\DiInterface $di)
 	{
 		$di->set('view', function() {
 			$view = new \Phalcon\Mvc\View();
@@ -28,8 +28,8 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 				'.volt' => function($view, $di) {
 					$volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
 					$volt->setOptions(array(
-						'compiledPath' => '../apps/backend/compiled/',
-						'compileAlways' => true
+						'compiledPath' => '../apps/backend/views/compiled/',
+						'compileAlways' => false
 					));
 					return $volt;
 				}
