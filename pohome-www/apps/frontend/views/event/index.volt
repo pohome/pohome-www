@@ -8,7 +8,7 @@
         <div class="activity_content_r">
 			<div class="f_l activity_form">
             	<div><img src="/img/demo/activity_01.jpg" width="444" height="444" /></div>
-                <a class="btn btn_sign_up" href="#">报名参与</a>
+<!--                 <a class="btn btn_sign_up" href="#">报名参与</a> -->
 <!--
                 <div class="f_l activity_model">
                 	<p>如果您想参与我们的互动，可以通过以下两种方式参与:</p>
