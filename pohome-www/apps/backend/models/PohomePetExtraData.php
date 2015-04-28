@@ -23,6 +23,7 @@ class PohomePetExtraData extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		$this->belongsTo('pet_id', '\Pohome\Backend\Models\Pet', 'id', array('alias' => 'pet'));
 	}
 	
 	public function getTaobaoUrl()

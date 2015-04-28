@@ -37,6 +37,7 @@ class Pet extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		$this->hasOne('id', '\Pohome\Backend\Models\PohomePetExtraData', 'pet_id', array('alias' => 'extra'));
 	}
 	
 	public function setName($name)
@@ -113,7 +114,6 @@ class Pet extends \Phalcon\Mvc\Model
 	
 	public function beforeValidationOnCreate()
 	{
-		//$this->creator_id = $this->session->get('userId');
 		$this->created_at = date('Y-m-d H:i:s');
 		$this->modified_at = date('Y-m-d H:i:s');
 		$this->viewed = 0;
