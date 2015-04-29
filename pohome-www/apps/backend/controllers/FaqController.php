@@ -2,7 +2,7 @@
 
 namespace Pohome\Backend\Controllers;
 
-use Pohome\Backend\Models\Faq;
+use Pohome\Models\Faq;
 
 class FaqController extends BaseController
 {

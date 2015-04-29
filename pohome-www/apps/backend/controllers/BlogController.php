@@ -2,10 +2,10 @@
     
 namespace Pohome\Backend\Controllers;
 
-use \Pohome\Backend\Models\Blog;
-use \Pohome\Backend\Models\Pet;
-use \Pohome\Backend\Models\PetStory;
-use \Pohome\Backend\Models\File;
+use \Pohome\Models\Blog;
+use \Pohome\Models\Pet;
+use \Pohome\Models\PetStory;
+use \Pohome\Models\File;
 
 class BlogController extends BaseController
 {   
@@ -197,7 +197,7 @@ class BlogController extends BaseController
     	
     	$this->resizeImage($img, $filename);
     	
-    	$f = new \Pohome\Backend\Models\File();
+    	$f = new \Pohome\Models\File();
                 
         $post = array(
             'id' => $fileId,

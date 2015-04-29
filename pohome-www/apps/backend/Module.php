@@ -10,7 +10,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 		
 		$loader->registerNamespaces(array(
 			'Pohome\Backend\Controllers' => '../apps/backend/controllers/',
-			'Pohome\Backend\Models' => '../apps/backend/models/',
+			'Pohome\Models' => '../apps/models/',
 			'Pohome' => '../library/',
 			'Phalcon' => '../library/Phalcon/',
 			'Pohome\Validator' => '../apps/validator/'

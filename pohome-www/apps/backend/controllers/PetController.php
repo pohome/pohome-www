@@ -2,9 +2,9 @@
 	
 namespace Pohome\Backend\Controllers;
 
-use Pohome\Backend\Models\Pet;
-use Pohome\Backend\Models\PohomePetExtraData;
-use Pohome\Backend\Models\PetPhoto;
+use Pohome\Models\Pet;
+use Pohome\Models\PohomePetExtraData;
+use Pohome\Models\PetPhoto;
 
 class PetController extends BaseController
 {
@@ -133,6 +133,30 @@ class PetController extends BaseController
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
 		
+	}
+	
+	// :需要修改:
+	public function favoriteAction($pet_id)
+	{
+    	// 要求首先用户已经登录了
+    	if(!$this->session->has('userId')) {
+        	$this->response->redirect('user/login');
+    	} else {
+        	$pet = Pet::findFirst($pet_id);
+        	if($pet) {
+            	$fp = new FavoritePet();
+            	$fp->pet_id = $pet_id;
+            	$fp->user_id = $this->session->get('userId');
+            	$fp->create();
+        	}        	
+    	}
+	}
+	
+	public function testAction()
+	{
+    	$this->view->disable();
+    	$pet = Pet::findFirst('10161768801586880');
+    	print_r($pet->creator->username);
 	}
 	
 	public function photoAction($petId)

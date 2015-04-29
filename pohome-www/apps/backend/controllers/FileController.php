@@ -2,9 +2,9 @@
     
 namespace Pohome\Backend\Controllers;
 
-use \Pohome\Backend\Models\File;
-use \Pohome\Backend\Models\Blog;
-use \Pohome\Backend\Models\Pet;
+use \Pohome\Models\File;
+use \Pohome\Models\Blog;
+use \Pohome\Models\Pet;
 
 class FileController extends BaseController
 {

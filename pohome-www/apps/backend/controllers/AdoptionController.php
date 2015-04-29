@@ -2,9 +2,9 @@
     
 namespace Pohome\Backend\Controllers;
 
-use Pohome\Backend\Models\Pet;
-use Pohome\Backend\Models\AdoptionApplication;
-use Pohome\Backend\Models\ApplicationComment;
+use Pohome\Models\Pet;
+use Pohome\Models\AdoptionApplication;
+use Pohome\Models\ApplicationComment;
 
 class AdoptionController extends BaseController
 {   

@@ -2,7 +2,7 @@
     
 namespace Pohome\Backend\Controllers;
 
-use Pohome\Backend\Models\Event;
+use Pohome\Models\Event;
 
 class EventController extends BaseController
 {
