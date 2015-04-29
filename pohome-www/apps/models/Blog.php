@@ -28,6 +28,8 @@ class Blog extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('author_id', '\Pohome\Models\User', 'id', array('alias' => 'author'));
 	}
 	
 	public function validation()

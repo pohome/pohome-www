@@ -28,6 +28,8 @@ class Event extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('creator_id', '\Pohome\Models\User', 'id', array('alias' => 'creator'));
 	}
 	
 	public function remain()

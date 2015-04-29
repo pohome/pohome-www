@@ -27,6 +27,9 @@ class EventApplication extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('event_id', '\Pohome\Models\Event', 'id', array('alias' => 'event'));
+		$this->belongsTo('applicant_id', '\Pohome\Models\User', 'id', array('alias' => 'applicant'));
 	}
 	
 	public function setRemark($remark)

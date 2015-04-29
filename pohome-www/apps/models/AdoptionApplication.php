@@ -21,6 +21,9 @@ class AdoptionApplication extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('pet_id', '\Pohome\Models\Pet', 'id', array('alias' => 'pet'));
+		$this->belongsTo('applicant', '\Pohome\Model\User', 'id', array('alias' => 'applicant'));
 	}
 	
 	public function getPet()

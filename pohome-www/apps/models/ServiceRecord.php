@@ -24,6 +24,9 @@ class ServiceRecord extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));
+		$this->belongsTo('creator_id', '\Pohome\Models\User', 'id', array('alias' => 'creator'));
 	}
 	
 	public function beforeValidationOnCreate()

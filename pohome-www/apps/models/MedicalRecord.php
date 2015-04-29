@@ -21,6 +21,9 @@ class MedicalRecord extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('pet_id', '\Pohome\Models\Pet', 'id', array('alias' => 'pet'));
+		$this->belongsTo('creator_id', '\Pohome\Models\User', 'id', array('alias' => 'creator'));
 	}
 	
 	public function validation()

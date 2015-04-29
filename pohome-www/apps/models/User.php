@@ -34,6 +34,8 @@ class User extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->useDynamicUpdate(true);
+        
+        $this->hasOne('id', '\Pohome\Models\UserExtraInfo', 'user_id', array('alias' => 'extra'));
     }
     
     public function validation()

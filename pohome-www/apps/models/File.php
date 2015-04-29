@@ -19,6 +19,8 @@ class File extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('uploader_id', '\Pohome\Models\User', 'id', array('alias' => 'uploader'));
 	}
 
 	public function getFilename()

@@ -10,6 +10,13 @@ class ApplicationComment extends \Phalcon\Mvc\Model
     public $comment;
     public $created_at;
     
+    public function initialize()
+    {
+        $this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));
+        $this->belongsTo('adoption_application_id', '\Pohome\Models\AdoptionApplication', 'id', array('alias' => 'application'));
+    }
+    
+    // :需要修改:
     public function getUsername()
     {
         $user = User::findFirst($this->user_id);

@@ -30,6 +30,8 @@ class UserExtraInfo extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
+		
+		$this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));
 	}
 	
 	public function validation()
