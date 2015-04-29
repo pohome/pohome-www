@@ -2,7 +2,7 @@
     
 namespace Pohome\Frontend\Controllers;
 
-use \Pohome\Frontend\Models\Event;
+use \Pohome\Models\Event;
 
 class EventController extends \Phalcon\Mvc\Controller
 {

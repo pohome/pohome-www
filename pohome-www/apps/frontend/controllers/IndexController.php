@@ -2,8 +2,8 @@
 	
 namespace Pohome\Frontend\Controllers;
 
-use Pohome\Frontend\Models\Blog;
-use Pohome\Frontend\Models\Pet;
+use Pohome\Models\Blog;
+use Pohome\Models\Pet;
 
 class IndexController extends BaseController
 {

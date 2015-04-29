@@ -2,8 +2,8 @@
     
 namespace Pohome\Frontend\Controllers;
 
-use Pohome\Frontend\Models\Pet;
-use Pohome\Frontend\Models\AdoptionApplication;
+use Pohome\Models\Pet;
+use Pohome\Models\AdoptionApplication;
 
 class AdoptionController extends BaseController
 {

@@ -2,7 +2,7 @@
 	
 namespace Pohome\Frontend\Controllers;
 
-use Pohome\Frontend\Models\User;
+use Pohome\Models\User;
 
 class UserController extends BaseController
 {

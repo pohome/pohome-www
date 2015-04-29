@@ -2,10 +2,10 @@
 
 namespace Pohome\Frontend\Controllers;
 
-use Pohome\Frontend\Models\Pet;
-use Pohome\Frontend\Models\PohomePetExtraData;
-use Pohome\Frontend\Models\PetPhoto;
-use Pohome\Frontend\Models\Faq;
+use Pohome\Models\Pet;
+use Pohome\Models\PohomePetExtraData;
+use Pohome\Models\PetPhoto;
+use Pohome\Models\Faq;
 
 class PetController extends BaseController
 {

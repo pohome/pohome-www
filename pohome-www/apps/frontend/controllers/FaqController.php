@@ -2,7 +2,7 @@
 	
 namespace Pohome\Frontend\Controllers;
 
-use \Pohome\Frontend\Models\Faq;
+use \Pohome\Models\Faq;
 
 class FaqController extends \Phalcon\Mvc\Controller
 {

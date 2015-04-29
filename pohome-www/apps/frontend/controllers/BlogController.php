@@ -3,7 +3,7 @@
 namespace Pohome\Frontend\Controllers;
 
 use \Phalcon\Mvc\View;
-use \Pohome\Frontend\Models\Blog;
+use \Pohome\Models\Blog;
 
 class BlogController extends BaseController
 {
