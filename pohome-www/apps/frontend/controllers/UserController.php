@@ -30,6 +30,7 @@ class UserController extends BaseController
 				
 				$this->session->set('userId', $user->id);
 				$this->session->set('username', $user->username);
+				$this->session->set('permission', $user->permission);
 				
 				// 如果勾选了7天内免登录
 				if($this->request->getPost('remember_me') == 'on') {
@@ -59,7 +60,7 @@ class UserController extends BaseController
     	
 		$this->session->remove('userId');
 		$this->session->remove('username');
-		//$this->session->remove('permissions');
+		$this->session->remove('permissions');
 		$this->response->redirect('');
 	}
 	

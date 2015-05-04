@@ -9,6 +9,21 @@ class BaseController extends \Phalcon\Mvc\Controller
     
     public function initialize()
     {
+        if(!$this->session->has('userId')) {
+            // 判断cookie里是否存在uuid
+    		if($this->cookies->has('uuid')) {
+        		$uuid = $this->cookies->get('uuid');
+        		$userId = $this->redis->get($uuid);
+        		
+        		if($userId) {
+            		$user = \Pohome\Models\User::findFirst($userId);
+            		
+            		$this->session->set('userId', $userId);
+            		$this->session->set('username', $user->username);
+        		}
+    		}
+        }
+        
         // 除了用户登录和登出操作，其它操作都需要验证权限
         // TODO: 未来还需要添加对忘记密码的权限处理
         if ($this->dispatcher->getControllerName() == 'user') {
