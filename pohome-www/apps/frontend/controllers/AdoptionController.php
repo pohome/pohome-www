@@ -4,6 +4,7 @@ namespace Pohome\Frontend\Controllers;
 
 use Pohome\Models\Pet;
 use Pohome\Models\AdoptionApplication;
+use Phalcon\Mvc\View\Simple as SimpleView;
 
 class AdoptionController extends BaseController
 {
@@ -67,10 +68,46 @@ class AdoptionController extends BaseController
             
             if($result) {
                 echo 'success';
+                
+                // 发送领养申请通知到pohome01@163.net
+                $this->sendNofiticationEmail($aa);
             } else {
                 echo 'fail';
             }
         }
+    }
+    
+    public function testAction()
+    {
+        $this->sendNofiticationEmail();
+    }
+    
+    private function sendNofiticationEmail(&$a)
+    {
+        $pet = Pet::findFirst($a->pet_id);
+        $form = get_object_vars(json_decode($a->application_form));
+                
+        $title = $form['姓名'] . '申请领养' . $pet->name;
+        $title = sprintf("『%s』申请领养『%s』 [#%d]", $form['姓名'], $pet->name, 991 + $a->id);
+                        
+        $view = new SimpleView();
+        $view->setViewsDir('../apps/frontend/views/');
+        $view->setVars(array(
+            'title' => $title,
+            'pet' => $pet,
+            'form' => $form,
+            'id' => $a->id
+        ));
+
+        $html = $view->render('adoption/notification');
+        
+        $this->mail->sendMessage('pohome.cn', array(
+            'from' => '领养申请 <noreply@pohome.cn>',
+            'to' => 'pohome01@163.com',
+            'subject' => $title,
+            'text' => $title,
+            'html' => $html
+        ));
     }
     
     private function textField(&$field)

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><?php echo $title?></title>
+        
+        <style>
+            body {
+                font-family: "HiraginoSansGB-W3", "Microsoft YaHei", "sans-serif";
+                font-size: 10px;
+            }
+            
+            table {
+                margin: 20px auto;
+            }
+            
+            tr {
+                min-height: 20px;
+                vertical-align: middle;
+            }
+            
+            tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            
+            td {
+                padding: 16px;
+                vertical-align: middle;
+            }
+            
+            .field_name {
+                width: 12em;
+                padding-right: 4em;
+            }
+            
+            .field_value {
+                width: 20em;
+            }
+            
+            .empty_field {
+                background-color: rgba(255, 255, 0, 0.6) !important;
+            }
+            
+            a {
+                text-decoration: none;
+                color: #5875d0;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="field_name">申请领养</td>
+                    <td class="field_value"><a href="http://www.pohome.cn/pet/<?php echo $pet->id;?>"><?php echo $pet->name; ?></a></td>
+                <?php
+                    foreach($form as $k => $v) {
+                ?>
+                <tr<?php if(empty($v)) { echo ' class="empty_field"';}?>>
+                    <td class="field_name"><?php echo $k;?></td>
+                    <td class="field_value">
+                        <?php
+                            if(is_array($v)) {
+                                $v = implode(' ', $v);
+                            }
+                            
+                            if($k == '手机') {
+                                echo '<a href="tel:' . $v . '">' . $v . '</a>';
+                            } else {
+                                echo $v;
+                            }
+                            
+                            
+                        ?>
+                    </td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <a href="http://www.pohome.cn/admin/adoption/view/<?php echo $id; ?>" style="margin: 0 auto;display: block;width: 10em;text-align: center;">跳转审核页面</a>
+    </body>
+</html>
