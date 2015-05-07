@@ -20,6 +20,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             		
             		$this->session->set('userId', $userId);
             		$this->session->set('username', $user->username);
+            		$this->session->set('permission', $user->permission);
         		}
     		}
         }
