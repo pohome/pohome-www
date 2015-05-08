@@ -22,7 +22,7 @@ class IndexController extends BaseController
     		"order" => "published_at DESC"
 		));
 		
-		$this->view->pets = Pet::find(array("limit" =>5));
+		$this->view->pets = Pet::find(array("limit" => 5, "order" => "created_at DESC"));
 		
 		if($this->session->has('username')) {
     		$this->view->userId = $this->session->get('userId');

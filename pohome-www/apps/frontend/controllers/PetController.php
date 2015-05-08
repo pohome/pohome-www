@@ -48,8 +48,8 @@ class PetController extends BaseController
     		$a[] = sprintf('size = "%s"', $size);
     		$this->view->size = $size;
 		}
-		    		
-		$pets = Pet::find(array(join($a, ' AND '), sprintf('%s DESC', $sort_by)));
+
+		$pets = Pet::find(array(join($a, ' AND '), "order" => sprintf('%s DESC', $sort_by)));
 
 		$uri = $this->request->getURI();
 		$i = strpos($uri, '?');
