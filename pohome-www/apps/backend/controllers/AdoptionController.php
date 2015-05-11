@@ -118,11 +118,12 @@ class AdoptionController extends BaseController
                 'from' => '汪汪喵呜孤儿院 <contact@pohome.cn>',
                 'to' => $email,
                 'subject' => $title,
-                'text' => $content,
-                'o:tracking' => true
+                'html' => $content,
+                'o:tracking-opens' => true
             ));
             
             $cc = new ContactRecord();
+            
             $cc->adoption_application_id = $applicationId;
             $cc->user_id = $this->session->get('userId');
             $cc->title = $title;

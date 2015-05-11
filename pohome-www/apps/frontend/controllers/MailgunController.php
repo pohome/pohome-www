@@ -12,12 +12,14 @@ class MailgunController extends \Phalcon\Mvc\Controller
         $post = $this->request->getPost();
         
         if($this->verify($post['token'], $post['timestamp'], $post['signature'])) {
+            $this->debug->log('receive mailgun webhook call:'.$post['event']);
             $msgId = $post['Message-Id'];
             $event = $post['event'];
                     
             switch($event) {
                 case 'opened':
                     $status = '已阅';
+                    $msgId = '<' . $post['message-id'] . '>';
                     break;
                 
                 case 'bounced':
@@ -40,7 +42,14 @@ class MailgunController extends \Phalcon\Mvc\Controller
                 
                 if($cc) {
                     $cc->status = $status;
-                    $cc->update();
+                    if($cc->update() == false) {
+                        $this->debug->log(json_encode($cc->getMessages()), \Phalcon\Logger::ERROR);
+                    }
+                } else {
+                    $this->debug->log($msgId);
+                    foreach($post as $k => $v) {
+                        $this->debug->log($k . ' => ' . $v);
+                    }
                 }
             }
         }

@@ -4,6 +4,7 @@ namespace Pohome\Models;
 
 class ContactRecord extends \Phalcon\Mvc\Model
 {
+    public $id;
 	public $user_id;
 	public $adoption_application_id;
 	public $title;

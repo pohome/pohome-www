@@ -4,6 +4,8 @@ require '../library/mailgun-php/vendor/autoload.php';
 require '../library/function.php';
 require '../library/global.php';
 
+use Phalcon\Logger\Adapter\File as FileAdapter;
+
 $config = new \Phalcon\Config\Adapter\Ini('../apps/config/config.ini');
         
 $di = new \Phalcon\DI\FactoryDefault();
@@ -130,6 +132,11 @@ $di->set('cookies', function() {
 
 $di->set('mail', function() {
     return new \Mailgun\Mailgun('key-aae0bf1cde210918f71cee58ce5b2485');
+});
+
+$di->set('debug', function() {
+    $logger = new FileAdapter('../apps/logs/debug.log');
+    return $logger;
 });
 
 $app = new \Phalcon\Mvc\Application($di);
