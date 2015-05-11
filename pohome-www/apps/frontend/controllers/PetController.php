@@ -49,7 +49,7 @@ class PetController extends BaseController
     		$a[] = sprintf('size = "%s"', $size);
     		$this->view->size = $size;
 		}
-				
+
 		$pets = Pet::find(array(join($a, ' AND '), "order" => sprintf('%s DESC', $sort_by)));
 
 		$uri = $this->request->getURI();
@@ -86,7 +86,7 @@ class PetController extends BaseController
 		$pet = Pet::findFirst($petId);
 		$pped = PohomePetExtraData::findFirst($petId);
 		
-		$pp = PetPhoto::findByPetId($petId);
+		$pp = PetPhoto::find(array("pet_id = '$petId'"));
 		
 		$pet->viewed++;
 		$pet->update();

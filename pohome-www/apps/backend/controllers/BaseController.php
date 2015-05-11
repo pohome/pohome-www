@@ -101,7 +101,7 @@ class BaseController extends \Phalcon\Mvc\Controller
                 $img = new \Imagick($file->getTempName());
                 $result = $this->resizeImage($img, $filename);
                                 
-                $f = new \Pohome\Backend\Models\File();
+                $f = new \Pohome\Models\File();
                 
                 $post = array(
                     'id' => $fileId,

@@ -11,4 +11,9 @@ class PetPhoto extends \Phalcon\Mvc\Model
 	{
 		return 'pet_photo';
 	}
+	
+	public function getPhotoUrl($size)
+	{
+    	return '/upload/image/' . $size . '/' . $this->file_id . '.jpeg';
+	}
 }

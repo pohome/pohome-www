@@ -161,7 +161,19 @@ class PetController extends BaseController
 	
 	public function photoAction($petId)
 	{
-    	//$this->view->disable();
+    	$this->view->title = '添加动物照片 - 汪汪喵呜孤儿院后台管理';
+		
+		$this->view->breadcrumb = array(
+            array(
+                'name' => '动物',
+                'link' => '/admin/pet/index'
+            ),
+            array(
+                'name' => '添加照片',
+                'active' => true
+            )
+        );
+        
     	if($this->request->isPost()) {
         	$files = $this->saveImage();
         	
