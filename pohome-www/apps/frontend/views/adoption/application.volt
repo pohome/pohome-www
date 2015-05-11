@@ -213,9 +213,16 @@ $(document).ready(function() {
     $('form').ajaxForm({
         beforeSubmit : function(arr, $form, options) {
             var result = $('.ui.form').form('validate form');
+
+            if(result == true) {
+                $('.form').addClass('loading');
+            }
+
             return result;
         },
         success : function(responseText, statusText) {
+            $('.form').removeClass('loading');
+            
             if(responseText == 'success') {
                 $(".ui.modal").modal("show");
             } else {
