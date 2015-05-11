@@ -2,15 +2,15 @@
 	
 namespace Pohome\Models;
 
-use Phalcon\Mvc\Model\Validator\StringLength;
-
-class Blog extends \Phalcon\Mvc\Model
+class ContactRecord extends \Phalcon\Mvc\Model
 {
 	public $user_id;
 	public $adoption_application_id;
-	public $type;
-	public $opinion;
-	public $created_at;
+	public $title;
+	public $content;
+	public $sent_at;
+	public $message_id;
+	public $status;
 	
 	public function getSource()
 	{
@@ -20,25 +20,17 @@ class Blog extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->useDynamicUpdate(true);
-	}
-	
-	public function setOpinion($opinion)
-	{
-		$this->opinion = strip_tags($opinion);
+		$this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));
+		$this->belongsTo('adoption_application_id', '\Pohome\Models\AdoptionApplication', 'id', array('alias' => 'application'));
 	}
 	
 	public function beforeValidationOnCreate()
 	{
-		$this->user_id = $this->session->get('userId');
-		$this->created_at = date('Y-m-d H:i:s');
+		$this->sent_at = date('Y-m-d H:i:s');
 	}
 	
 	public function validation()
-	{
-		$this->validate(new StringLength(array(
-			'field' => 'opinion'
-		)));
-		
+	{	
 		if($this->validationHasFailed() == true) {
 			return false;
 		}

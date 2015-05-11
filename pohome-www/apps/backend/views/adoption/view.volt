@@ -38,6 +38,7 @@
             <div class="description">{{ application.getPet().notice }}</div>
         </div>
     </div>
+    <a href="/admin/adoption/mail/{{ application.id }}"><div class="ui green button">回复邮件</div></a>
 </div>
 
 <div class="ui segment comments" style="width: 600px">
