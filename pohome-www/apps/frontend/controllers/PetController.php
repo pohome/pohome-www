@@ -20,6 +20,7 @@ class PetController extends BaseController
 		
 		if(!array_key_exists('sort_by', $query)) {
     		$this->view->sort_by = 'created_at';
+    		$sort_by = 'created_at';
 		} else {
     		$sort_by = $query['sort_by'];
     		$this->view->sort_by = $sort_by;
@@ -48,7 +49,7 @@ class PetController extends BaseController
     		$a[] = sprintf('size = "%s"', $size);
     		$this->view->size = $size;
 		}
-
+				
 		$pets = Pet::find(array(join($a, ' AND '), "order" => sprintf('%s DESC', $sort_by)));
 
 		$uri = $this->request->getURI();
