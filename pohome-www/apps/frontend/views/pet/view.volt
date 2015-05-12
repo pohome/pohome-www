@@ -42,18 +42,7 @@
                 </div>
                 <div class="content">
                 	<ul>
-                    	{% for photo in pp %}
-                    	<li class="active">
-                        	<img src="{{ photo.getPhotoUrl(512) }}" width="264" />
-<!--
-                            <div class="info">
-                              <h3>我和狗狗的十个约定</h3>
-                              <p>帅帅很乖的，我也是很舍不得的但帅是很舍不得的但的但是没有办法我要出国了......</p>
-                              <a class="zoom" href="#"></a>
-                            </div>
--->
-                        </li>
-                        {% endfor %}
+                    	{% for photo in pp %}<li class="active"><img src="{{ photo.getPhotoUrl(512) }}" width="264" height="176" /></li>{% endfor %}
                     </ul>
                     <div class="clear"></div>
                 </div>
