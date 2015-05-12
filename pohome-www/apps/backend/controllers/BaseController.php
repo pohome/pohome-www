@@ -100,8 +100,6 @@ class BaseController extends \Phalcon\Mvc\Controller
                 
                 $img = new \Imagick($file->getTempName());
                 $result = $this->resizeImage($img, $filename);
-                                
-                $f = new \Pohome\Models\File();
                 
                 $post = array(
                     'id' => $fileId,
@@ -113,7 +111,15 @@ class BaseController extends \Phalcon\Mvc\Controller
                     'uploader_id' => $this->session->get('userId')
                 );
                 
-                $this->saveData($f, $post, 'create');
+                $f = \Pohome\Models\File::findFirst($fileId);
+                
+                if(!$f) {
+                    $f = new \Pohome\Models\File();
+                    
+                    $this->saveData($f, $post, 'create');
+                } else {
+                    $this->saveData($f, $post, 'update');
+                }
             }
         }
         

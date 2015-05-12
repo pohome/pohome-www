@@ -84,14 +84,6 @@ class PetController extends BaseController
 			$this->saveImage($id);
 			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
-			
-/*
-			if(empty($this->result)) {
-                $this->response->redirect('admin/pet/new');
-			} else {
-    			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
-			}
-*/
 		}
 	}
 	
@@ -129,6 +121,7 @@ class PetController extends BaseController
 									
 			$this->saveData($pet, $post, 'update');
 			$this->saveData($pped, $post, 'update');
+			$this->saveImage($petId);
 			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
