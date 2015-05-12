@@ -202,7 +202,7 @@
                 <p>我们将在2-5个工作日内完成对您的领养申请的初步评估，并通过Email或电话与您联系，请耐心等待！如果5天后仍未收联系信息，请检查您领养申请表里填写的邮箱的垃圾邮件文件夹。</p>
             </div>
             <div class="actions">
-                <div class="ui orange button">确定</div>
+                <div class="ui positive button">确定</div>
             </div>
         </div>
 	</body>
@@ -224,7 +224,11 @@ $(document).ready(function() {
             $('.form').removeClass('loading');
             
             if(responseText == 'success') {
-                $(".ui.modal").modal("show");
+                $(".ui.modal").modal({
+                    onApprove : function() {
+                        window.location.href = "http://www.pohome.cn/pet";
+                    }
+                }).modal("show");
             } else {
                 console.log('wrong');
             }
