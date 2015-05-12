@@ -9,7 +9,7 @@ class BaseController extends \Phalcon\Mvc\Controller
     
     public function initialize()
     {
-        if(!$this->session->has('userId')) {
+        if(!$this->session->has('permission')) {
             // 判断cookie里是否存在uuid
     		if($this->cookies->has('uuid')) {
         		$uuid = $this->cookies->get('uuid');
@@ -40,7 +40,7 @@ class BaseController extends \Phalcon\Mvc\Controller
     
     protected function checkPermission()
     {
-        if (!$this->session->has('userId')) {
+        if (!$this->session->has('permission')) {
             $this->session->set('_url', $_REQUEST['_url']);
             $this->response->redirect('admin/user/login');
         }

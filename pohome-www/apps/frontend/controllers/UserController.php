@@ -60,7 +60,7 @@ class UserController extends BaseController
     	
 		$this->session->remove('userId');
 		$this->session->remove('username');
-		$this->session->remove('permissions');
+		$this->session->remove('permission');
 		$this->response->redirect('');
 	}
 	
