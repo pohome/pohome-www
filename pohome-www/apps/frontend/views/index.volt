@@ -98,7 +98,7 @@
 		                    <p>传真：010-88800999</p>
 		                    <p>地址：北京市广渠门外大街名敦道11号楼1112</p>
 -->                         <p>技术支持：逸品广告</p>
-		                    <p>Copyright © 2007-2015 汪汪喵呜孤儿院.All right reserved  京ICP备13030860号-2</p>
+		                    <p>Copyright © 2007-2015 <a href="/admin/index/index" style="text-decoration: none;color: white">汪</a>汪喵呜孤儿院.All right reserved  京ICP备13030860号-2</p>
 		                </div>
 <!--
 		                <div class="subscribe">
