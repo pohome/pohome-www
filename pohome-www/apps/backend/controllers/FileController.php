@@ -124,4 +124,23 @@ class FileController extends BaseController
         }        
         
     }
+    
+    public function deleteAction($fileId)
+    {
+        $this->view->disable();
+        $file = File::findFirst($fileId);
+        $filename = $file->id . '.' . $file->file_type;
+        $root = $_SERVER['DOCUMENT_ROOT'];
+        for($i = 2048; $i >= 64; $i /= 2)
+        {
+            $path = sprintf('%s/upload/image/%d/%s', $root, $i, $filename);
+            if(file_exists($path)) {
+                unlink($path);
+            }
+        }
+        
+        $photo = \Pohome\Models\PetPhoto::findFirst("file_id = '$fileId'");
+        $photo->delete();
+        $file->delete();
+    }
 }
