@@ -69,13 +69,9 @@ class Pet extends \Phalcon\Mvc\Model
 		$age = '';
 		if($interval->y > 0) {
 			$age .= $interval->y . '岁';
-		}
-		
-		if($interval->m > 0) {
+		} elseif($interval->m > 0) {
 			$age .= $interval->m . '个月';
-		}
-		
-		if($interval->d > 0) {
+		} elseif($interval->d > 0) {
 			$age .= $interval->d . '天';
 		}
 		
