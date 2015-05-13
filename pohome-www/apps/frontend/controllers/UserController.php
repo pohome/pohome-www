@@ -109,8 +109,20 @@ class UserController extends BaseController
 
 					$this->view->disable();
 					
+                    $this->session->set('userId', $user->id);
+    				$this->session->set('username', $user->username);
+    				$this->session->set('permission', $user->permission);
+
+                    if($this->session->has('returnURL')) {
+                        $url = substr($this->session->get('returnURL'), 1);
+                        $this->response->redirect($url);
+                    } else {
+                        $this->response->redirect('/user/success');
+                    }
+										
 					// 发送验证邮件
 					// TODO: 完成邮件地址验证功能
+/*
 					$key = $user->id;
 					$value = md5($user->id . $user->created_at . $user->last_login_ip);
 					$this->redis->set($key, $value);
@@ -122,10 +134,7 @@ class UserController extends BaseController
     					'title' => '欢迎您加入汪汪喵呜孤儿院！',
     					'html'=>'<h1>欢迎您加入汪汪喵呜孤儿院！</h1><p>请点击此链接以完成邮箱验证：<a href="' . $verifyUrl . '">' . $verifyUrl . '</p>'
 					));
-					
-					// 跳转页面
-					//$this->response->redirect('/user/success');
-					
+*/
 				}
 			}
 		}
