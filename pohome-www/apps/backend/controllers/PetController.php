@@ -148,6 +148,20 @@ class PetController extends BaseController
 	public function testAction()
 	{
     	$this->view->disable();
+    	$pets = Pet::find();
+    	
+    	foreach($pets as $pet)
+    	{
+        	$e = PohomePetExtraData::findFirst($pet->id);
+        	$pet->entry_date = $e->entry_date;
+        	$pet->location_id = $e->location_id;
+        	$pet->status_id = $e->status_id;
+        	$pet->angel_id = $e->angel_id;
+        	$pet->neutered = $e->neutered;
+        	$pet->taobao_url = $e->taobao_url;
+        	
+        	$pet->update();
+    	}
 	}
 	
 	public function photoAction($petId)

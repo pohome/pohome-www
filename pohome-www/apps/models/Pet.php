@@ -21,9 +21,14 @@ class Pet extends \Phalcon\Mvc\Model
 	public $adaptability_index;
 	public $notice;
 	public $story;
+	public $entry_date;
+	public $location_id;
+	public $status_id;
+	public $angel_id;
+	public $neutered;
+	public $taobao_url;
 	public $draft;
 	public $creator_id;
-	public $belongs_to_pohome;
 	public $viewed;
 	public $adoptable;
 	public $created_at;
@@ -38,7 +43,6 @@ class Pet extends \Phalcon\Mvc\Model
 	{
 		$this->useDynamicUpdate(true);
 		
-		$this->hasOne('id', '\Pohome\Models\PohomePetExtraData', 'pet_id', array('alias' => 'extra'));
 		$this->belongsTo('creator_id', '\Pohome\Models\User', 'id', array('alias' => 'creator'));
 		$this->hasMany('id', '\Pohome\Models\PetTransferLog', 'pet_id', array('alias' => 'transferLog'));
 		$this->hasMany('id', '\Pohome\Models\PetStatusChangeLog', 'pet_id', array('alias' => 'statusChangeLog'));
