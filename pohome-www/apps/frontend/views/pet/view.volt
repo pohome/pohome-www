@@ -17,8 +17,8 @@
                     
                     <div class="social">
                         {% if pet.adoptable %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
-                        {% if pet.extra.status_id == 5 %}<div class="btn btn_adopt">已领养{% endif %}
-                        {% if pped.getTaobaoUrl() is not null %} <a class="btn btn_sponsor" href="{{ pped.getTaobaoUrl() }}">我要助养</a>{% endif %}
+                        {% if pet.status_id == 5 %}<div class="btn btn_adopt">已领养{% endif %}
+                        {% if pet.getTaobaoUrl() is not null %} <a class="btn btn_sponsor" href="{{ pet.getTaobaoUrl() }}">我要助养</a>{% endif %}
                         <!--<a class="btn_digg" href="#">推荐</a>-->
                         <!--<a class="btn_favorite" href="#">收藏</a> -->
                     </div>

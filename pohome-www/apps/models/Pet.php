@@ -104,6 +104,11 @@ class Pet extends \Phalcon\Mvc\Model
 		}
 	}
 	
+	public function getTaobaoUrl()
+	{
+    	return 'http://item.taobao.com/item.htm?id=' . $this->taobao_url;
+	}
+	
 	public function setStory($story)
 	{
     	$this->story = $this->cleanTags($story);
@@ -159,6 +164,17 @@ class Pet extends \Phalcon\Mvc\Model
 			'field' => 'birthday',
 		)));
 		
+		$this->validate(new DatetimeValidator(array(
+			'field' => 'entry_date',
+		)));
+		
+		if(!empty($this->angel_id)) {
+			$this->validate(new Numericality(array(
+				'field' => 'angel_id',
+			)));
+		} else {
+    		$this->angel_id = null;
+		}
 		
 		if($this->validationHasFailed() == true) {
 			return false;

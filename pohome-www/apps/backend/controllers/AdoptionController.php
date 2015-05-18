@@ -89,13 +89,11 @@ class AdoptionController extends BaseController
         $this->db->begin();
         
         $pet->adoptable = 0;
+        $pet->status_id = 6; // 已领养
+        $pet->location_id = 100; // 领养家庭
+
         $pet->update();
-        
-        $extra = $pet->extra;
-        $extra->status_id = 6; // 已领养
-        $extra->location_id = 100; // 领养家庭
-        $extra->update();
-        
+                
         $pal = new PetAdoptionLog();
         $pal->pet_id = $pet->id;
         $pal->application_id = $applicationId;

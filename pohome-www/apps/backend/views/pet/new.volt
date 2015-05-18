@@ -182,22 +182,6 @@
         </div>
     </div>
     
-    <div class="inline fields">
-        <label for="belongs_to_pohome">属于汪汪喵呜</label>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" name="belongs_to_pohome" value="1" checked="">
-                <label>是</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" name="belongs_to_pohome" value="0">
-                <label>否</label>
-            </div>
-        </div>
-    </div>
-    
     <div class="inline field">
         <label for="taobao_url">淘宝链接</label>
         <input name="taobao_url" type="text">

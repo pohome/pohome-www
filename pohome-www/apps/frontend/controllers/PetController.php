@@ -3,7 +3,6 @@
 namespace Pohome\Frontend\Controllers;
 
 use Pohome\Models\Pet;
-use Pohome\Models\PohomePetExtraData;
 use Pohome\Models\PetPhoto;
 use Pohome\Models\Faq;
 
@@ -84,7 +83,6 @@ class PetController extends BaseController
 		$this->view->menu_pet = true;
 		
 		$pet = Pet::findFirst($petId);
-		$pped = PohomePetExtraData::findFirst($petId);
 		
 		$pp = PetPhoto::find(array("pet_id = '$petId'"));
 		
@@ -92,7 +90,6 @@ class PetController extends BaseController
 		$pet->update();
 		
 		$this->view->pet = $pet;
-		$this->view->pped = $pped;
 		$this->view->pp = $pp;
 		
 		$this->view->title = $pet->name;

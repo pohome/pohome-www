@@ -115,13 +115,13 @@
 		<label for="neutered">已绝育</label>
 		<div class="field">
 			<div class="ui radio checkbox">
-				<input type="radio" name="neutered" value="1" {% if pped.neutered == '1' %} checked="" {% endif %}>
+				<input type="radio" name="neutered" value="1" {% if pet.neutered == '1' %} checked="" {% endif %}>
 				<label>是</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="ui radio checkbox">
-				<input type="radio" name="neutered" value="0" {% if pped.neutered == '0' %} checked="" {% endif %}>
+				<input type="radio" name="neutered" value="0" {% if pet.neutered == '0' %} checked="" {% endif %}>
 				<label>否</label>
 			</div>
 		</div>
@@ -131,7 +131,7 @@
 		<label>目前位于</label>
 		<select class="ui dropdown" name="location_id">
 			{% for key, value in location %}
-			<option value="{{ key }}" {% if pped.location_id == key %} selected="" {% endif %}>{{ value }}</option>
+			<option value="{{ key }}" {% if pet.location_id == key %} selected="" {% endif %}>{{ value }}</option>
 			{% endfor %}
 		</select>
 	</div>
@@ -140,19 +140,19 @@
 		<label>目前状态</label>
 		<select class="ui dropdown" name="status_id">
 			{% for key, value in status %}
-			<option value="{{ key }}" {% if pped.status_id == key %} selected="" {% endif %}>{{ value }}</option>
+			<option value="{{ key }}" {% if pet.status_id == key %} selected="" {% endif %}>{{ value }}</option>
 			{% endfor %}
 		</select>
 	</div>
 	
 	<div class="inline field">
 		<label for="angel_id">小天使编号</label>
-		<input name="angel_id" type="text" placeholder="如果该动物不属于小天使基金请留空" value="{{ pped.angel_id }}">
+		<input name="angel_id" type="text" placeholder="如果该动物不属于小天使基金请留空" value="{{ pet.angel_id }}">
 	</div>
 	
 	<div class="inline field">
 		<label for="entry_date">进入小院的日期</label>
-		<input name="entry_date" type="text" value="{{ pped.entry_date }}">
+		<input name="entry_date" type="text" value="{{ pet.entry_date }}">
 	</div>
 	
 	<div class="inline fields">
@@ -170,26 +170,10 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="inline fields">
-        <label for="belongs_to_pohome">属于汪汪喵呜</label>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" name="belongs_to_pohome" value="1" {% if pet.belongs_to_pohome == '1' %} checked="" {% endif %}>
-                <label>是</label>
-            </div>
-        </div>
-        <div class="field">
-            <div class="ui radio checkbox">
-                <input type="radio" name="belongs_to_pohome" value="0" {% if pet.belongs_to_pohome == '0' %} checked="" {% endif %}>
-                <label>否</label>
-            </div>
-        </div>
-    </div>
     
     <div class="inline field">
         <label for="taobao_url">淘宝链接</label>
-        <input name="taobao_url" type="text" value="{{ pped.getTaobaoUrl() }}">
+        <input name="taobao_url" type="text" value="{{ pet.getTaobaoUrl() }}">
     </div>
 	
 	<div class="inline fields">

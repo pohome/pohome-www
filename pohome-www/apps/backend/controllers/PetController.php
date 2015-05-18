@@ -3,7 +3,6 @@
 namespace Pohome\Backend\Controllers;
 
 use Pohome\Models\Pet;
-use Pohome\Models\PohomePetExtraData;
 use Pohome\Models\PetPhoto;
 
 class PetController extends BaseController
@@ -69,18 +68,18 @@ class PetController extends BaseController
 			$id = gen_uuid();
 						
 			$pet = new Pet();
+			
 			$post['id'] = $id;
+			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
 			$post['creator_id'] = $this->session->get('userId');
+			
 			if(empty($post['angel_id'])) {
     			$post['angel_id'] = null;
 			}
+			
 			$this->saveData($pet, $post, 'create');
 			
-			$pped = new PohomePetExtraData();
-			$post['pet_id'] = $id;
-			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
-			$this->saveData($pped, $post, 'create');
-			
+			// 保存动物头像
 			$this->saveImage($id);
 			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
@@ -108,9 +107,7 @@ class PetController extends BaseController
 		$this->view->status = $petStatus;
 		
 		$pet = Pet::findFirst($petId);
-		$pped = PohomePetExtraData::findFirst($petId);
 		$this->view->pet = $pet;
-		$this->view->pped = $pped;
 		
 		if ($this->request->isPost()) {
 			
@@ -120,7 +117,6 @@ class PetController extends BaseController
 			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
 									
 			$this->saveData($pet, $post, 'update');
-			$this->saveData($pped, $post, 'update');
 			$this->saveImage($petId);
 			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
@@ -148,20 +144,6 @@ class PetController extends BaseController
 	public function testAction()
 	{
     	$this->view->disable();
-    	$pets = Pet::find();
-    	
-    	foreach($pets as $pet)
-    	{
-        	$e = PohomePetExtraData::findFirst($pet->id);
-        	$pet->entry_date = $e->entry_date;
-        	$pet->location_id = $e->location_id;
-        	$pet->status_id = $e->status_id;
-        	$pet->angel_id = $e->angel_id;
-        	$pet->neutered = $e->neutered;
-        	$pet->taobao_url = $e->taobao_url;
-        	
-        	$pet->update();
-    	}
 	}
 	
 	public function photoAction($petId)
