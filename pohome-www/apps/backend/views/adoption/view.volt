@@ -38,7 +38,12 @@
             <div class="description">{{ application.getPet().notice }}</div>
         </div>
     </div>
+    {% if application.status != 'A' %}
     <a href="/admin/adoption/mail/{{ application.id }}"><div class="ui green button">回复邮件</div></a>
+    <a href="/admin/adoption/agree/{{ application.id }}"><div class="ui red button">同意申请</div></a>
+    {% else %}
+    <a href="/admin/adoption/print-agreement/{{ application.id }}"><div class="ui green button">打印领养协议</div></a>
+    {% endif %}
 </div>
 
 <div class="ui segment comments" style="width: 600px">

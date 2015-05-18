@@ -6,6 +6,7 @@ use Pohome\Models\Pet;
 use Pohome\Models\AdoptionApplication;
 use Pohome\Models\ApplicationComment;
 use Pohome\Models\ContactRecord;
+use Pohome\Models\PetAdoptionLog;
 
 class AdoptionController extends BaseController
 {   
@@ -75,6 +76,47 @@ class AdoptionController extends BaseController
         }
         
         $this->view->comments = ApplicationComment::findByAdoptionApplicationId($applicationId);
+    }
+    
+    public function agreeAction($applicationId)
+    {
+        $this->view->disable();
+
+        $application = AdoptionApplication::findFirst($applicationId);
+        $pet = Pet::findFirst($application->pet_id);
+        
+        // 事务开始
+        $this->db->begin();
+        
+        $pet->adoptable = 0;
+        $pet->update();
+        
+        $extra = $pet->extra;
+        $extra->status_id = 6; // 已领养
+        $extra->location_id = 100; // 领养家庭
+        $extra->update();
+        
+        $pal = new PetAdoptionLog();
+        $pal->pet_id = $pet->id;
+        $pal->application_id = $applicationId;
+        $pal->type = '领养';
+        $pal->create();
+        
+        $application->status = 'A';
+        $application->update();
+        
+        // 事务结束
+        $this->db->commit();
+        $this->response->redirect('/admin/adoption/index');
+    }
+    
+    public function printAgreementAction($applicationId)
+    {
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        
+        $application = AdoptionApplication::findFirst($applicationId);
+        $this->view->pal = PetAdoptionLog::findFirst("application_id = $applicationId");
+        $this->view->pet = Pet::findFirst($application->pet_id);
     }
     
     public function mailAction($applicationId)

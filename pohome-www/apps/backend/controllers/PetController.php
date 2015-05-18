@@ -148,8 +148,6 @@ class PetController extends BaseController
 	public function testAction()
 	{
     	$this->view->disable();
-    	$pet = Pet::findFirst('10161768801586880');
-    	print_r($pet->creator->username);
 	}
 	
 	public function photoAction($petId)
