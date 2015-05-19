@@ -28,7 +28,7 @@ class MedicalRecord extends \Phalcon\Mvc\Model
 	public function validation()
 	{
 		$this->validate(new DatetimeValidator(array(
-			'field' => 'happend_at',
+			'field' => 'happened_at',
 		)));
 		
 		if($this->validationHasFailed() == true) {
@@ -38,7 +38,6 @@ class MedicalRecord extends \Phalcon\Mvc\Model
 	
 	public function beforeValidationOnCreate()
 	{
-		$this->creator_id = $this->session->get('userId');
 		$this->created_at = date('Y-m-d H:i:s');
 	}
 }
