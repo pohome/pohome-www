@@ -3,6 +3,7 @@
 namespace Pohome\Backend\Controllers;
 
 use Pohome\Models\Pet;
+use Pohome\Models\PetTransferLog;
 use Pohome\Models\PetPhoto;
 
 class PetController extends BaseController
@@ -141,9 +142,53 @@ class PetController extends BaseController
     	}
 	}
 	
-	public function testAction()
-	{
-    	$this->view->disable();
+	public function transferAction($petId)
+	{   
+    	if(!$this->request->isPost()) {
+        	
+        	global $petLocation;
+    	
+        	$this->view->title = '动物转移 - 汪汪喵呜孤儿院后台管理';
+    		
+    		$this->view->breadcrumb = array(
+                array(
+                    'name' => '动物',
+                    'link' => '/admin/pet/index'
+                ),
+                array(
+                    'name' => '转移',
+                    'active' => true
+                )
+            );
+            
+            $this->view->pet = Pet::findFirst($petId);
+            $this->view->location = $petLocation;
+            $this->view->today = date('Y-m-d');
+    	} else {
+        	
+        	$pet = Pet::findFirst($petId);
+        	$post = $this->request->getPost();
+        	
+        	$pet->location_id = $post['destination'];
+        	$pet->update();
+        	
+        	$tl = new PetTransferLog();
+        	$tl->pet_id = $petId;
+        	$tl->from = $post['from'];
+        	$tl->destination = $post['destination'];
+        	$tl->description = $post['description'];
+        	$tl->creator_id = $this->session->get('userId');
+        	
+        	$tl->create();
+        	
+        	$this->view->disable();
+        	
+        	if($pet == false || $tl == false) {
+            	echo 'F';
+        	} else {
+            	echo 'S';
+        	}
+    	}
 	}
 	
 	public function photoAction($petId)
