@@ -6,7 +6,6 @@ class MedicalRecord extends \Phalcon\Mvc\Model
 {
 	public $id;
 	public $pet_id;
-	public $type;
 	public $description;
 	public $location_id;
 	public $happened_at;
