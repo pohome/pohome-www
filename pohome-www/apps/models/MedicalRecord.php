@@ -2,6 +2,8 @@
 	
 namespace Pohome\Models;
 
+use Pohome\Validator\DatetimeValidator;
+
 class MedicalRecord extends \Phalcon\Mvc\Model
 {
 	public $id;

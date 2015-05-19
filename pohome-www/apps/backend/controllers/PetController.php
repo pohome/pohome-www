@@ -4,6 +4,7 @@ namespace Pohome\Backend\Controllers;
 
 use Pohome\Models\Pet;
 use Pohome\Models\HealthcareRecord;
+use Pohome\Models\MedicalRecord;
 use Pohome\Models\PetTransferLog;
 use Pohome\Models\PetPhoto;
 
@@ -226,6 +227,49 @@ class PetController extends BaseController
         	
         	$hr->create();
         	echo 'S';
+    	}
+	}
+	
+	public function medicalAction($petId)
+	{
+    	if(!$this->request->isPost())
+    	{
+        	global $petLocation;
+        	
+        	$this->view->title = '动物健康护理 - 汪汪喵呜孤儿院后台管理';
+    		
+    		$this->view->breadcrumb = array(
+                array(
+                    'name' => '动物',
+                    'link' => '/admin/pet/index'
+                ),
+                array(
+                    'name' => '医疗',
+                    'active' => true
+                )
+            );
+            
+            $this->view->pet = Pet::findFirst($petId);
+            $this->view->location = $petLocation;
+            $this->view->today = date('Y-m-d');
+        } else {
+        	$this->view->disable();
+        	
+        	$pet = Pet::findFirst($petId);
+        	$post = $this->request->getPost();
+        	$mr = new MedicalRecord();
+        	
+        	$mr->pet_id = $petId;
+        	$mr->description = $post['description'];
+        	$mr->location_id = $post['location'];
+        	$mr->happened_at = $post['happened_at'];
+        	$mr->creator_id = $this->session->get('userId');
+        	    	
+        	if($mr->create()) {
+            	echo 'S';
+        	} else {
+            	var_dump($mr->getMessages());
+        	}        	
     	}
 	}
 	
