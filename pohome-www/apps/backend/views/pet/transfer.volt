@@ -37,7 +37,7 @@
 
 <div class="ui small modal">
     <div class="header">添加动物转移记录成功！</div>
-    <div class="content">已登记{{ pet.name }}于</div>
+    <div class="content"></div>
     <div class="actions">
         <div class="ui positive button">确定</div>
     </div>
@@ -49,7 +49,6 @@
             $("form").addClass("loading");
             $('form').ajaxSubmit({
                 success : function(responseText, statusText) {
-                    console.log(responseText);
                     if(responseText == "S") {
                         $(".ui.modal .content").text("已登记{{ pet.name }}于" + $("#transfer_date").val() + "从 " + $("#transfer_from :selected").text() + " 转移至 " + $("#transfer_destination :selected").text())
                         $(".ui.modal").modal({
