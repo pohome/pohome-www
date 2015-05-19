@@ -3,6 +3,7 @@
 namespace Pohome\Backend\Controllers;
 
 use Pohome\Models\Pet;
+use Pohome\Models\HealthcareRecord;
 use Pohome\Models\PetTransferLog;
 use Pohome\Models\PetPhoto;
 
@@ -191,6 +192,43 @@ class PetController extends BaseController
     	}
 	}
 	
+	public function healthcareAction($petId)
+	{
+    	if(!$this->request->isPost())
+    	{
+        	$this->view->title = '动物健康护理 - 汪汪喵呜孤儿院后台管理';
+    		
+    		$this->view->breadcrumb = array(
+                array(
+                    'name' => '动物',
+                    'link' => '/admin/pet/index'
+                ),
+                array(
+                    'name' => '健康护理',
+                    'active' => true
+                )
+            );
+            
+            $this->view->pet = Pet::findFirst($petId);
+            $this->view->today = date('Y-m-d');
+        } else {
+        	$this->view->disable();
+        	
+        	$pet = Pet::findFirst($petId);
+        	$post = $this->request->getPost();
+        	$hr = new HealthcareRecord();
+        	
+        	$hr->pet_id = $petId;
+        	$hr->type = $post['type'];
+        	$hr->product = $post['product'];
+        	$hr->happened_at = $post['happened_at'];
+        	$hr->creator_id = $this->session->get('userId');
+        	
+        	$hr->create();
+        	echo 'S';
+    	}
+	}
+	
 	public function photoAction($petId)
 	{
     	$this->view->title = '添加动物照片 - 汪汪喵呜孤儿院后台管理';
@@ -217,6 +255,44 @@ class PetController extends BaseController
             	$pp->create();
         	}
     	}    	
+	}
+	
+	public function getProductAction()
+	{
+    	$this->view->disable();
+    	
+    	$products = array();
+    	$post = $this->request->getPost();
+    	
+    	switch($post['type']) {
+        	case '疾病免疫':
+        	    if($post['species'] == 'C') {
+            	    echo '["辉瑞 妙三多", "英特威 Nobivac Tricat", "英特威 Nobivac 1-HCP"]';
+        	    } else {
+            	    echo '["辉瑞 卫佳5", "辉瑞 卫佳8", "英特威 Nobivac Puppy DP", "英特威 Nobivac DHPPi", "英特威 Nobivac Lepto"]';
+        	    }
+        	    break;
+    	    
+    	    case '狂犬免疫':
+    	        echo '["英特威 Rabies", "勃林格殷格翰 Rabvac 3"]';
+    	        break;
+    	        
+            case '体内驱虫':
+                if($post['species'] == 'C') {
+                    echo '["保灵 体虫清"]';
+                } else {
+                    echo '["拜耳 拜宠清", "诺华 汽巴100", "诺华 汽巴500", "保灵 内虫清"]';
+                }
+                break;
+                
+            case '体外驱虫':
+                echo '["辉瑞 大宠爱", "福来恩"]';
+                break;
+                
+            case '洗澡':
+                echo '["无"]';
+                break;
+    	}
 	}
 	
 	private function parseTaobaoId($url)

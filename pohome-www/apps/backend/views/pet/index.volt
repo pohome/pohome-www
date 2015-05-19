@@ -43,6 +43,7 @@
 				<a href="\admin\pet\photo\{{ pet.id }}" style="margin-right: 0.5em">添加照片</a>
 				<a href="\admin\pet\story\list\{{ pet.id }}" style="margin-right: 0.5em">添加故事</a>
 				<a href="\admin\pet\medical\list\{{ pet.id }}" style="margin-right: 0.5em">医疗记录</a>
+				<a href="\admin\pet\healthcare\{{ pet.id }}" style="margin-right: 0.5em">健康护理</a>
 				<a href="\admin\pet\adopt\{{ pet.id }}" style="margin-right: 0.5em">领养</a>
 				<a href="\admin\pet\transfer\{{ pet.id }}" style="margin-right: 0.5em">转移</a>
 				
