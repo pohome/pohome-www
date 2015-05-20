@@ -1,6 +1,7 @@
 <?php
-    
-require '../library/mailgun-php/vendor/autoload.php';
+
+require_once('../library/submail/app_config.php');
+require_once('../library/submail/SUBMAILAutoload.php');
 require '../library/function.php';
 require '../library/global.php';
 
@@ -128,10 +129,6 @@ $di->set('cookies', function() {
     $cookies = new \Phalcon\Http\Response\Cookies;
     $cookies->useEncryption(false);
     return $cookies;
-});
-
-$di->set('mail', function() {
-    return new \Mailgun\Mailgun('key-aae0bf1cde210918f71cee58ce5b2485');
 });
 
 $di->set('debug', function() {

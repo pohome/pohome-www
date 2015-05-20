@@ -154,12 +154,12 @@ class AdoptionController extends BaseController
             
             
             
-            $result = $this->mail->sendMessage('pohome.cn', array(
-                'from' => '汪汪喵呜孤儿院 <contact@pohome.cn>',
+            submail(array(
+                'from' => 'no-reply@push.pohome.cn',
+                'name' => '汪汪喵呜孤儿院',
                 'to' => $email,
-                'subject' => $title,
-                'html' => $content,
-                'o:tracking-opens' => true
+                'title' => $title,
+                'html' => $content
             ));
             
             $cc = new ContactRecord();
@@ -168,7 +168,8 @@ class AdoptionController extends BaseController
             $cc->user_id = $this->session->get('userId');
             $cc->title = $title;
             $cc->content = $content;
-            $cc->message_id = $result->http_response_body->id;
+            //$cc->message_id = $result->http_response_body->id;
+            $cc->message_id = 'not available';
             $cc->status = '提交';
             
             if(!$cc->create()) {

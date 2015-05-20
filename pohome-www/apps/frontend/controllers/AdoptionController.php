@@ -101,11 +101,11 @@ class AdoptionController extends BaseController
 
         $html = $view->render('adoption/notification');
         
-        $this->mail->sendMessage('pohome.cn', array(
-            'from' => '领养申请 <noreply@pohome.cn>',
+        submail(array(
             'to' => 'pohome01@163.com',
-            'subject' => $title,
-            'text' => $title,
+            'from' => 'no-reply@push.pohome.cn',
+            'name' => '领养申请',
+            'title' => $title,
             'html' => $html
         ));
     }
