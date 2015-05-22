@@ -230,6 +230,63 @@ class PetController extends BaseController
     	}
 	}
 	
+	public function batchHealthcareAction()
+	{
+    	if(!$this->request->isPost())
+    	{
+        	global $petLocation;
+        	$this->view->title = '批量动物健康护理 - 汪汪喵呜孤儿院后台管理';
+    		
+    		$this->view->breadcrumb = array(
+                array(
+                    'name' => '动物',
+                    'link' => '/admin/pet/index'
+                ),
+                array(
+                    'name' => '批量健康护理',
+                    'active' => true
+                )
+            );
+            
+            $this->view->pets = Pet::find(array(
+                "location_id = 1 AND species = 'D'"
+            ));
+            $this->view->today = date('Y-m-d');
+            $this->view->location = $petLocation;
+            $this->view->pick('pet/batchHealthcare');
+            
+        } else {
+        	$this->view->disable();
+        	
+        	$post = $this->request->getPost();
+        	
+        	if(!array_key_exists('selected_pets', $post)) {
+            	return 'F';
+        	}
+        	
+        	$result = array('success' => 0, 'failure' => 0);
+        	
+        	foreach($post['selected_pets'] as $petId)
+        	{
+            	$pet = Pet::findFirst($petId);
+            	$hr = new HealthcareRecord();
+            	
+            	$hr->pet_id = $petId;
+            	$hr->type = $post['type'];
+            	$hr->product = $post['product'];
+            	$hr->happened_at = $post['happened_at'];
+            	$hr->creator_id = $this->session->get('userId');
+            	
+            	
+            	if($hr->create()) {
+                	$result['success']++;
+            	}
+        	}
+        	
+        	echo json_encode($result);
+    	}
+	}
+	
 	public function medicalAction($petId)
 	{
     	if(!$this->request->isPost())
@@ -336,6 +393,31 @@ class PetController extends BaseController
             case '洗澡':
                 echo '["无"]';
                 break;
+    	}
+	}
+	
+	public function filterAction()
+	{
+    	if($this->request->isPost())
+    	{
+        	$this->view->disable();
+        	
+        	$post = $this->request->getPost();
+        	$location_id = $post['location'];
+        	$species = $post['species'];
+        	
+        	$pets = Pet::find(array(
+            	"location_id = '$location_id' AND species = '$species'"
+        	));
+        	
+        	$filtered_pets = array();
+        	
+        	foreach($pets as $pet)
+        	{
+            	$filtered_pets[$pet->id] = $pet->name;
+        	}
+        	
+        	echo json_encode($filtered_pets, JSON_UNESCAPED_UNICODE);
     	}
 	}
 	
