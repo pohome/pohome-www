@@ -579,7 +579,7 @@ border-top-right-radius:2px;}
 .main .blog .unit h2{font-size:1.8em;}
 .main .blog .unit .date{color:#c7c7c7; font-size:1.2em;}
 .main .blog .unit .blog_desrc{padding:20px 0; font-size:1.6em;}
-.main .blog .unit .blog_desrc img{padding:10px 0;}
+.main .blog .unit .blog_desrc img{padding:10px 0;width: 80%; display: block; margin: 1em auto}
 .main .blog .unit .blog_desrc p{padding:10px 0;}
 .main .blog .unit  a.more{color:#8b8b8b; font-size:1.4em;}
 .main .blog .unit  a.more:hover{color:#6bb603;}
