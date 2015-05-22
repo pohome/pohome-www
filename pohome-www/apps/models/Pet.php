@@ -96,12 +96,24 @@ class Pet extends \Phalcon\Mvc\Model
 	public function getGender()
 	{
 		if($this->gender == 'M') {
-			return '雄性';
+			return '男孩';
 		} elseif($this->gender == 'F') {
-			return '雌性';
+			return '女孩';
 		} else {
 			return '未知';
 		}
+	}
+	
+	public function getLocation()
+	{
+    	global $petLocation;
+    	return $petLocation[$this->location_id];
+	}
+	
+	public function getStatus()
+	{
+    	global $petStatus;
+    	return $petStatus[$this->status_id];
 	}
 	
 	public function getTaobaoUrl()

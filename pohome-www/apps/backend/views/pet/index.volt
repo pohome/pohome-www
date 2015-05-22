@@ -1,32 +1,17 @@
-<a href="/admin/pet/new">
-    <div class="ui orange vertical animated button">
-        <div class="visible content">
-            <i class="plus icon"></i>
-        </div>
-        <div class="hidden content">新增</div>
-    </div>
-</a>
-
-<div class="ui selection dropdown" id="bbaa">
-    <div class="default text">批量添加...</div>
-    <i class="dropdown icon"></i>
-    <div class="menu">
-        <div class="item">免疫记录</div>
-        <div class="item">驱虫记录</div>
-        <div class="item">洗澡记录</div>
-        <div class="item">位置转移记录</div>
-        <div class="item">状态变化记录</div>
-    </div>
-</div>
+<a href="/admin/pet/new"><div class="ui orange button">新增动物记录</div></a>
+<a href="/admin/pet/batch-healthcare"><div class="ui green button">批量添加健康护理记录</div></a>
 
 <table class="ui small table">
 	<thead>
 		<tr>
     		<th><input type="checkbox" id="select_all_pet" /></th>
-			<th style="width: 10em">名字</th>
-			<th style="width: 16em">年龄</th>
-			<th style="width: 4em">性别</th>
-			<th style="width: 4em">物种</th>
+    		<th>头像</th>
+			<th>名字</th>
+			<th>年龄</th>
+			<th>性别</th>
+			<th>位置</th>
+			<th>状态</th>
+			<th>浏览量</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -34,10 +19,13 @@
 		{% for pet in page.items %}
 		<tr>
     		<td class="table_row_checkbox" style="width: 1em !important"><input type="checkbox" id="pet_{{ pet.id }}" /></td>
+    		<td><img src="/upload/image/64/{{ pet.id }}.jpeg" style="width: 32px"></td>
 			<td>{{ pet.name }}</td>
 			<td>{{ pet.getAge() }}</td>
 			<td>{{ pet.getGender() }}</td>
-			<td>{{ pet.getSpecies() }}</td>
+			<td>{{ pet.getLocation() }}</td>
+			<td>{{ pet.getStatus() }}</td>
+			<td>{{ pet.viewed }}</td>
 			<td>
 				<a href="\admin\pet\edit\{{ pet.id }}" style="margin-right: 0.5em">编辑</a>
 				<a href="\admin\pet\photo\{{ pet.id }}" style="margin-right: 0.5em">添加照片</a>
