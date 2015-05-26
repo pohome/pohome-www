@@ -370,7 +370,7 @@ class PetController extends BaseController
         	    if($post['species'] == 'C') {
             	    echo '["辉瑞 妙三多", "英特威 Nobivac Tricat", "英特威 Nobivac 1-HCP"]';
         	    } else {
-            	    echo '["辉瑞 卫佳5", "辉瑞 卫佳8", "英特威 Nobivac Puppy DP", "英特威 Nobivac DHPPi", "英特威 Nobivac Lepto"]';
+            	    echo '["辉瑞 卫佳5", "辉瑞 卫佳8", "英特威 Nobivac Puppy DP", "英特威 Nobivac DHPPi + Lepto"]';
         	    }
         	    break;
     	    
