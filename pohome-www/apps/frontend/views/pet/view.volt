@@ -16,8 +16,9 @@
                     <p>领养须知：{{ pet.notice }}</p>
                     
                     <div class="social">
-                        {% if pet.adoptable %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
-                        {% if pet.status_id == 5 %}<div class="btn btn_adopt">已领养{% endif %}
+                        {% if pet.status == 1 %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
+                        {% if pet.status_id == 6 %}<div class="btn btn_adopt">已领养</div>{% endif %}
+                        {% if pet.status_id == 9 %}<div class="btn btn_adopt">已预订</div>{% endif %}
                         {% if pet.getTaobaoUrl() is not null %} <a class="btn btn_sponsor" href="{{ pet.getTaobaoUrl() }}">我要助养</a>{% endif %}
                         <!--<a class="btn_digg" href="#">推荐</a>-->
                         <!--<a class="btn_favorite" href="#">收藏</a> -->

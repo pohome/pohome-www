@@ -15,6 +15,7 @@ $petStatus = array(
     '6' => '已领养',
     '7' => '走失',
     '8' => '死亡',
+    '9' => '已预订'
 );
 
 $petLocation = array(
