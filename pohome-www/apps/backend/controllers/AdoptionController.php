@@ -10,7 +10,7 @@ use Pohome\Models\PetAdoptionLog;
 
 class AdoptionController extends BaseController
 {   
-    public function indexAction()
+    public function indexAction($page = 1)
     {
         $this->view->title = '领养申请表列表 - 汪汪喵呜孤儿院后台管理';
         
