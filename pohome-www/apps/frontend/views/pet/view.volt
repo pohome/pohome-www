@@ -16,7 +16,7 @@
                     <p>领养须知：{{ pet.notice }}</p>
                     
                     <div class="social">
-                        {% if pet.status_id == 1 %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
+                        {% if pet.status_id == 1 and pet.adoptable %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
                         {% if pet.status_id == 6 %}<div class="btn btn_adopt">已被领养</div>{% endif %}
                         {% if pet.status_id == 9 %}<div class="btn btn_adopt">已预订</div>{% endif %}
                         {% if pet.getTaobaoUrl() is not null %} <a class="btn btn_sponsor" href="{{ pet.getTaobaoUrl() }}">我要助养</a>{% endif %}
