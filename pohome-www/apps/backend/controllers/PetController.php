@@ -127,6 +127,25 @@ class PetController extends BaseController
 		
 	}
 	
+	public function deleteAction($petId)
+	{
+    	$this->view->disable();
+    	
+    	$photos = PetPhoto::find(array("pet_id='$pet_id'"));
+    	
+    	foreach($photos as $photo)
+    	{
+        	var_dump($photo->pet_id);
+    	}
+    	
+    	$pet = Pet::findFirst($petId);
+    	if($pet->delete() == false) {
+        	foreach($pet->getMessages() as $m) {
+            	echo $m . "\n";
+        	}
+    	}
+	}
+	
 	// :需要修改:
 	public function favoriteAction($pet_id)
 	{
