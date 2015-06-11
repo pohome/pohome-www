@@ -162,7 +162,7 @@
                         <td class="field">免疫时间</td>
                         <td class="field_value"></td>
                         <td class="field">已绝育</td>
-                        <td class="field_value">{% if pet.extra.neutered == 1 %}是{% else %}否{% endif %}</td>
+                        <td class="field_value">{% if pet.neutered == 1 %}是{% else %}否{% endif %}</td>
                     </tr>
                 </tbody>
                 <thead>
@@ -255,13 +255,10 @@
             <p>该{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}不得被用于祭祀、竞速、打斗、医疗或实验用途。<span class="bold">它是且仅是一只家养宠物、伴侣动物和家庭成员。</span></p>
             <h2>转移所有权</h2>
             <p>该{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}的所有权和相关责任属于且仅属于领养人。然而如果领养人无法继续拥有它或为它提供良好的照顾，包括食物、居所或医疗保障，领养人应和汪汪喵呜孤儿院联系，给予救助人为该{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}寻找一个新家的机会。未得到汪汪喵呜孤儿院的许可，领养人不可将该{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}出售、转让或转由他人领养，也不许将其所有权转交给任何企业、公司和流浪动物组织，如救助机构或动物收容所。领养人应给予汪汪喵呜孤儿院充足的时间来为{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}安排一个合适的新家。同时，领养人应告知汪汪喵呜孤儿院是否存在行为或健康上的问题，以至于很难为其寻找到另一个新家。如果领养人必须将{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}退回汪汪喵呜孤儿院，领养人应承担运输的责任。</p>
-        </div>
-        <div class="page">
             <h2>回访</h2>
             <p>领养人充分理解汪汪喵呜孤儿院可能在未来会对该{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}的生活状况进行回访。领养人应充分配合汪汪喵呜孤儿院，提供一切汪汪喵呜孤儿院需要了解的信息，并允许汪汪喵呜孤儿院进行家访或与动物医生取得联系。<span class="bold">如果家庭住址、电子邮件地址或电话号码发生变化，领养人应及时告知汪汪喵呜孤儿院，以保证在{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}的一生汪汪喵呜孤儿院都可与领养人保持联系。</span>如果{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}走失，领养人应第一时间通知汪汪喵呜孤儿院。</p>
             <h2>收回</h2>
             <p>领养人理解在她/他无法遵守本协议之条款时，或领养人出现忽视或虐待{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}的情况时，汪汪喵呜孤儿院有权收回被领养的{% if pet.species == 'D' %}狗狗{% else %}猫咪{% endif %}。</p>
-            
             <div class="agreement_sign">
                 于<span class="date_whitespace"></span>年<span class="date_whitespace"></span>月<span class="date_whitespace"></span>日，我确认我已经完整阅读并且完全理解这份伴侣动物领养协议的相关条款，对于被领养动物的信息不存在任何疑问，并且保证领养人信息填写属实。
             </div>

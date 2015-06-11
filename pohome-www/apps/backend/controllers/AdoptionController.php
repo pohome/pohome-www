@@ -111,6 +111,7 @@ class AdoptionController extends BaseController
     public function printAgreementAction($applicationId)
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        $this->view->pick('adoption/printAgreement');
         
         $application = AdoptionApplication::findFirst($applicationId);
         $this->view->pal = PetAdoptionLog::findFirst("application_id = $applicationId");
