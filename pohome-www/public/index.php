@@ -149,4 +149,8 @@ $app->registerModules(array(
     )
 ));
 
-echo $app->handle()->getContent();
+try {
+    echo $app->handle()->getContent();
+} catch(Exception $e) {
+    var_dump($e);
+}

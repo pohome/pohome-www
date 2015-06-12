@@ -13,7 +13,6 @@ class AdoptionController extends BaseController
     public function indexAction($page = 1)
     {
         $this->view->title = '领养申请表列表 - 汪汪喵呜孤儿院后台管理';
-        
         $this->view->breadcrumb = array(
             array(
                 'name' => '领养申请表',
@@ -111,7 +110,6 @@ class AdoptionController extends BaseController
     public function printAgreementAction($applicationId)
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-        $this->view->pick('adoption/printAgreement');
         
         $application = AdoptionApplication::findFirst($applicationId);
         $this->view->pal = PetAdoptionLog::findFirst("application_id = $applicationId");
