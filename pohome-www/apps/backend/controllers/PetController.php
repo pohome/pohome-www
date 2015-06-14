@@ -30,7 +30,7 @@ class PetController extends BaseController
             )
         );
         
-		$pets = Pet::find();
+		$pets = Pet::find(array('order' => 'created_at DESC'));
 		
 		$paginator = new \Phalcon\Paginator\Adapter\Model(array(
             "data" => $pets,
