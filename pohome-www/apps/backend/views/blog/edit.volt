@@ -69,6 +69,12 @@
 
 <script type="text/javascript">
 	$(function() {
+    	$('textarea[name="abstract"]').redactor({
+			lang : 'zh_cn',
+			minHeight : 200,
+			imageUpload : '/admin/file/upload'
+		});
+		
 		$('textarea[name="content"]').redactor({
 			lang : 'zh_cn',
 			minHeight : 500,
