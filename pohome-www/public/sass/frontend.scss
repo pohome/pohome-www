@@ -1,0 +1,355 @@
+@import "compass/css3";
+
+$page-width: 960px;
+$green: #3aa91d;
+$white: #fff;
+$article-font: "STSong", serif;
+
+
+#top-bar {
+    height: 65px;
+    width: 100%;
+    position: absolute;
+    background-color: rgba($white, 0.2); // 后续考虑改为模糊效果的（Safari）
+    z-index: 2;
+}
+
+.wrap {
+    width: $page-width;
+    margin: 0 auto;
+}
+
+#logo {
+    float: left;
+    
+    img {
+        margin-top: 6px;
+        height: 53px;
+    }
+}
+
+#search-field {
+    float: right;
+    margin-top: 14px;
+}
+
+// 修正semantic-ui里默认的搜索栏长度
+.ui.icon.input input {
+    width: 200px;
+}
+
+#user-panel {
+    float: right;
+    margin-top: 14px;
+    margin-left: 20px;
+    color: $white;
+}
+
+#username {
+    padding-right: 1em;
+    margin-right: 1em;
+    border-right: 1px solid $white;
+}
+
+#menu {
+    width: $page-width;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 65px;
+    z-index: 2;
+    border-bottom: 1px white solid;
+    display: table;
+    
+    li {
+        display: table-cell;
+        color: white;
+        text-align: left;
+        margin-right: 39px;
+        height: 100px;
+        transition-property: background;
+        transition-duration: 0.5s;
+        transition-timing-function: ease;
+        
+        &:last-child {
+            margin-right: 0;
+        }
+        
+        &:hover {
+            background-color: rgba(43, 168, 69, 0.7);
+        }
+        
+        a {
+            color: #fff;
+        }
+        
+        div {
+            margin-left: 1em;
+            margin-right: 1em;
+            
+            &:first-child {
+                margin-top: 3em;
+                margin-bottom: 0.5em;
+            }
+        }
+    }
+}
+
+// 轮播图
+#carousel {
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    -webkit-padding-start: 0;
+    
+    li {
+        width: auto;
+        min-height: 700px;
+        background: url(../image/demo/carousel-2.jpg) 50% 50% no-repeat;
+        background-size: cover;
+        @include transition(background 1.5s ease-in);
+        display: block;
+    }
+}
+
+// 首页的主视频引导区
+.main-video {
+    width: 300px;
+    margin-left: 30px;
+    //border-bottom: #bbb solid 2px;
+    //border-radius: 4px;
+    @include border-radius(4px);
+    background-color: white;
+    position: relative;
+    margin-top: -121.185px;
+    display: inline-block;
+    z-index: 3;
+    
+    &:first-child {
+        margin-left: 0;
+    }
+    
+    img {
+        width: 300px;
+    }
+    
+    .play {
+        position: absolute;
+        width: 45px;
+        left: 127.5px;
+        top: 62px;
+    }
+    
+    .desc {
+        float: left;
+        
+        h3 {
+            margin: 10px 0px 10px 20px;
+        }
+        
+        h4 {
+            margin: 8px 0px 10px 20px;
+            font-size: 0.9em;
+        }
+    }
+    
+    .stat {
+        float: right;
+        color: #1cd654;
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+}
+
+#videos:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+} 
+
+.segment {
+    width: 100%;
+    padding: 40px 0px;
+    
+    .title {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+}
+
+.story {
+    padding: 2em;
+    height: 296px;
+    overflow: hidden;
+    background-color: white;
+    
+    img {
+        width: 360px;
+        display: inline-block;
+        margin-right: 2em;
+    }
+    
+    .content {
+        display: inline-block;
+        vertical-align: top;
+        width: 516px;
+        height: 240px;
+        position: relative;
+        text-align: justify;
+        
+        p {
+            font-family: "STSong", serif;
+            font-weight: lighter;
+            font-size: 1em;
+            text-indent: 24px;
+            line-height: 150%;
+        }
+        
+        .readall {
+            text-align: right;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+    
+    .title {
+        font-size: 1.5em;
+        color: #000;
+        margin-bottom: 0.5em;    
+        text-align: center;
+    }
+
+}
+
+.pet {
+    background-color: white;
+    padding: 10px;
+    width: 313.3px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+    &:nth-child(3n-1) {
+        margin-left: 0;
+    }
+    
+    img {
+        width: 293.3px;
+    }
+    
+    .info {
+        margin-top: 1em;
+        display: inline-block;
+    }
+    
+    .extra {
+        margin-top: 0.5em;
+        font-size: 0.8em;
+        color: #aaa;
+    }
+    
+    .actions {
+        float: right;
+        @include transform(translateY(50%));
+//        transform: translateY(50%);
+//        -webkit-transform: translateY(50%);
+    }
+}
+
+.blog {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 10px;
+    
+    img {
+        width: 240px;
+        display: inline-block;
+    }
+    
+    .content {
+        display: inline-block;
+        width: 600px;
+        margin-left: 1em;
+        vertical-align: top;
+        
+        .fadeout {
+            @include background(linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, #ffffff 100%));
+            width: 600px; 
+            height: 2em; 
+            position: absolute; 
+            bottom: 0;
+        }
+    }
+    
+    .main {
+        height: 130px;
+        overflow-y: hidden;
+        position: relative;
+        color: #000;
+    }
+    
+    .title {
+        font-size: 1.5em;
+        color: #000;
+        margin-bottom: 0.3em;
+        text-align: center;
+    }
+    
+    // 日期目前没使用
+    .date {
+        font-size: 1em;
+        color: #aaa;
+    }
+    
+    .abstract {
+        font-family: $article-font;
+        font-size: 1em;
+        text-indent: 2em;
+        text-align: justify;
+        
+        p {
+            line-height: 150%;
+        }
+    }
+    
+    .readall {
+        font-size: 12px; 
+        width: 600px;
+        margin-top: 16px;
+        color: #ff5a5f;
+        text-align: right;
+    }
+}
+
+footer {
+    font-size: 0.8em;
+    font-weight: lighter;
+    background-color: #383535;
+    color: white;
+    text-align: center;
+    padding: 2em 0;
+    
+    div {
+        margin: 0.5em 0;
+    }
+    
+    img {
+        margin: 0 2em;
+    }
+}
+
+.white {
+    color: #fff;
+}
+
+.green {
+    color: $green;
+}
+
+.background.green {
+    background-color: $green;
+}
