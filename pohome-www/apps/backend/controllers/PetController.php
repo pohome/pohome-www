@@ -131,7 +131,7 @@ class PetController extends BaseController
 	{
     	$this->view->disable();
     	
-    	$photos = PetPhoto::find(array("pet_id='$pet_id'"));
+    	$photos = PetPhoto::find(array("pet_id='$petId'"));
     	
     	foreach($photos as $photo)
     	{
