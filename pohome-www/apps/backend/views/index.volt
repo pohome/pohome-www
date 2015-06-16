@@ -3,12 +3,11 @@
 		<meta charset="utf-8">
 		
 		<link href="/css/semantic.min.css" rel="stylesheet">
-<!-- 		<link href="/css/style.css" rel="stylesheet"> -->
 		<link href="/css/redactor.css" rel="stylesheet">
 		<link href="/css/backend.css" rel="stylesheet">
 		
 
-		<script src="/js/jquery-2.1.1.min.js"></script>
+		<script src="/js/jquery-2.1.4.min.js"></script>
 		<script src="/js/jquery.form.js"></script>
 		<script src="/js/semantic.js"></script>
 		<script src="/js/redactor.js"></script>
