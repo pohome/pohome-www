@@ -118,7 +118,8 @@ class Pet extends \Phalcon\Mvc\Model
 	
 	public function getTaobaoUrl()
 	{
-    	return 'http://item.taobao.com/item.htm?id=' . $this->taobao_url;
+    	//return 'http://item.taobao.com/item.htm?id=' . $this->taobao_url;
+    	return 'http://wd.koudai.com/item.html?itemID=' . $this->taobao_url;
 	}
 	
 	public function setStory($story)
