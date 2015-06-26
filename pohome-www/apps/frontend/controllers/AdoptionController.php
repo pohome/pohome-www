@@ -24,7 +24,7 @@ class AdoptionController extends BaseController
         }
         
         // 核验申请的动物是否接受领养
-        if(!$pet->adoptable) {
+        if(!$pet->adoptable || $pet->status_id > 5) {
             $this->view->disable();
             echo '抱歉，目前' . $pet->name . '不接受领养';
             return;
