@@ -3,8 +3,12 @@
 $page-width: 960px;
 $green: #3aa91d;
 $white: #fff;
-$article-font: "STSong", serif;
+$light-grey: #eee;
+$article-font: "HiraginoSansGB", "Microsoft Yahei", sans-serif;
 
+body {
+    background-color: $light-grey;
+}
 
 #top-bar {
     height: 65px;
@@ -40,9 +44,26 @@ $article-font: "STSong", serif;
 
 #user-panel {
     float: right;
-    margin-top: 14px;
+    margin-top: 15px;
     margin-left: 20px;
     color: $white;
+    
+    span {
+        padding-right: 1em;
+        margin-right: 1em;
+        border-right: 1px solid $white;
+        line-height: 35px;
+        
+        a {
+            color: #fff;
+        }
+        
+        &:last-child {
+            padding-right: 0;
+            margin-right: 0;
+            border-right: none;
+        }
+    }
 }
 
 #username {
@@ -77,7 +98,7 @@ $article-font: "STSong", serif;
         }
         
         &:hover {
-            background-color: rgba(43, 168, 69, 0.7);
+            background-color: rgba($green, 0.7);
         }
         
         a {
@@ -101,14 +122,12 @@ $article-font: "STSong", serif;
     margin: 0;
     position: relative;
     z-index: 1;
-    -webkit-padding-start: 0;
     
-    li {
+    div {
         width: auto;
         min-height: 700px;
-        background: url(../image/demo/carousel-2.jpg) 50% 50% no-repeat;
+        background: 50% 50% no-repeat;
         background-size: cover;
-        @include transition(background 1.5s ease-in);
         display: block;
     }
 }
@@ -176,7 +195,9 @@ $article-font: "STSong", serif;
     
     .title {
         font-size: 1.5em;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 2px;
     }
 }
 
@@ -201,11 +222,9 @@ $article-font: "STSong", serif;
         text-align: justify;
         
         p {
-            font-family: "STSong", serif;
-            font-weight: lighter;
             font-size: 1em;
-            text-indent: 24px;
-            line-height: 150%;
+            text-indent: 2em;
+            line-height: 1.5;
         }
         
         .readall {
@@ -230,11 +249,11 @@ $article-font: "STSong", serif;
     padding: 10px;
     width: 313.3px;
     display: inline-block;
-    margin-left: 10px;
+    margin-right: 10px;
     margin-bottom: 10px;
     
-    &:nth-child(3n-1) {
-        margin-left: 0;
+    &:nth-child(3n) {
+        margin-right: 0;
     }
     
     img {
@@ -276,6 +295,7 @@ $article-font: "STSong", serif;
         margin-left: 1em;
         vertical-align: top;
         
+/*
         .fadeout {
             @include background(linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, #ffffff 100%));
             width: 600px; 
@@ -283,11 +303,12 @@ $article-font: "STSong", serif;
             position: absolute; 
             bottom: 0;
         }
+*/
     }
     
     .main {
-        height: 130px;
-        overflow-y: hidden;
+        //height: 130px;
+        //overflow-y: hidden;
         position: relative;
         color: #000;
     }
@@ -307,12 +328,14 @@ $article-font: "STSong", serif;
     
     .abstract {
         font-family: $article-font;
-        font-size: 1em;
+        font-size: 14px;
         text-indent: 2em;
-        text-align: justify;
+        -webkit-font-smoothing: antialiased;
         
         p {
-            line-height: 150%;
+            line-height: 1.5;
+            word-break: break-word;
+            text-align: justify;
         }
     }
     
@@ -323,6 +346,208 @@ $article-font: "STSong", serif;
         color: #ff5a5f;
         text-align: right;
     }
+}
+
+#pet-list-intro-video {
+    width: 650px;
+    margin: -180px auto 40px auto;
+    z-index: 2;
+    position: relative;
+    background-color: #fff;
+    
+    img {
+        margin: 5px;
+        vertical-align: bottom;
+    }
+    
+    .play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+    }
+}
+
+#pet-filter {
+    padding: 40px 0;
+    word-spacing: pre;
+}
+
+#pet-filter .ui.divider img {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+}
+
+.paginator {
+    margin: 20px auto;
+}
+
+#pet-detail {
+    margin: 40px auto;
+    position: relative;
+    z-index: 2;
+    
+    img {
+        width: 240px;
+        //margin: -120px auto 40px auto;
+        padding: 10px;
+        z-index: 2;
+        position: relative;
+        background-color: #fff;
+    }
+    
+    .info {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 1em;
+        width: 600px;
+        font-size: 0.9em;
+        margin-bottom: 40px;
+        //color: #9a9a9a;
+        
+        .name {
+            font-size: 2em;
+            //margin: -3em 0 1em 0;
+        }
+        
+        .notice {
+            text-align: justify;
+            line-height: 200%;
+            margin: 1em 0;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    }
+}
+
+#pet-photo {
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+    padding-left: 0;
+    
+    li {
+        display: inline-block;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        width: 180px;
+        height: 180px;
+        text-align: center;
+        line-height: 180px;
+        vertical-align: middle;
+        outline: 1px solid #eee;
+        font-size: 0;
+        
+        &:nth-child(5n+1) {
+            margin-left: 0;
+        }
+        
+        img {
+            max-width: 180px;
+            max-height: 180px;
+            vertical-align: middle;
+        }
+    }
+}
+
+#blog-catelog {
+    width: 962px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: -220px;
+    z-index: 2;
+    position: relative;
+    
+    div {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 20px 0;
+    }
+    
+    ul {
+        width: 922px;
+        margin: 0 auto 0 auto;
+        -webkit-padding-start: 0;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        
+        li {
+            display: inline-block;
+            
+            img {
+                vertical-align: bottom;
+            }
+        }
+    }
+}
+
+.blog.view {
+    
+    .title {
+        font-size: 24px;
+        margin: 1.5em 0;
+    }
+    
+    .content {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        width: 40em;
+        margin: 0 auto;
+        
+        p {
+            line-height: 1.5;
+            text-indent: 2em;
+        }
+        
+        img {
+            width: 480px;
+            margin: 1em auto;
+            display: block;
+        }
+    }
+}
+
+// Semantic-UI 表单相关
+.inline.field label {
+   width: 12em !important;
+   margin-right: 2em !important;
+   text-align: right !important;
+}
+
+.inline.fields > label {
+    width: 12em !important;
+    margin-right: 2em !important;
+    text-align: right !important;
+}
+
+.inline.fields .fields {
+   display: inline-block;
+   vertical-align: top;
+   width: 40em;
+}
+
+.block.field {
+   display: block !important;
+   margin-bottom: 0.7em !important;
+}
+
+.fields .field {
+   margin-bottom: 0.7em !important;
+}
+
+.ui.dropdown.selection {
+    min-width: 8em !important;
+}
+
+.inline.field textarea {
+   width: 32em;
+   margin-bottom: 2em;
+   display: inline-block !important;
+}
+
+.ui.divider {
+   margin: 2em 0 !important;
 }
 
 footer {
@@ -352,4 +577,8 @@ footer {
 
 .background.green {
     background-color: $green;
+}
+
+.background.white {
+    background-color: #fff;
 }
