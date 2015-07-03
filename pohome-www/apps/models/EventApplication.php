@@ -21,7 +21,7 @@ class EventApplication extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'event_application';
+		return 'EventApplication';
 	}
 	
 	public function initialize()

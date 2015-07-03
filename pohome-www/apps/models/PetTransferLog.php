@@ -15,7 +15,7 @@ class PetTransferLog extends \Phalcon\Mvc\Model
     
     public function getSource()
     {
-        return 'pet_transfer_log';
+        return 'PetTransferLog';
     }
     
     public function initialize()

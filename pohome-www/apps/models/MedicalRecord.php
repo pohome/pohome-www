@@ -16,7 +16,7 @@ class MedicalRecord extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'medical_record';
+		return 'MedicalRecord';
 	}
 	
 	public function initialize()

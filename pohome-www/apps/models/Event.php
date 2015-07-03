@@ -22,7 +22,7 @@ class Event extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'event';
+		return 'Event';
 	}
 	
 	public function initialize()

@@ -13,7 +13,7 @@ class File extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'file';
+		return 'File';
 	}
 	
 	public function initialize()

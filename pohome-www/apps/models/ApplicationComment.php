@@ -10,6 +10,11 @@ class ApplicationComment extends \Phalcon\Mvc\Model
     public $comment;
     public $created_at;
     
+    public function getSource()
+	{
+    	return 'ApplicationComment';
+	}
+    
     public function initialize()
     {
         $this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));

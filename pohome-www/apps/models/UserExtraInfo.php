@@ -24,7 +24,7 @@ class UserExtraInfo extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'user_extra_info';
+		return 'UserExtraInfo';
 	}
 	
 	public function initialize()

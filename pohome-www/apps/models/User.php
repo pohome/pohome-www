@@ -28,7 +28,7 @@ class User extends \Phalcon\Mvc\Model
     
     public function getSource()
     {
-        return 'user';
+        return 'User';
     }
     
     public function initialize()

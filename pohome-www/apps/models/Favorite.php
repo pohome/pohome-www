@@ -9,6 +9,6 @@ class Favorite extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'favorite';
+		return 'Favorite';
 	}
 }
