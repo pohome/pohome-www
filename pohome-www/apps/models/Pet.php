@@ -139,6 +139,11 @@ class Pet extends \Phalcon\Mvc\Model
     	return $petStatus[$this->status_id];
 	}
 	
+	public function isAdoptable()
+	{
+    	return $this->status_id < 6 && $this->adoptable;
+	}
+	
 	public function getTaobaoUrl()
 	{
     	return 'http://item.taobao.com/item.htm?id=' . $this->taobao_url;
