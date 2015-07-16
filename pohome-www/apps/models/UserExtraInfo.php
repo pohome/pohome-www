@@ -2,6 +2,7 @@
 
 namespace Pohome\Models;
 
+use Pohome\Validator\RealnameValidator;
 use Pohome\Validator\DatetimeValidator;
 use Phalcon\Mvc\Model\Validator\StringLength;
 
@@ -12,6 +13,7 @@ class UserExtraInfo extends \Phalcon\Mvc\Model
 	public $id_card_num;
 	public $birthday;
 	public $gender;
+	public $service_intension_remark;
 	public $level_one_district;
 	public $level_two_district;
 	public $level_three_district;
@@ -32,6 +34,38 @@ class UserExtraInfo extends \Phalcon\Mvc\Model
 		$this->useDynamicUpdate(true);
 		
 		$this->belongsTo('user_id', '\Pohome\Models\User', 'id', array('alias' => 'user'));
+	}
+	
+	public function getBirthday()
+	{
+    	if(!empty($this->birthday)) {
+        	return date('Y年n月j日', strtotime($this->birthday));
+    	} else {
+        	return '';
+    	}
+	}
+	
+	public function getAge()
+	{
+    	$today = new \DateTime();
+		$birthday = new \DateTime($this->birthday);
+		$interval = $today->diff($birthday);
+		$age = $interval->y;
+		
+		return $age;
+	}
+	
+	public function getGender()
+	{
+    	if(!empty($this->gender)) {
+        	if($this->gender == 'M') {
+            	return '帅哥';
+        	} elseif($this->gender == 'F') {
+            	return '美女';
+        	}
+    	} else {
+        	return '未填写';
+    	}
 	}
 	
 	public function validation()
