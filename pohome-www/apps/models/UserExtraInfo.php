@@ -40,7 +40,7 @@ class UserExtraInfo extends \Phalcon\Mvc\Model
 			$this->validate(new RealnameValidator(array(
 				'field' => 'realname',
 				'min' => 2,
-				'max' => 15,
+				'max' => 60,
 			)));
 		}
 		
