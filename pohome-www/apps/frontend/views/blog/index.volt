@@ -1,11 +1,13 @@
 <div id="carousel"><div style="background-image: url(/image/carousel/blog.jpg);"></div></div>
 
+<!--
 <div id="blog-catelog">
 	<ul>
-    	<li><img src="/image/catelog-adoption-story.png"></li><li><img src="/image/catelog-knowledge-base.png"></li><li><img src="/image/catelog-rescue-story.png"></li><li><img src="/image/catelog-professor.png"></li><li><img src="/image/catelog-little-angel-fund.png"></li><li><img src="/image/catelog-news.png"></li><li><img src="/image/catelog-volunteer.png"></li><li><img src="/image/catelog-unclassified.png"></li>
+    	<li><a href="/blog/catelog/1"><img src="/image/catelog-adoption-story.png"></a></li><li><img src="/image/catelog-knowledge-base.png"></li><li><img src="/image/catelog-rescue-story.png"></li><li><img src="/image/catelog-professor.png"></li><li><img src="/image/catelog-little-angel-fund.png"></li><li><img src="/image/catelog-news.png"></li><li><img src="/image/catelog-volunteer.png"></li><li><img src="/image/catelog-unclassified.png"></li>
 	</ul>
     	
 </div>
+-->
 
 <div class="segment">
     <div class="wrap">
