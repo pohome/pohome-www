@@ -17,7 +17,11 @@ class TopicController extends BaseController
     public function waterfallAction($page)
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
-        $files = \Pohome\Models\File::find(array('order' => 'uploaded_at DESC'));
+        
+        $query = $this->modelsManager->createQuery("SELECT Pet.name, PetPhoto.file_id FROM \Pohome\Models\Pet Pet inner join \Pohome\Models\PetPhoto PetPhoto on Pet.id = PetPhoto.pet_id WHERE Pet.name LIKE '瀛%'");
+        $files = $query->execute();
+        
+        //$files = \Pohome\Models\File::find(array('order' => 'uploaded_at DESC'));
         
         $paginator = new \Phalcon\Paginator\Adapter\Model(array(
             'data' => $files,
@@ -31,8 +35,7 @@ class TopicController extends BaseController
     private function yingjiajun()
     {
         $this->view->pick('topic/ying-jia-jun');
-        // $this->view->pets = \Pohome\Models\Pet::find("name LIKE '瀛%'");
-        $this->view->pets = \Pohome\Models\Pet::find(array('limit' => 22));
+        $this->view->pets = \Pohome\Models\Pet::find("name LIKE '瀛%'");
         $this->view->addition = '<link rel="stylesheet" type="text/css" href="/css/yingjiajun.css"><script type="text/javascript" src="/js/waterfall.min.js"></script><script type="text/javascript" src="/js/handlebars-v3.0.3.js"></script>';
     }
 }

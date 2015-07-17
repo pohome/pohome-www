@@ -10,7 +10,7 @@
         {% for pet in pets %}
         <div class="avatar">
             <a href="/pet/{{pet.id}}" target="_blank">
-                <div><img src="/upload/image/512/{{ pet.id }}.jpeg"></div>
+                <div><img src="/upload/image/512/{{ pet.id }}.jpeg"{% if pet.status_id == 7 or pet.status_id == 8 %}style="-webkit-filter: grayscale(1)"{% endif %}></div>
                 <div class="pet_info">
                     <div style="font-size: 1.2em; margin-bottom: 1em;">{{ pet.name }}</div>
                     <div><span>{{ pet.getAge() }}</span><span> {{ pet.getStatus() }}</span></div>
@@ -197,6 +197,7 @@
             gutterWidth: 12,
             gutterHeight: 12,
             minCol: 4,
+            maxPage: 20,
             checkImagesLoaded: true,
             dataType: 'html',
             path: function(page) {
