@@ -18,7 +18,7 @@ class ServiceRecord extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'service_record';
+		return 'ServiceRecord';
 	}
 	
 	public function initialize()

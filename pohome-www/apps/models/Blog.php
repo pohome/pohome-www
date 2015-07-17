@@ -22,7 +22,7 @@ class Blog extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'blog';
+		return 'Blog';
 	}
 	
 	public function initialize()

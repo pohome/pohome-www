@@ -36,7 +36,7 @@ class Pet extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'pet';
+		return 'Pet';
 	}
 	
 	public function initialize()
@@ -59,7 +59,7 @@ class Pet extends \Phalcon\Mvc\Model
 	{
     	$this->breed = strip_tags($breed);
 	}
-	
+		
 	public function setNotice($notice)
 	{
     	$this->notice = strip_tags($notice);
@@ -80,6 +80,11 @@ class Pet extends \Phalcon\Mvc\Model
 		}
 		
 		return $age;
+	}
+
+	public function getBreed()
+	{
+    	return mb_substr($this->breed, 0, 10);
 	}
 	
 	public function getSpecies()
@@ -104,6 +109,24 @@ class Pet extends \Phalcon\Mvc\Model
 		}
 	}
 	
+	public function getBodySize()
+	{
+    	switch($this->size)
+    	{
+        	case 'S':
+        	    return '小型';
+        	    break;
+        	    
+            case 'M':
+                return '中型';
+                break;
+                
+            case 'L':
+                return '大型';
+                break;
+    	}
+	}
+	
 	public function getLocation()
 	{
     	global $petLocation;
@@ -114,6 +137,11 @@ class Pet extends \Phalcon\Mvc\Model
 	{
     	global $petStatus;
     	return $petStatus[$this->status_id];
+	}
+	
+	public function isAdoptable()
+	{
+    	return $this->status_id < 6 && $this->adoptable;
 	}
 	
 	public function getTaobaoUrl()

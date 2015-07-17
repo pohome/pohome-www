@@ -15,7 +15,7 @@ class Faq extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'faq';
+		return 'Faq';
 	}
 	
 	public function initialize()

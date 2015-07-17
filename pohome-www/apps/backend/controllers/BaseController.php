@@ -9,55 +9,74 @@ class BaseController extends \Phalcon\Mvc\Controller
     
     public function initialize()
     {
-        if(!$this->session->has('permission')) {
-            // 判断cookie里是否存在uuid
-    		if($this->cookies->has('uuid')) {
-        		$uuid = $this->cookies->get('uuid');
-        		$userId = $this->redis->get($uuid);
-        		
-        		if($userId) {
-            		$user = \Pohome\Models\User::findFirst($userId);
-            		
-            		$this->session->set('userId', $userId);
-            		$this->session->set('username', $user->username);
-            		$this->session->set('permission', $user->permission);
-        		}
+        $controller = $this->dispatcher->getControllerName();
+        $action = $this->dispatcher->getActionName();
+        
+        if(!$this->session->has('userId')) {
+            
+        }
+        
+        if($controller != 'user' || $action != 'login') {
+            // 如果session中没有userId，尝试从cookie中获取用户的登录uuid
+            if(!$this->session->has('userId')) {
+                // 尝试从cookie里获取userId
+                $this->getUserIdFromCookie();
+            }
+            
+            $userId = $this->session->get('userId');
+            $url = '/admin/' . $controller . '/' . $action;
+            
+            // 判断是否有进入后台的权限
+    		if(!$this->hasPermission($userId, '/admin/*')) {
+        		$this->securityLog->log($this->session->get('username') . '尝试越权访问' . $url);
+        		$this->response->redirect('');
+    		}
+    		
+    		// 判断是否有访问当前页面的权限
+    		if(!$this->hasPermission($userId, $url)) {
+        		$this->response->redirect('');
     		}
         }
-        
-        // 除了用户登录和登出操作，其它操作都需要验证权限
-        // TODO: 未来还需要添加对忘记密码的权限处理
-        if ($this->dispatcher->getControllerName() == 'user') {
-            $action = $this->dispatcher->getActionName();
-            
-            if ($action <> 'login' && $action <> 'logout') {
-                $this->checkPermission();
-            }
-        } else {
-            $this->checkPermission();
-        }
     }
     
-    protected function checkPermission()
+    protected function getUserIdFromCookie()
     {
-        if (!$this->session->has('permission')) {
-            $this->session->set('_url', $_REQUEST['_url']);
-            $this->response->redirect('admin/user/login');
-        }
-        
-        if (!$this->hasPermission(PERMISSION_LOGIN_BACKEND)) {
-            $this->response->redirect('admin/user/login');
-        }
-
+        if($this->cookies->has('uuid')) {
+    		$uuid = $this->cookies->get('uuid');
+    		$userId = $this->redis->get($uuid);
+    		
+    		if($userId) {
+        		$user = \Pohome\Models\User::findFirst($userId);
+        		
+        		if($user) {
+            		$this->session->set('userId', $userId);
+            		$this->session->set('username', $user->username);
+        		}        		
+    		} 
+		}
+		
+		if(!$this->session->has('userId')) {
+    		$this->redirectToLogin();
+		}
     }
     
-    protected function hasPermission($permission)
+    protected function redirectToLogin()
     {
-        if (!$this->session->has('permission')) {
-            return false;
-        } else {
-            return ($this->session->get('permission') & $permission) == $permission;
-        }
+        $this->session->set('_url', $_REQUEST['_url']);
+        $this->response->redirect('admin/user/login');
+    }
+        
+    protected function hasPermission($userId, $url)
+    {
+        $phql = "SELECT uhr.user_id FROM Pohome\Models\UserHasRole uhr JOIN Pohome\Models\RoleHasPermission rhp ON uhr.role_id = rhp.role_id JOIN Pohome\Models\Permission p ON rhp.permission_id = p.id WHERE uhr.user_id = :id: AND p.url = :url:";
+    	
+    	$query = $this->modelsManager->createQuery($phql);
+    	$result = $query->execute(array(
+        	'id' => $userId,
+        	'url' => $url
+    	));
+    	
+    	return $result->count() == 1;
     }
     
     protected function saveData(&$model, &$post, $type)

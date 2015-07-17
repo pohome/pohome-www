@@ -9,6 +9,6 @@ class PetStory extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'pet_story';
+		return 'PetStory';
 	}
 }

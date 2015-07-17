@@ -1,80 +1,11 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		
-		<link href="/css/semantic.min.css" rel="stylesheet">
-		<link href="/css/backend.css" rel="stylesheet">
-		
+<div id="carousel">
+    <div style="background-image: url(/image/demo/pet-detail-carousel.jpg);min-height: 400px;"></div>
+</div>
 
-		<script src="/js/jquery-2.1.1.min.js"></script>
-		<script src="/js/jquery.form.js"></script>
-		<script src="/js/semantic.js"></script>
-		<script src="/js/backend.js"></script>
-		
-		<style type="text/css">
-    		
-    		body {
-        		margin: 20px;
-    		}
-    		        	
-        	.ui.form {
-            	width: 60%;
-            	margin: auto;
-        	}
-        	
-        	.inline.field label {
-            	width: 10em !important;
-        	}
-        	
-        	.inline.fields > label {
-            	margin:0 .2857rem 0 0 !important;
-            	width: 10em !important;
-            	padding-right: 1em !important;
-        	}
-        	
-        	.inline.fields .fields {
-            	display: inline-block;
-            	vertical-align: top;
-            	width: 40em;
-        	}
-        	
-        	.block.field {
-            	display: block !important;
-            	margin-bottom: 0.7em !important;
-        	}
-        	
-        	.fields .field {
-            	margin-bottom: 0.7em !important;
-        	}
-        	
-        	.inline.field textarea {
-            	display: inline-block !important;
-            	width: 32em
-        	}
-        	
-        	.inline.field input[type='text'] {
-            	width: 20em !important;
-        	}
-        	        	
-        	.ui.button {
-            	margin: 10px 0px;
-        	}
-        	
-        	.ui.dropdown.selection {
-                min-width: 8em !important;
-        	}
-        	
-        	.divider {
-            	margin-top: 2em !important;
-            	margin-bottom: 2em !important;
-        	}
-    	</style>
-		
-		<title>{{ title }}</title>
-	</head>
-	
-	<body>
-    	<form class="ui segment form" method="post">
+<div class="segment">
+    <div class="wrap">
+        <form class="ui segment form" method="post" id="pet_application_form">
+            <a name="error_msg"></a>
         	<div class="ui yellow message">
                 <div class="header">领养说明</div>
                 <ul class="list">
@@ -85,8 +16,7 @@
                 </ul>
             </div>
             
-            <div class="ui error message">
-            </div>
+            <div class="ui error message"></div>
             
         	<div class="ui horizontal divider">个人信息</div>
         	<div class="inline field">
@@ -101,7 +31,7 @@
         	
         	<div class="inline fields">
             	<label for="species">性别</label>
-                <div class="fields">
+                <div class="box">
                     <div class="field">
                         <div class="ui radio checkbox">
                             <input type="radio" name="性别" value="男">
@@ -129,7 +59,7 @@
         	
         	<div class="inline field">
             	<label>常居住在</label>
-            	<select class="ui dropdown" name="常居住在">
+            	<select class="selection dropdown" name="常居住在">
                     <option value="北京">北京</option>
                     <option value="天津">天津</option>
                     <option value="河北">河北</option>
@@ -192,30 +122,38 @@
         	
         	{{ formContent }}
         	
-        	<input type="submit" class="ui orange button" value="提交申请" />
+        	<input type="submit" class="ui orange button" value="提交申请" style="width: 100%;margin-top: 20px" />
         	
-    	</form>
-    	
-    	<div class="ui small modal">
-            <div class="header">领养申请提交成功</div>
-            <div class="content">
-                <p>我们将在2-5个工作日内完成对您的领养申请的初步评估，并通过Email或电话与您联系，请耐心等待！如果5天后仍未收联系信息，请检查您领养申请表里填写的邮箱的垃圾邮件文件夹。</p>
-            </div>
-            <div class="actions">
-                <div class="ui positive button">确定</div>
-            </div>
-        </div>
-	</body>
-</html>
+        </form>
+    </div>
+</div>
+
+<div class="ui small modal">
+    <div class="header">领养申请提交成功</div>
+    <div class="content">
+        <p>我们将在2-5个工作日内完成对您的领养申请的初步评估，并通过Email或电话与您联系，请耐心等待！如果5天后仍未收联系信息，请检查您领养申请表里填写的邮箱的垃圾邮件文件夹。</p>
+    </div>
+    <div class="actions">
+        <div class="ui positive button">确定</div>
+    </div>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
+    // 根据申请领养的动物物种来删减表单项
+    var species = "{{ pet.species }}";
+    if(species == 'C') {
+        $('#field_您了解上犬证的相关事宜吗').remove();
+    }
+    
     $('form').ajaxForm({
         beforeSubmit : function(arr, $form, options) {
             var result = $('.ui.form').form('validate form');
 
             if(result == true) {
                 $('.form').addClass('loading');
+            } else {
+                scrollTo(0, 640);
             }
 
             return result;
@@ -230,6 +168,7 @@ $(document).ready(function() {
                     }
                 }).modal("show");
             } else {
+                //
                 console.log('wrong');
             }
         },
@@ -237,96 +176,110 @@ $(document).ready(function() {
     });
     
     $('.ui.form').form({
-        name : {
-            identifier : '姓名',
-            rules : [
-                {
-                    type : 'empty', 
-                    prompt : '请填写您的姓名'
-                }
-            ]
-        },
-        age : {
-            identifier : '年龄',
-            rules : [
-                {
-                    type : 'empty', 
-                    prompt : '请填写您的年龄'
-                }
-            ]
-        },
-        gender : {
-            identifier : '性别',
-            rules : [
-                {
-                    type : 'checked', 
-                    prompt : '请填写您的性别'
-                }
-            ]
-        },
-        email : {
-            identifier : 'Email',
-            rules : [
-                {
-                    type : 'empty', 
-                    prompt : '请填写您的Email地址'
-                }
-            ]
-        },
-        mobile : {
-            identifier : '手机',
-            rules : [
-                {
-                    type : 'empty', 
-                    prompt : '请填写您的手机号'
-                }
-            ]
-        },
-        marriage : {
-            identifier : '婚姻状况',
-            rules : [
-                {
-                    type : 'checked', 
-                    prompt : '请选择您的婚姻状况'
-                }
-            ]
-        },
-        marriage2 : {
-            identifier : '您是否了解怀孕期间养宠物的影响',
-            rules : [
-                {
-                    type : 'checked', 
-                    prompt : '请选择您是否了解怀孕期间养宠物的影响'
-                }
-            ]
-        },
-        live_in : {
-            identifier : '您目前住房的性质',
-            rules : [
-                {
-                    type : 'checked', 
-                    prompt : '请选择您目前住房的性质'
-                }
-            ]
-        },
-        area : {
-            identifier : '住房面积',
-            rules : [
-                {
-                    type : 'empty', 
-                    prompt : '请填写您目前的住房面积'
-                }
-            ]
-        },
-        work : {
-            identifier : '您目前',
-            rules : [
-                {
-                    type : 'checked', 
-                    prompt : '请填写您目前的工作状况'
-                }
-            ]
-        },
+        fields : {
+            name : {
+                identifier : '姓名',
+                rules : [
+                    {
+                        type : 'empty', 
+                        prompt : '请填写您的姓名'
+                    }
+                ]
+            },
+            age : {
+                identifier : '年龄',
+                rules : [
+                    {
+                        type : 'empty', 
+                        prompt : '请填写您的年龄'
+                    },
+                    {
+                        type : 'integer',
+                        prompt : '您输入的年龄格式有误'
+                    }
+                ]
+            },
+            gender : {
+                identifier : '性别',
+                rules : [
+                    {
+                        type : 'checked', 
+                        prompt : '请填写您的性别'
+                    }
+                ]
+            },
+            email : {
+                identifier : 'Email',
+                rules : [
+                    {
+                        type : 'empty', 
+                        prompt : '请填写您的Email地址'
+                    },
+                    {
+                        type : 'email',
+                        prompt : '您填写的Email地址格式有误'
+                    }
+                ]
+            },
+            mobile : {
+                identifier : '手机',
+                rules : [
+                    {
+                        type : 'empty', 
+                        prompt : '请填写您的手机号'
+                    },
+                    {
+                        type : 'regExp[/^1[0-9]{10}$/]',
+                        prompt : '您输入的手机号格式有误'
+                    }
+                ]
+            },
+            marriage : {
+                identifier : '婚姻状况',
+                rules : [
+                    {
+                        type : 'checked', 
+                        prompt : '请选择您的婚姻状况'
+                    }
+                ]
+            },
+            marriage2 : {
+                identifier : '您是否了解怀孕期间养宠物的影响',
+                rules : [
+                    {
+                        type : 'checked', 
+                        prompt : '请选择您是否了解怀孕期间养宠物的影响'
+                    }
+                ]
+            },
+            live_in : {
+                identifier : '您目前住房的性质',
+                rules : [
+                    {
+                        type : 'checked', 
+                        prompt : '请选择您目前住房的性质'
+                    }
+                ]
+            },
+            area : {
+                identifier : '住房面积',
+                rules : [
+                    {
+                        type : 'empty', 
+                        prompt : '请填写您目前的住房面积'
+                    }
+                ]
+            },
+            work : {
+                identifier : '您目前',
+                rules : [
+                    {
+                        type : 'checked', 
+                        prompt : '请填写您目前的工作状况'
+                    }
+                ]
+            }
+        }
     });     
 });
 </script>

@@ -15,7 +15,7 @@ class ContactRecord extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'contact_record';
+		return 'ContactRecord';
 	}
 	
 	public function initialize()

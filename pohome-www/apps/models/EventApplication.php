@@ -21,7 +21,7 @@ class EventApplication extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'event_application';
+		return 'EventApplication';
 	}
 	
 	public function initialize()
@@ -48,7 +48,7 @@ class EventApplication extends \Phalcon\Mvc\Model
 			'max' => 40,
 		)));
 		
-		$this->validate(new StringLenght(array(
+		$this->validate(new StringLength(array(
 			'field' => 'remark',
 			'max' => 400
 		)));
@@ -60,10 +60,9 @@ class EventApplication extends \Phalcon\Mvc\Model
 	
 	public function beforeValidationOnCreate()
 	{
-		$this->applicant_id = $this->session->get('userId');
 		$this->applied_at = date('Y-m-d H:i:s');
-		$this->contacted = false;
-		$this->approved = false;
-		$this->discard = false;
+		$this->contacted = 0;
+		$this->approved = 0;
+		$this->discard = 0;
 	}
 }

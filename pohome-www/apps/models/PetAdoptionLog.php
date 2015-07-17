@@ -13,7 +13,7 @@ class PetAdoptionLog extends \Phalcon\Mvc\Model
     
     public function getSource()
     {
-        return 'pet_adoption_log';
+        return 'PetAdoptionLog';
     }
     
     public function initialize()

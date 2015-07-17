@@ -28,7 +28,7 @@ class User extends \Phalcon\Mvc\Model
     
     public function getSource()
     {
-        return 'user';
+        return 'User';
     }
     
     public function initialize()
@@ -36,6 +36,7 @@ class User extends \Phalcon\Mvc\Model
         $this->useDynamicUpdate(true);
         
         $this->hasOne('id', '\Pohome\Models\UserExtraInfo', 'user_id', array('alias' => 'extra'));
+        $this->hasMany('id', '\Pohome\Models\UserHasRole', 'user_id', array('alias' => 'role'));
     }
     
     public function validation()

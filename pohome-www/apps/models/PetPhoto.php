@@ -9,7 +9,7 @@ class PetPhoto extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'pet_photo';
+		return 'PetPhoto';
 	}
 	
 	public function getPhotoUrl($size)

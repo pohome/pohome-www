@@ -15,7 +15,7 @@ class AdoptionApplication extends \Phalcon\Mvc\Model
 	
 	public function getSource()
 	{
-		return 'adoption_application';
+		return 'AdoptionApplication';
 	}
 	
 	public function initialize()

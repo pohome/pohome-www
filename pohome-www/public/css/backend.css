@@ -1,13 +1,7 @@
-#avatar {
-    width: 120px;
-    height: 120px;
-    position: absolute;
-    right: 60px;
-    border: 1px solid rgba(39,41,43,.15);
-    font-size: 0.7em;
-    text-align: center;
-}
+#avatar { width: 120px; height: 120px; position: absolute; right: 60px; border: 1px solid rgba(39, 41, 43, 0.15); font-size: 0.7em; text-align: center; }
 
-#avatar span{
-    line-height: 120px;
-}
+#avatar span { line-height: 120px; }
+
+.pie { display: inline-block; margin-right: 40px; }
+
+.segment { margin: 40px; }

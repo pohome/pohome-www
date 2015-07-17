@@ -7,7 +7,7 @@ use Phalcon\Mvc\Model\Validator,
 	
 class MobileValidator extends Validator implements ValidatorInterface
 {
-	public function validate(\Phalcon\Mvc\ModelInterface $model)
+	public function validate(\Phalcon\Mvc\EntityInterface $model)
 	{
 		$field = $this->getOption('field');
 		
