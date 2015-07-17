@@ -1,4 +1,4 @@
-<div id="carousel"><div style="background-image: url(/image/demo/blog-carousel.jpg);"></div></div>
+<div id="carousel"><div style="background-image: url(/image/carousel/blog.jpg);"></div></div>
 
 <div class="wrap" style="position: relative; z-index: 2;margin-top: -250px;margin-bottom: 40px;">
     <article class="blog view">
