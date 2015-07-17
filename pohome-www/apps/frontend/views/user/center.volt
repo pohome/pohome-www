@@ -18,7 +18,7 @@
             </div>
             <div class="nine wide column usercenter">
                 <div class="row"><span class="field label">用户名：</span><span class="field value">{{ user.username }}</span></div>
-                <div class="row"><span class="field label">Email：</span><span class="field value">{{ user.email }}</span>{% if user.email_verified == 0 %}<span class="ui tiny red label">未验证</span>{% else %}<span class="ui tiny green label">已验证</span>{% endif%}</div>
+                <div class="row"><span class="field label">Email：</span><span class="field value">{{ user.email }}</span><!-- {% if user.email_verified == 0 %}<span class="ui tiny red label">未验证</span>{% else %}<span class="ui tiny green label">已验证</span>{% endif%} --></div>
                 <div class="row"><span class="field label">手机：</span>{% if user.mobile is defined %}<span class="field value">{{ user.mobile }}</span>{% else %}未填写{% endif %}</div>
                 <div class="row"><span class="field label">真实姓名：</span>{% if user.extra.realname is defined %}<span class="field value">{{ user.extra.realname }}</span>{% else %}未填写{% endif %}</div>
                 <div class="row"><span class="field label">生日：</span>{% if user.extra.birthday is defined %}<span class="field value">{{ user.extra.getBirthday() }}</span>{% else %}未填写{% endif %}</div>
@@ -52,6 +52,7 @@
             contentType : false,
             data : fd,
             success : function(data, status) {
+                console.log(data);
                 $('#avatar-image').attr("src", data + '?t='+ new Date().getTime());
             }
         });
