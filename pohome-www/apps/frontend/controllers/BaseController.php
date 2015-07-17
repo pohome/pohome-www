@@ -23,6 +23,9 @@ class BaseController extends \Phalcon\Mvc\Controller
             		$this->session->set('username', $user->username);
         		}
     		}
+        } else {
+            $this->view->userId = $this->session->get('userId');
+    		$this->view->username = $this->session->get('username');
         }
     }
     

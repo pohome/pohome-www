@@ -442,7 +442,8 @@ class PetController extends BaseController
 	
 	private function parseTaobaoId($url)
 	{
-    	if(preg_match('#^.*?id=(\d+)$#', $url, $match)) {
+    	//if(preg_match('#^.*?id=(\d+)$#', $url, $match)) {
+    	if(preg_match('#^.*?itemID=(\d+)$#', $url, $match)) {
         	return $match[1];
     	} else {
         	return '0';

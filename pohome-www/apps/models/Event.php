@@ -32,14 +32,71 @@ class Event extends \Phalcon\Mvc\Model
 		$this->belongsTo('creator_id', '\Pohome\Models\User', 'id', array('alias' => 'creator'));
 	}
 	
-	public function remain()
+	public function getDeadlineDate()
 	{
-    	// 计算此活动的剩余报名人数
+    	return date('Y.n.j', strtotime($this->deadline));
 	}
 	
+	public function getEventMonth()
+	{
+    	return date('M', strtotime($this->begin_at));
+	}
+	
+	public function getEventTime()
+	{
+    	$date = date('Y年n月j日', strtotime($this->begin_at));
+    	$beginAt = date('G:i', strtotime($this->begin_at));
+    	$endAt = date('G:i', strtotime($this->end_at));
+    	
+    	return $date . ' ' . $beginAt . ' - ' . $endAt;
+	}
+		
+	public function deadlinePassed()
+	{
+    	$deadline = strtotime($this->deadline);
+    	if(time() > $deadline) {
+        	return 1;
+    	} else {
+        	return 0;
+    	}
+	}
+	
+	public function passed()
+	{
+    	if(time() > strtotime($this->end_at)) {
+        	return 1;
+    	} else {
+        	return 0;
+    	}
+	}
+	
+	public function isFull()
+	{
+    	if(!empty($this->member_limit)) {
+        	$approved = EventApplication::count("event_id = $this->id AND approved = 1");
+            if($approved >= $this->member_limit) {
+                return 1;
+            } else {
+                return 0;
+            }
+    	} else {
+        	return 0;
+    	}
+	}
+	
+	public function applied($userId)
+	{
+    	if(EventApplication::findFirst("applicant_id = $userId AND event_id = $this->id")) {
+        	return 1;
+    	} else {
+    	    return 0;
+	    }
+	}
+		
 	public function creator()
 	{
-    	// 返回此活动发布者
+    	$user = User::findFirst($this->creator_id);
+    	return $user->username;
 	}
 	
 	private function validation()

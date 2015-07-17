@@ -1,79 +1,64 @@
-		<div class="w_common main">
-            <div class="m_20 adopt_view">
-                <h1>{{ pet.name }}</h1>
-                <div class="f_l adopt_view_image">
-                    <img src="/upload/image/512/{{ pet.id }}.jpeg" width="312" height="312" />
-                </div>
-                <div class="f_r adopt_view_info">
-                    <p><span>年龄：</span><span>{{ pet.getAge() }}</span></p>
-                    <p><span>性别：</span><span>{{ pet.getGender() }}</span></p>
-                    <p><span>体型：</span><span>{{ pet.getBodySize() }}</span></p>
-                    <p><span>品种：</span><span>{{ pet.breed }}</span></p>
-                    <!--<p><span>勋章：</span></p>
-                    <div class="medal">
-                        <label{% if pet.neutered %} class="active"{% endif %}>绝育</label>
-                    </div>-->
-                    <p>领养须知：{{ pet.notice }}</p>
-                    
-                    <div class="social">
-                        {% if pet.status_id == 1 and pet.adoptable %}<a class="btn btn_adopt" href="/adoption/application/{{ pet.id }}">我要领养</a>{% endif %}
-                        {% if pet.status_id == 6 %}<div class="btn btn_adopt">已被领养</div>{% endif %}
-                        {% if pet.status_id == 9 %}<div class="btn btn_adopt">已预订</div>{% endif %}
-                        {% if pet.getTaobaoUrl() is not null %} <a class="btn btn_sponsor" href="{{ pet.getTaobaoUrl() }}">我要助养</a>{% endif %}
-                        <!--<a class="btn_digg" href="#">推荐</a>-->
-                        <!--<a class="btn_favorite" href="#">收藏</a> -->
-                    </div>
-                </div>
-                <div class="clear"></div>
+<div id="carousel">
+    <div style="background-image: url(/image/demo/pet-detail-carousel.jpg);min-height: 400px;"></div>
+</div>
+
+<div class="wrap">
+    <div id="pet-detail">
+        <img src="/upload/image/512/{{ pet.id }}.jpeg">
+        <div class="info">
+            <div class="name">{{ pet.name }}</div>
+            <div>
+                <div><span class="label">年　　龄：</span><span>{{ pet.getAge() }}</span></div>
+                <div><span class="label">性　　别：</span><span>{{ pet.getGender() }}</span></div>
+                <div><span class="label">体　　型：</span><span>{{ pet.getBodySize() }}</span></div>
+                <div><span class="label">品　　种：</span><span>{{ pet.getBreed() }}</span></div>        
             </div>
-            
-            <div class="m_20 common_box help_story">
-            	<div class="title">
-                	<h3>救助故事</h3>
-                </div>
-                <div class="content" style="font-size: 1.5em; padding: 30px">
-                	{{ pet.story }}
-                </div>
+            <div class="notice"><span class="label">领养需知：</span><span>{{ pet.notice }}</span></div>
+            <div>
+                {% if pet.isAdoptable() %}
+                <a href="/adoption/application/{{ pet.id }}"><span class="ui orange button">我要领养</span></a>
+                {% elseif pet.status_id == 6 %}
+                <span class="ui red button">{{ pet.name }}已经被领养啦</span>
+                {% elseif pet.status_id == 9 %}
+                <span class="ui red button">{{ pet.name }}已经被预订啦</span>
+                {% endif %}
+                {% if pet.status_id < 6 %}
+                <a href="{{ pet.getTaobaoUrl() }}"><span class="ui green button">我要助养</span></a>
+                {% endif %}
             </div>
-            
-            {% if pp is iterable %}
-            <div class="m_20 common_box album">
-            	<div class="title">
-                	<h3>宠物图集</h3>
-                </div>
-                <div class="content">
-                	<ul>
-                    	{% for photo in pp %}<li class="active"><img src="{{ photo.getPhotoUrl(512) }}" width="264" height="176" /></li>{% endfor %}
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            {% endif %}
-            
-            <div class="m_20 common_box pet_recommend">
-            	<div class="title">
-                	<h3>宠物推荐</h3>
-                </div>
-                <div class="content">
-                	<div class="pet_recommend_list">
-                        <ul>
-	                        {% for pet in recommends %}
-                            <li class>
-                                <div class="pet_image">
-                                    <a href="/pet/{{ pet.id }}"><img src="/upload/image/256/{{ pet.id }}.jpeg" width="210" height="210" alt="" /></a>
-                                    <a class="more" href="/pet/{{ pet.id }}"></a>
-                                </div>
-                                <h2>{{ pet.getSpecies() }}名：{{ pet.name }}</h2>
-                                <p>性别：{{ pet.getGender() }}   年龄：{{ pet.getAge() }}</p>
-                                <a class="btn btn_digg" href="#"></a>
-                                <a class="btn btn_favorite" href="#"></a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    	<div class="clear"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="clear"></div>
         </div>
+    </div>
+</div>
+	    	
+<div class="segment background white">
+    <div class="wrap">
+    	<div class="title green">『{{ pet.name }}』的故事</div>
+    	<div style="color: #000;text-align: justify;background-color: #fff;margin: 40px">
+        	{{ pet.story }}
+    	</div>
+    </div>
+</div>
+    	
+<div class="segment background white">
+    <div class="wrap">
+    	<div class="title green">『{{ pet.name }}』的照片</div>
+    	<ul id="pet-photo">
+        	{% for photo in pp %}<li><img src="/upload/image/256/{{ photo.file_id }}.jpeg" class="pet_thumbnail" data="{{ photo.file_id }}"></li>{% endfor %}
+    	</ul>
+	</div>
+</div>
+
+<div class="ui modal">
+    <div class="image content">
+        <img src="" class="image" style="max-width: 100%;height: 600px;">
+    </div>
+</div>
+
+<script>
+    $('.modal').modal();
+    $(".pet_thumbnail").click(function() {
+        var filename = '/upload/image/1024/' + $(this).attr('data') + '.jpeg';
+        $('.modal img').attr('src', filename);
+        $('.modal').modal('refresh').modal('show');
+    });
+</script>

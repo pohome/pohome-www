@@ -1,97 +1,105 @@
-		    	<div class="flexslider" style="position:relative; width:100%; height:559px; overflow:hidden;">
-    		    	<ul class="slides" style="position:absolute; left:50%; margin-left:-951px;">
-        		    	<li style="position:absolute; left:50%; margin-left:-951px;">
-        		    	    <img src="img/slider_2.jpg" width="1903" />
-        		    	</li>
-        		    	<li style="position:absolute; left:50%; margin-left:-951px;">
-        		    	    <img src="img/demo/ad_home.jpg" width="1903" />
-        		    	</li>
-<!-- 		            <div style="position:absolute; left:50%; margin-left:-951px;"> -->
-<!-- 		                <img src="img/demo/ad_home.jpg" width="1903" /> -->
-                        <img src="img/slider_2.jpg" width="1903" />
-		            </ul>
-		        </div>
-		    	<div class="w_common main">
-		            <div class="mode">
-		            	<ul>
-		                	<li class="sponsor">
-		                    	<h3>领养</h3>
-		                        <p style="text-align: center">您与它的缘分，从这一刻开始。不需要费用，不需要户口，只需要爱心和责任感。</p>
-		                        <a href="http://beta2014.pohome.cn/pet">点击查看 ></a>
-		                    </li>
-		                    <li class="donate">
-		                    	<h3>助养</h3>
-		                        <p style="text-align: center">如果您暂时无法给予它们一个家，可以通过捐赠助养费，帮助我们为等待领养的猫咪和狗狗营造一个干净、安全和温暖的领养中心。</p>
-		                        <a href="http://pohome.taobao.com/category-156624852.htm?spm=a1z10.5-c.w4010-649933536.8.J3I7X6&search=y&catName=%C3%BF%D4%C2%D6%FA%D1%F8%B7%D1%C4%BC%BE%E8#bd">点击查看 ></a>
-		                    </li>
-		                    <li class="volunteer">
-		                    	<h3>志愿者</h3>
-		                        <p style="text-align: center">如果您精力旺盛又乐于帮助这些弱小脆弱的生命，加入我们吧，我们需要各种各样的义工服务！</p>
-		                        <a href="https://pohome.wufoo.com/forms/ece/">点击查看 ></a>
-		                    </li>
-		                </ul>
-		                <div class="clear"></div>
-		            </div>
-		            
-		            <div class="m_30 row">
-		            	<div class="f_l box index_blog">
-		                	<div class="title"><h3>最新博客</h3> <span class="more"><a href="\blog">■ more</a></span></div>
-		                    <div class="content">
-		                    	<ul>
-			                    	{% for blog in blogs %}
-		                        	<li>
-		                            	<div class="l_image"><a href="/blog/{{ blog.id }}"><img src="/upload/image/512/{{ blog.feature_image }}.jpeg" width="265" /></a></div>
-		                                <div class="l_info">
-		                                	<h2><a href="/blog/{{ blog.id }}">{{ blog.title}}</a></h2>
-		                                    <p class="descr"><?php echo mb_substr(strip_tags($blog->content) , 0, 130) . '...';?></p>
-		                                    <!-- <p class="tag">标签：<a>流浪求</a><a>爱情</a><a>狗狗</a> </p> -->
-		                                </div>
-		                                <div class="clear"></div>
-		                            </li>
-		                            {% endfor %}
-		                        </ul>
-		                    </div>
-		                </div>
-		                
-		                <div class="f_r box index_story">
-		                	<div class="title"><h3>领养故事</h3> <span class="more"><a href="\blog\catelog\3">■ more</a></span></div>
-		                    <div class="content">
-		                    	<img src="/upload/image/512/{{ adoptionStory.feature_image }}.jpeg" width="353"/>
-		                    	<span class="date">{{ adoptionStory.title }}</span>
-		                    	<p class="descr"><?php echo mb_substr(strip_tags($adoptionStory->content) , 0, 130) . '...';?><a href="\blog\{{ adoptionStory.id }}">[详细]</a></p>
-		                    </div>
-		                </div>
-		                <div class="clear"></div>
-		                
-		                <div class="adopt_recommond" style="margin-top: 40px">
-    		            	<div class="title"><h3>领养推荐</h3> <!-- <span class="num">23new</span> --> <span class="more"><a href="/pet">■ more</a></span></div>
-    		                <div class="content">
-    		                	<ul>
-    			                	{% for pet in pets %}
-    		                    	<li>
-    		                        	<div class="pet_image">
-    		                            	<a href="/pet/{{ pet.id }}"><img src="/upload/image/256/{{ pet.id }}.jpeg" width="210" height="210" /></a>
-    		                                <a href="/pet/{{ pet.id }}" class="view"></a>
-    		                            </div>
-    		                            <a href="/pet/{{ pet.id }}" class="pet_name">{{ pet.name }}</a>
-    		                        </li>
-    		                        {% endfor %}
-    		                    </ul>
-    		                    <div class="clear"></div>
-    		                </div>
-    		            </div>
-		            </div>
-		            <div class="clear"></div>
-		    	</div>
-		    	
+<div id="carousel"><div></div></div>
+
+<div id="main">
+    <div class="wrap">
+	    <div id="videos">
+		    <div class="main-video" style="border-top: #f1c749 solid 15px">
+    		    <a href="/pet"><img src="image/carousel/pet-small.jpg">
+<!--     		    <img src="image/m_play.png" class="play"> --></a>
+    		    <div class="desc">
+        		    <h3>领养</h3>
+        		    <h4>ADOPTION</h4>
+    		    </div>
+<!--     		    <div class="stat">已有4502人参与</div> -->
+		    </div><div class="main-video" style="border-top: #8fd462 solid 15px">
+    		    <a href="http://wd.koudai.com/?userid=165412960"><img src="image/carousel/donate-small.jpg">
+<!--     		    <img src="image/m_play.png" class="play"> --></a>
+    		    <div class="desc">
+        		    <h3>捐赠</h3>
+        		    <h4>DONATION</h4>
+    		    </div>
+<!--     		    <div class="stat">已有268人参与</div> -->
+		    </div><div class="main-video" style="border-top: #4d9fd3 solid 15px">
+    		    <a href="/event"><img src="image/carousel/event-small.jpg">
+<!--     		    <img src="image/m_play.png" class="play"> --></a>
+    		    <div class="desc">
+        		    <h3>志愿者</h3>
+        		    <h4>VOLUNTEER</h4>
+    		    </div>
+<!--     		    <div class="stat">已有84032人参与</div> -->
+		    </div>   
+	    </div>
+    </div>
+    
+    <div class="segment">
+	    <div class="wrap">
+		    <div class="title green">领养故事</div>
+		    <div class="story">
+    		    <img src="/upload/image/512/{{ adoptionStory.feature_image }}.jpeg"><div class="content">
+        		    <div class="title">{{ adoptionStory.title }}</div>
+        		    {{ adoptionStory.abstract }}
+                    <div class="readall">
+            		    <a href="/blog/{{ adoptionStory.id }}"><div class="mini ui green button">阅读全文</div></a>
+        		    </div>
+    		    </div>
+		    </div>
+	    </div>
+    </div>
+    
+    <div class="segment">
+	    <div class="wrap">
+		    <div class="title green">领养推荐</div>
+		    <div>
+    		    {% for pet in pets %}<div class="pet">
+        		    <div class="ui fluid image">
+            		    {% if pet.status_id == 6 %}
+            		    <a class="ui red ribbon label">已领养</a>
+            		    {% endif %}
+            		    {% if pet.status_id == 9 %}
+            		    <a class="ui green ribbon label">已预订</a>
+            		    {% endif %}
+                        <img src="upload/image/512/{{ pet.id }}.jpeg">
+        		    </div>
+        		    <div class="info">
+            		    <div class="name">{{ pet.name }}</div>
+            		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.breed }}</span></div>
+        		    </div><div class="actions">
+            		    <a href="/pet/{{ pet.id }}"><div class="ui tiny green button">详情</div></a>
+                        <a href="{{ pet.getTaobaoUrl() }}"><div class="ui tiny orange button">助养</div></a>
+        		    </div>
+    		    </div>{% endfor %}
+		    </div>
+	    </div>
+    </div>
+    
+    <div class="segment background green">
+	    <div class="wrap">
+		    <div class="title white">最新博文</div>
+		    {% for blog in blogs %}
+		    <div class="blog">
+    		    <img src="upload/image/512/{{ blog.feature_image }}.jpeg">
+    		    <div class="content">
+        		    <div class="main">
+            		    <div class="title">{{ blog.title }}</div>
+            		    <div class="abstract">
+                		    {{ blog.abstract }}
+            		    </div>
+            		    <div class="fadeout" style=""></div>
+        		    </div>
+        		    <div class="readall">
+            		    <a href="/blog/{{ blog.id }}"><div class="mini ui green button">阅读全文</div></a>
+        		    </div>
+    		    </div>
+            </div>
+            {% endfor %}
+	    </div>
+    </div>
+</div>
+
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.flexslider').flexslider({
-		animation : 'fade',
-		animationSpeed : 1500,
-		slideshowSpeed : 5000,
-		controlNav : false,
-		directionNav : false
-	});
-});
+    $("#carousel div").bgswitcher({
+      images: ["/image/yingjiajun/yingjiajun.jpg", "/image/carousel/pet.jpg", "/image/carousel/event.jpg", "/image/carousel/donate.jpg"],
+      interval: 6000,
+      duration: 1500
+    });
 </script>

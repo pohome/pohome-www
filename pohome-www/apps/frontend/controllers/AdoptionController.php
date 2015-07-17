@@ -12,21 +12,42 @@ class AdoptionController extends BaseController
     
     public function applicationAction($petId)
     {
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        $this->view->addition = '<script type="text/javascript" src="/js/jquery.form.js"></script>';
         
         $pet = Pet::findFirst($petId);
         
         // 核验申请的动物是否存在
         if($pet == null) {
-            $this->view->disable();
-            echo '抱歉，您要领养的动物不存在！';
+            $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+            $this->view->pick('adoption/error');
+            $this->view->title = '您要领养的动物不存在';
+            $this->view->msg = '抱歉，您要领养的动物不存在！';
             return;
         }
         
         // 核验申请的动物是否接受领养
-        if(!$pet->adoptable) {
-            $this->view->disable();
-            echo '抱歉，目前' . $pet->name . '不接受领养';
+        if(!$pet->isAdoptable()) {
+            $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+            $this->view->pick('adoption/error');
+            $this->view->title = '领养申请 - ' . $pet->name;
+            switch($pet->status_id)
+            {
+                case 6:
+                    $this->view->msg = '抱歉，' . $pet->name . '已经被领养。';
+                    break;
+                    
+                case 9:
+                    $this->view->msg = '抱歉，' . $pet->name . '已经被预订。';
+                    break;
+                    
+                case 7:
+                    $this->view->msg = '抱歉，' . $pet->name . '走失了，我们正在寻找中，暂时不接受领养。';
+                    break;
+                    
+                case 8:
+                    $this->view->msg = '抱歉，' . $pet->name . '已经去了天堂。';
+                    break;
+            }
             return;
         }
         
@@ -36,7 +57,8 @@ class AdoptionController extends BaseController
             $this->response->redirect('user/login');
         }
         
-        $this->view->title = '领养申请表 - ' . $pet->name;
+        $this->view->title = '领养申请 - ' . $pet->name;
+        $this->view->pet = $pet;
         
         $path = dirname(__FILE__) . '/../../config/';
         $data = json_decode(file_get_contents($path . '/application.json'));
@@ -120,9 +142,10 @@ class AdoptionController extends BaseController
     
     private function radioField(&$field)
     {
-        $this->formContent .= sprintf("<div class=\"inline fields\">\n");
+        $fieldId = 'field_' . strip_tags($field->name);
+        $this->formContent .= sprintf("<div class=\"inline fields\" id=\"$fieldId\">\n");
         $this->formContent .= sprintf("\t<label>%s</label>\n", $field->name);
-        $this->formContent .= sprintf("\t<div class=\"fields\">\n");
+        $this->formContent .= sprintf("\t<div class=\"box\">\n");
         foreach($field->option as $o)
         {
             if(property_exists($field, 'multi-line')) {
@@ -135,14 +158,14 @@ class AdoptionController extends BaseController
             $this->formContent .= sprintf("\t\t\t\t<input type=\"radio\" name=\"%s\" value=\"%s\" /><label>%s</label>\n", $field->name, $o, $o);
             $this->formContent .= sprintf("\t\t\t</div>\n\t\t</div>\n");
         }
-        $this->formContent .= sprintf("\t</div>\n</div>\n\n");
+        $this->formContent .= sprintf("\n</div></div>\n\n");
     }
     
     private function checkboxField(&$field)
     {
         $this->formContent .= sprintf("<div class=\"inline fields\">\n");
         $this->formContent .= sprintf("\t<label>%s</label>\n", $field->name);
-        $this->formContent .= sprintf("\t<div class=\"fields\">\n");
+        $this->formContent .= sprintf("\t<div class=\"box\">\n");
         foreach($field->option as $o)
         {
             $this->formContent .= sprintf("\t\t<div class=\"field\">\n");

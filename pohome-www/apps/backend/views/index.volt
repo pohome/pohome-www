@@ -10,6 +10,7 @@
 		<script src="/js/jquery-2.1.4.min.js"></script>
 		<script src="/js/jquery.form.js"></script>
 		<script src="/js/semantic.js"></script>
+        <script src="/js/chart.min.js"></script>		
 		<script src="/js/redactor.js"></script>
 		<script src="/js/zh_cn.js"></script>
 		<script src="/js/backend.js"></script>
@@ -86,6 +87,7 @@
 	<body>
     	<nav class="ui inverted vertical menu">
     		<a href="/"><img src="/img/backend/logo.png" id="logo"></a>
+    		<a class="item" href="/admin">工作台</a>
     		<a class="item" href="/admin/pet/index">动物</a>
     		<a class="item" href="/admin/adoption/index">领养申请</a>
     		<a class="item" href="/admin/blog/index">博客</a>

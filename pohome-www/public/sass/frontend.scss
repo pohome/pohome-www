@@ -4,7 +4,7 @@ $page-width: 960px;
 $green: #3aa91d;
 $white: #fff;
 $light-grey: #eee;
-$article-font: "HiraginoSansGB", "Microsoft Yahei", sans-serif;
+$article-font: "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
 
 body {
     background-color: $light-grey;
@@ -14,7 +14,7 @@ body {
     height: 65px;
     width: 100%;
     position: absolute;
-    background-color: rgba($white, 0.2); // 后续考虑改为模糊效果的（Safari）
+    background-color: rgba(30, 30, 30, 0.2); // 后续考虑改为模糊效果的（Safari）
     z-index: 2;
 }
 
@@ -246,18 +246,18 @@ body {
 
 .pet {
     background-color: white;
-    padding: 10px;
-    width: 313.3px;
+    padding: 15px;
+    width: 310px;
     display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-right: 15px;
+    margin-bottom: 15px;
     
     &:nth-child(3n) {
         margin-right: 0;
     }
-    
+        
     img {
-        width: 293.3px;
+        width: 280px;
     }
     
     .info {
@@ -348,6 +348,98 @@ body {
     }
 }
 
+.event {
+    .intro {
+        width: 300px;
+        height: 100%;
+        display: inline-block;
+        
+        .month {
+            color: $green;
+            font-size: 2em;
+        }
+        
+        .slash {
+            color: #cecece;
+            font-size: 2em;
+        }
+        
+        .deadlin {
+            color: #cecece;
+            font-size: 1em;
+        }
+        
+        .title {
+            margin: 1.5em 0 0.5em 0;
+        }
+        
+        .date, .location {
+            font-size: 0.8em;
+            line-height: 160%;
+        }
+    }
+    
+    .divider {
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 75px;
+        border-left: 1px solid #a0a0a0;
+        position: relative;
+    }
+    
+    .feature {
+        display: inline-block;
+        padding: 10px;
+        background-color: #fff;
+        
+        .intro {
+            font-size: 0.8em;
+            color: #9e9e9e;
+            display: block;
+            border-right: none;
+            border-bottom: 1px solid #9e9e9e;
+            padding: 1em 0;
+            width: 480px;
+        }
+        
+        .username {
+            font-size: 0.8em;
+            margin-top: 0.5em;
+            color: $green;
+        }
+        
+        ul {
+            margin: 25px 0 15px 0 !important;
+            -webkit-margin-before: 0;
+            -webkit-padding-start: 0;
+            
+            li {
+                display: inline-block;
+                
+                img {
+                    margin: 0 !important;
+                }
+            }
+        }
+    }
+    
+    .circle {
+        width: 20px;
+        height: 20px;
+        border: 2px #3aa91d solid;
+        border-radius: 100px;
+        background-color: #eee;
+        position: absolute;
+        top: 0px;
+        left: -11px;
+    }
+    
+    .join {
+        margin: 0 10px;
+        text-align: center;
+    }
+}
+
 #pet-list-intro-video {
     width: 650px;
     margin: -180px auto 40px auto;
@@ -389,7 +481,7 @@ body {
     z-index: 2;
     
     img {
-        width: 240px;
+        width: 360px;
         //margin: -120px auto 40px auto;
         padding: 10px;
         z-index: 2;
@@ -400,16 +492,22 @@ body {
     .info {
         display: inline-block;
         vertical-align: top;
-        margin-left: 1em;
-        width: 600px;
+        margin-left: 2em;
+        width: 400px;
         font-size: 0.9em;
         margin-bottom: 40px;
         //color: #9a9a9a;
         
         .name {
             font-size: 2em;
+            margin-bottom: 1em;
             //margin: -3em 0 1em 0;
         }
+
+        .label {
+            display: inline-block;
+            min-width: 6em;
+        }        
         
         .notice {
             text-align: justify;
@@ -508,42 +606,159 @@ body {
     }
 }
 
+.usercenter {
+    .ui.form {
+        padding: 0 !important;
+        margin-left: 40px;
+        
+        .inline.field {
+            label {
+                margin-left: 0 !important;
+                width: 4em !important;
+                text-align: left !important;
+            }
+        }
+        
+        .inline.fields {
+            label {
+                margin-left: 0 !important;
+                width: 4em !important;
+                text-align: left !important;
+            }
+            
+            .box {
+                display: -webkit-flex;
+                -webkit-flex-direction: row;
+                -webkit-flex-wrap: wrap;
+                width: 480px;
+                
+                label {
+                    width: 8em !important;
+                }
+            }
+        }
+        
+        .inline.three.fields {
+            label {
+                margin-left: 0 !important;
+                width: 4em !important;
+                text-align: left !important;
+            }
+            
+            select {
+                width: 5em !important;
+            }
+        }
+    }
+    
+    .row {
+        margin-left: 2em;
+        margin-bottom: 0.6em;
+        
+        .field.label {
+            font-weight: bold;
+            width: 9em;
+            display: inline-block;
+        }
+    }
+}
+
 // Semantic-UI 表单相关
-.inline.field label {
-   width: 12em !important;
-   margin-right: 2em !important;
-   text-align: right !important;
+#pet_application_form {
+    padding: 0 40px 20px 40px;
+    
+    .inline.field {
+        label {
+            width: 12em !important;
+            margin-right: 2em !important;
+            text-align: right !important;
+            vertical-align: middle !important;
+        }
+        
+        .field {
+            vertical-align: top !important;
+        }
+    }
+    
+    .inline.fields {    
+        > label {
+            width: 12em !important;
+            margin-right: 2em !important;
+            text-align: right !important;
+        }
+        
+        .box {
+            display: -webkit-flex;
+            -webkit-flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            width: 480px;
+        }
+        
+        .field {
+            margin-bottom: 0 !important;
+            -webkit-flex-wrap: nowrap;
+        }
+    }
+    
+    .ui.form {
+        padding: 20px 80px;
+    }
+    
+    .block.field {
+       display: block !important;
+       margin-bottom: 0.7em !important;
+    }
+    
+    .fields .field {
+       margin-bottom: 0.7em !important;
+    }
+    
+    .ui.dropdown.selection {
+        min-width: 8em !important;
+    }
 }
 
-.inline.fields > label {
-    width: 12em !important;
-    margin-right: 2em !important;
-    text-align: right !important;
-}
-
-.inline.fields .fields {
-   display: inline-block;
-   vertical-align: top;
-   width: 40em;
-}
-
-.block.field {
-   display: block !important;
-   margin-bottom: 0.7em !important;
-}
-
-.fields .field {
-   margin-bottom: 0.7em !important;
-}
-
-.ui.dropdown.selection {
-    min-width: 8em !important;
+#event_apply_form {
+    padding: 0px 40px;
+    
+    .inline.field {
+        label {
+            width: 4em !important;
+            margin-right: 2em !important;
+            text-align: right !important;
+            vertical-align: middle !important;
+        }
+        
+        .field {
+            vertical-align: top !important;
+        }
+    }
+    
+    .inline.fields {    
+        > label {
+            width: 4em !important;
+            margin-right: 2em !important;
+            text-align: right !important;
+        }
+        
+        .box {
+            display: -webkit-flex;
+            -webkit-flex-direction: row;
+            -webkit-flex-wrap: wrap;
+            width: 480px;
+        }
+        
+        .field {
+            margin-bottom: 0 !important;
+            -webkit-flex-wrap: nowrap;
+        }
+    }
 }
 
 .inline.field textarea {
-   width: 32em;
-   margin-bottom: 2em;
-   display: inline-block !important;
+    width: 32em;
+    margin-bottom: 2em;
+    display: inline-block !important;
 }
 
 .ui.divider {

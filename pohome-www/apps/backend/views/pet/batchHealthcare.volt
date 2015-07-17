@@ -79,6 +79,7 @@
                         $("#save_button").removeClass("loading");
                         
                     } else {
+                        console.log(responseText)
                         var result = $.parseJSON(responseText);
                         $(".ui.modal .content").text("已登记" + result['success'] + "只动物于" + $("#happened_at").val() + "完成" + $("#type :selected").text() + "护理项目");
                         $(".ui.modal").modal({

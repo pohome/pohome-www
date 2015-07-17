@@ -19,22 +19,12 @@ class BlogController extends BaseController
 		
 		$paginator = new \Phalcon\Paginator\Adapter\Model(array(
     		'data' => $blogs,
-    		'limit' => 20,
+    		'limit' => 10,
     		'page' => $page
 		));
 		
 		$this->view->page = $paginator->getPaginate();
-		
-		// 生成最热5篇博文
-		$this->view->hotStories = Blog::find(array(
-			"limit" => 5,
-			"order" => "viewed DESC",
-		));
-		
-		// 生成博文分类数据
-		global $blogCatelog;
-		$this->view->catelogs = $blogCatelog;
-		
+				
 		if($this->session->has('username')) {
     		$this->view->userId = $this->session->get('userId');
     		$this->view->username = $this->session->get('username');
@@ -51,7 +41,11 @@ class BlogController extends BaseController
 		
 		$this->view->title = $blog->title;
 		$this->view->menu_blog = true;
+		
+		$blog->content = preg_replace('#<p>(<img.*?)</p>#', '$1', $blog->content);
 		$this->view->blog = $blog;
+		
+		
 		
 		// 生成最热5篇博文
 		$this->view->hotStories = Blog::find(array(

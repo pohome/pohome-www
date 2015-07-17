@@ -3,9 +3,171 @@
 namespace Pohome\Frontend\Controllers;
 
 use Pohome\Models\User;
+use Pohome\Models\UserExtraInfo;
+use Pohome\Models\ServiceIntension;
 
 class UserController extends BaseController
 {
+    public function centerAction($page)
+    {
+        if(!$this->session->has('userId')) {
+            $this->response->redirect('user/login');
+        }
+        
+        if($this->request->isPost()) {
+            $this->view->disable();
+            switch($page) {
+                case 'edit':
+                    $this->editProfile();
+                    break;
+                
+                case 'service-intension':
+                    $this->editServiceIntension();
+                    break;
+                    
+                case 'change-password':
+                    $this->changePassword();
+                    break;
+                    
+                default:
+                    return;
+            }
+            return;
+        }
+        
+        $userId = $this->session->get('userId');
+        $this->view->user = User::findFirst($userId);
+        $this->view->addition = '<script type="text/javascript" src="/js/jquery.form.js"></script>';
+        
+        if($page == 'service-intension') {
+            global $serviceIntensionType;
+            $this->view->sit = $serviceIntensionType;
+        }
+        
+        if(isset($page)) {
+            $this->view->pick('user/center-' . $page);
+        }
+    }
+    
+    private function editProfile()
+    {
+        $post = $this->request->getPost();
+        $userId = $this->session->get('userId');
+        $user = User::findFirst($userId);
+        $extra = UserExtraInfo::findFirst($userId);
+        if(!$extra) {
+            $extra = new UserExtraInfo();
+            $extra->user_id = $userId;
+        }
+        
+        $user->email = $post['email'];
+        $user->mobile = $post['mobile'];
+        $extra->realname = $post['realname'];
+        
+        if(!empty($post['birthday'])) {
+            $extra->birthday = $post['birthday'];
+        }
+        
+        if(array_key_exists('gender', $post)) {
+            $extra->gender =$post['gender'];
+        }
+        
+        $user->save();
+        $extra->save();
+        
+        echo 'success';
+    }
+    
+    private function editServiceIntension()
+    {
+        $post = $this->request->getPost();
+        $userId = $this->session->get('userId');
+        $user = User::findFirst($userId);
+        $extra = UserExtraInfo::findFirst($userId);
+        if(!$extra) {
+            $extra = new UserExtraInfo();
+            $extra->user_id = $userId;
+        }
+        
+        $user->email = $post['email'];
+        $user->mobile = $post['mobile'];
+        $extra->realname = $post['realname'];
+        $extra->service_intension_remark = $post['remark'];
+        
+        if(!empty($post['birthday'])) {
+            $extra->birthday = $post['birthday'];
+        }
+        
+        if(array_key_exists('gender', $post)) {
+            $extra->gender =$post['gender'];
+        }
+        
+        $user->save();
+        $extra->save();
+        
+        // 删除原来的记录
+        $oldIntensions = ServiceIntension::find("user_id = $userId");
+        foreach($oldIntensions as $o)
+        {
+            $o->delete();
+        }
+        
+        foreach($post['intension'] as $intension_id)
+        {
+            $si = new ServiceIntension();
+            $si->user_id = $userId;
+            $si->intension_id = $intension_id;
+            $si->save();
+        }
+        
+        echo 'success';
+    }
+    
+    public function uploadAvatarAction()
+    {
+        if($this->request->hasFiles()) {
+            $this->view->disable();
+            foreach($this->request->getUploadedFiles() as $file)
+            {
+                $img = new \Imagick($file->getTempName());
+                
+                $height = $img->getImageHeight();
+                $width = $img->getImageWidth();
+                $root = $_SERVER['DOCUMENT_ROOT'];
+                $userId = $this->session->get('userId');
+                
+                if($width > $height) {
+                    $length = $height;
+                    $x = $width / 2 - $height / 2;
+                    $img->cropImage($length, $length, $x, 0);
+                } elseif($width < $height) {
+                    $length = $width;
+                    $y = $height / 2 - $width / 2;
+                    $img->cropImage($length, $length, 0, $y);
+                }
+                
+                // 保存256px的头像
+                if($length > 240) {
+                    $img->resizeImage(256, 256, \Imagick::FILTER_CATROM, 0.9);
+                }
+                
+                $img->writeImage($root . "/upload/img/user/avatar/large/$userId.jpg");
+                
+                // 保存128px的头像
+                $img->resizeImage(128, 128, \Imagick::FILTER_CATROM, 0.9);
+                $img->writeImage($root . "/upload/img/user/avatar/small/$userId.jpg");
+                
+                // 保存64px的头像
+                $img->resizeImage(64, 64, \Imagick::FILTER_CATROM, 0.9);
+                $img->writeImage($root . "/upload/img/user/avatar/tiny/$userId.jpg");
+                
+                echo "/upload/img/user/avatar/large/$userId.jpg";
+            }
+        } else {
+            $this->response->redirect('/');
+        }
+    }
+    
 	public function loginAction()
 	{
 		$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
@@ -66,6 +228,7 @@ class UserController extends BaseController
 	
 	public function registerAction()
 	{
+    	$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
 		$this->view->title = '汪汪喵呜孤儿院 - 新用户注册';
 		
 		if($this->request->isPost()) {
@@ -147,7 +310,7 @@ class UserController extends BaseController
 	
 	public function forgotAction()
 	{
-		
+		$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
 	}
 	
 	public function verifyEmailAction($userId, $verifyCode)

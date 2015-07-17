@@ -13,8 +13,9 @@ class IndexController extends BaseController
 		$this->view->menu_frontpage = true;
 		
 		$this->view->blogs = Blog::find(array(
-			"limit" => 2,
-			"order" => "published_at DESC"
+			"limit" => 5,
+			"order" => "published_at DESC",
+			"draft = 0"
 		));
 		
 		$this->view->adoptionStory = Blog::findFirst(array(
@@ -22,11 +23,10 @@ class IndexController extends BaseController
     		"order" => "published_at DESC"
 		));
 		
-		$this->view->pets = Pet::find(array("limit" => 5, "order" => "created_at DESC"));
-		
-		if($this->session->has('username')) {
-    		$this->view->userId = $this->session->get('userId');
-    		$this->view->username = $this->session->get('username');
-		}
+		$this->view->pets = Pet::find(array(
+		    "limit" => 9, 
+		    "order" => "created_at DESC",
+		    "status_id < 6 AND adoptable = 1",
+	    ));
 	}
 }

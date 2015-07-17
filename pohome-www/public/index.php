@@ -42,6 +42,20 @@ $di->set('router', function() {
         'params' => 2
     ));
     
+    $router->add('/topic/:params', array(
+        'module' => 'frontend',
+        'controller' => 'topic',
+        'action' => 'index',
+        'topicName' => 1
+    ));
+    
+    $router->add('/topic/waterfall/:int', array(
+        'module' => 'frontend',
+        'controller' => 'topic',
+        'action' => 'waterfall',
+        'page' => 1
+    ));
+    
     $router->add('/blog/catelog/:int', array(
         'module' => 'frontend',
         'controller' => 'blog',
@@ -140,6 +154,10 @@ $di->set('cookies', function() {
 $di->set('debug', function() {
     $logger = new FileAdapter('../apps/logs/debug.log');
     return $logger;
+});
+
+$di->set('securityLog', function() {
+    return new FileAdapter('../apps/logs/security.log');
 });
 
 $app = new \Phalcon\Mvc\Application($di);
