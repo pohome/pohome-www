@@ -36,6 +36,6 @@ class TopicController extends BaseController
     {
         $this->view->pick('topic/ying-jia-jun');
         $this->view->pets = \Pohome\Models\Pet::find("name LIKE '瀛%'");
-        $this->view->addition = '<link rel="stylesheet" type="text/css" href="/css/yingjiajun.css"><script type="text/javascript" src="/js/waterfall.min.js"></script><script type="text/javascript" src="/js/handlebars-v3.0.3.js"></script>';
+        $this->view->addition = '<link rel="stylesheet" type="text/css" href="/css/yingjiajun.css"><script type="text/javascript" src="/js/waterfall.min.js"></script>';
     }
 }

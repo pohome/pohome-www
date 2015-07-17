@@ -97,9 +97,36 @@
 </div>
 
 <script type="text/javascript">
-    $("#carousel div").bgswitcher({
-      images: ["/image/yingjiajun/yingjiajun.jpg", "/image/carousel/pet.jpg", "/image/carousel/event.jpg", "/image/carousel/donate.jpg"],
-      interval: 6000,
-      duration: 1500
-    });
+    $('document').ready(function() {
+        $("#carousel div").bgswitcher({
+            images: ["/image/carousel/yingjiajun.jpg", "/image/carousel/pet.jpg", "/image/carousel/event.jpg", "/image/carousel/donate.jpg"],
+            interval: 6000,
+            duration: 1500
+        });
+        
+        $('#carousel').click(function() {
+            var img = $(this).find('div').css('background-image');
+            console.log(img);
+            switch(img) {
+                case 'url(http://www.pohome.cn/image/carousel/yingjiajun.jpg)':
+                    window.location.href = '/topic/ying-jia-jun';
+                    break;
+                    
+                case 'url(http://www.pohome.cn/image/carousel/pet.jpg)':
+                    window.location.href = '/pet';
+                    break;
+                    
+                case 'url(http://www.pohome.cn/image/carousel/event.jpg)':
+                    window.location.href = '/event';
+                    break;
+                    
+                case 'url(http://www.pohome.cn/image/carousel/donate.jpg)':
+                    window.location.href = 'http://wd.koudai.com/?userid=165412960';
+                    break;
+                
+            }
+            
+        });
+    })
+    
 </script>
