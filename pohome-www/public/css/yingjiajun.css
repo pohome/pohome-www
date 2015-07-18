@@ -5,12 +5,8 @@
 
 .yingjiajun.list {
     margin: 40px 0;
-}
-
-.yingjiajun.list .avatar {
-    float: left;
     position: relative;
-    z-index: 1;
+    min-height: 560px;
 }
 
 .yingjiajun.list .avatar img {
@@ -21,8 +17,8 @@
 .yingjiajun.list .ruin {
     width: 420px;
     height: 280px;
-    margin-left: 280px;
-    margin-top: -280px;
+    top: 280px;
+    left: 280px;
     background-image: url(/image/yingjiajun/ruin.jpg);
     position: absolute;
     z-index: 2;
@@ -39,14 +35,6 @@
     background-color: rgba(20, 20, 20, 0.8);
     display:none ;
     z-index: 10;
-}
-
-.yingjiajun.list .avatar:nth-child(17) {
-    margin-left: 420px;
-}
-
-.yingjiajun.list .avatar:nth-child(21) {
-    margin-left: 420px;
 }
 
 .ten.wide.column {
