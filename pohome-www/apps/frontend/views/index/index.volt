@@ -109,18 +109,22 @@
             console.log(img);
             switch(img) {
                 case 'url(http://www.pohome.cn/image/carousel/yingjiajun.jpg)':
+                case 'url("http://www.pohome.cn/image/carousel/yingjiajun.jpg")':
                     window.location.href = '/topic/ying-jia-jun';
                     break;
                     
                 case 'url(http://www.pohome.cn/image/carousel/pet.jpg)':
+                case 'url("http://www.pohome.cn/image/carousel/pet.jpg")':
                     window.location.href = '/pet';
                     break;
                     
                 case 'url(http://www.pohome.cn/image/carousel/event.jpg)':
+                case 'url("http://www.pohome.cn/image/carousel/event.jpg")':
                     window.location.href = '/event';
                     break;
                     
                 case 'url(http://www.pohome.cn/image/carousel/donate.jpg)':
+                case 'url("http://www.pohome.cn/image/carousel/donate.jpg")':
                     window.location.href = 'http://wd.koudai.com/?userid=165412960';
                     break;
                 
