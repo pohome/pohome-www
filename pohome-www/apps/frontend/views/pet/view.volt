@@ -1,5 +1,5 @@
 <div id="carousel">
-    <div style="background-image: url(/image/demo/pet-detail-carousel.jpg);min-height: 400px;"></div>
+    <div style="background-image: url(/image/carousel/pet-detail.jpg);min-height: 400px;"></div>
 </div>
 
 <div class="wrap">
