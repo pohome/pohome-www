@@ -17,14 +17,24 @@ class TopicController extends BaseController
     public function waterfallAction($page)
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+                
+        $handle = opendir($_SERVER['DOCUMENT_ROOT'] . '/image/yingjiajun/photo/');
         
-        $query = $this->modelsManager->createQuery("SELECT Pet.name, PetPhoto.file_id FROM \Pohome\Models\Pet Pet inner join \Pohome\Models\PetPhoto PetPhoto on Pet.id = PetPhoto.pet_id WHERE Pet.name LIKE '瀛%'");
-        $files = $query->execute();
+        $count = 1;
+        $fileArray = array();
+        while ( false !== ($file = readdir ( $handle )) ) {
+            if($file != '.' && $file != '..') {
+                array_push($fileArray, array('name' => $file));
+                $count++;
+            }
+        }
         
-        //$files = \Pohome\Models\File::find(array('order' => 'uploaded_at DESC'));
+        closedir($handle);
         
-        $paginator = new \Phalcon\Paginator\Adapter\Model(array(
-            'data' => $files,
+        sort($fileArray);
+        
+        $paginator = new \Phalcon\Paginator\Adapter\NativeArray(array(
+            'data' => $fileArray,
             'limit' => 12,
             'page' => $page
         ));
