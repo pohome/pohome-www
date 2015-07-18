@@ -12,8 +12,8 @@ class BaseController extends \Phalcon\Mvc\Controller
         $controller = $this->dispatcher->getControllerName();
         $action = $this->dispatcher->getActionName();
         
-        if(!$this->session->has('userId')) {
-            
+        if($controller == 'file' && $action == 'upload') {
+            return;
         }
         
         if($controller != 'user' || $action != 'login') {
