@@ -15,6 +15,17 @@
 		{% if addition is defined %}
 		{{ addition }}
 		{% endif %}
+		
+		<script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "//hm.baidu.com/hm.js?49040a029edd7f8e74a44e15b2871891";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+
 	</head>
 	
 	<body>		
