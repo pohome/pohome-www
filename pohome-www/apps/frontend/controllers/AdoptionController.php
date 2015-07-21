@@ -121,6 +121,7 @@ class AdoptionController extends BaseController
             'to' => 'pohome01@163.com',
             'from' => 'no-reply@push.pohome.cn',
             'name' => '领养申请',
+            'reply' => 'info@pohome.cn',
             'title' => $title,
             'html' => $html
         ));
