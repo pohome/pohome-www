@@ -45,11 +45,7 @@ class Module implements \Phalcon\Mvc\ModuleDefinitionInterface
 			$eventManager = new \Phalcon\Events\Manager();
 	
 			$eventManager->attach('dispatch:beforeDispatchLoop', function($event, $dispatcher) {
-/*
-    			echo $dispatcher->getActionName();
-    			echo $dispatcher->getControllerName();
-    			var_dump($dispatcher->getParams());
-*/
+
 				$action = $dispatcher->getActionName();
 				if(strpos($action, '-')) {
 					$dispatcher->setActionName(\Phalcon\Text::camelize($action));

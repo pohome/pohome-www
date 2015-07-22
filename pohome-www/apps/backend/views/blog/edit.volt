@@ -78,7 +78,7 @@
 		$('textarea[name="content"]').redactor({
 			lang : 'zh_cn',
 			minHeight : 500,
-			imageUpload : '/admin/file/upload'
+			imageUpload : '/admin/file/upload',
 		});
 		
 		$('#redactor').redactor({
