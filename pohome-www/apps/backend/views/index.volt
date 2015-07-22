@@ -86,7 +86,7 @@
 	
 	<body>
     	<nav class="ui inverted vertical menu">
-    		<a href="/"><img src="/img/backend/logo.png" id="logo"></a>
+    		<a href="/"><img src="/image/logo.png" id="logo" style="height: 63px"></a>
     		<a class="item" href="/admin">工作台</a>
     		<a class="item" href="/admin/pet/index">动物</a>
     		<a class="item" href="/admin/adoption/index">领养申请</a>
