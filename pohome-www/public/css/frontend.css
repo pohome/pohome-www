@@ -26,7 +26,7 @@ body { background-color: #eee; }
 #menu li div { margin-left: 1em; margin-right: 1em; }
 #menu li div:first-child { margin-top: 3em; margin-bottom: 0.5em; }
 
-#carousel { margin: 0; position: relative; z-index: 1; }
+#carousel { margin: 0; position: relative; z-index: 1; cursor: pointer; }
 #carousel div { width: auto; min-height: 700px; background: 50% 50% no-repeat; background-size: cover; display: block; }
 
 .main-video { width: 300px; margin-left: 30px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; position: relative; margin-top: -121.185px; display: inline-block; z-index: 3; }
