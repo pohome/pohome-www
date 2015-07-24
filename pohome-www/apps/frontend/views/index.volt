@@ -63,7 +63,7 @@
                 	<li><a href="/event"><div>EVENTS</div><div>活动</div></a></li>
                 	<li><a href="/blog"><div>BLOG</div><div>博客</div></a></li>
                 	<li><a href="/user/center"><div>INDIVIDUAL CENTER</div><div>个人中心</div></a></li>
-                	<li><a href="http://pohome.taobao.com"><div>SHOP</div><div>公益淘宝店</div></a></li>
+                	<li><a href="http://pohome.taobao.com" target="_blank"><div>SHOP</div><div>公益淘宝店</div></a></li>
             	</ul>
         	</div>
     	</header>

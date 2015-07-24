@@ -65,7 +65,7 @@
             		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.breed }}</span></div>
         		    </div><div class="actions">
             		    <a href="/pet/{{ pet.id }}"><div class="ui tiny green button">详情</div></a>
-                        <a href="{{ pet.getTaobaoUrl() }}"><div class="ui tiny orange button">助养</div></a>
+                        {% if pet.taobao_url > 0 %}<a href="{{ pet.getTaobaoUrl() }}" target="_blank"><div class="ui tiny orange button">助养</div></a>{% endif %}
         		    </div>
     		    </div>{% endfor %}
 		    </div>
