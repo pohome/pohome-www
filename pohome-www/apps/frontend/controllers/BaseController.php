@@ -26,6 +26,7 @@ class BaseController extends \Phalcon\Mvc\Controller
         } else {
             $this->view->userId = $this->session->get('userId');
     		$this->view->username = $this->session->get('username');
+    		$this->view->canVisitBackend = $this->hasPermission($this->view->userId, '/admin/*');
         }
     }
     
@@ -42,6 +43,7 @@ class BaseController extends \Phalcon\Mvc\Controller
 
     }
     
+/*
     protected function hasPermission($permission)
     {
         if (!$this->session->has('permission')) {
@@ -49,6 +51,19 @@ class BaseController extends \Phalcon\Mvc\Controller
         } else {
             return ($this->session->get('permission') & $permission) == $permission;
         }
+    }
+*/
+    protected function hasPermission($userId, $url)
+    {
+        $phql = "SELECT uhr.user_id FROM Pohome\Models\UserHasRole uhr JOIN Pohome\Models\RoleHasPermission rhp ON uhr.role_id = rhp.role_id JOIN Pohome\Models\Permission p ON rhp.permission_id = p.id WHERE uhr.user_id = :id: AND p.url = :url:";
+    	
+    	$query = $this->modelsManager->createQuery($phql);
+    	$result = $query->execute(array(
+        	'id' => $userId,
+        	'url' => $url
+    	));
+    	
+    	return $result->count() == 1;
     }
     
     protected function saveData(&$model, &$post, $type)
