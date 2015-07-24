@@ -1,4 +1,4 @@
-body { background-color: #eee; }
+body { background-color: #eeeeee; }
 
 #top-bar { height: 65px; width: 100%; position: absolute; background-color: rgba(30, 30, 30, 0.2); z-index: 2; }
 
@@ -11,12 +11,13 @@ body { background-color: #eee; }
 
 .ui.icon.input input { width: 200px; }
 
-#user-panel { float: right; margin-top: 15px; margin-left: 20px; color: #fff; }
-#user-panel span { padding-right: 1em; margin-right: 1em; border-right: 1px solid #fff; line-height: 35px; }
-#user-panel span a { color: #fff; }
+#user-panel { float: right; margin-top: 15px; margin-left: 20px; color: white; }
+#user-panel span { padding-right: 1em; margin-right: 1em; border-right: 1px solid white; line-height: 35px; }
+#user-panel span a { color: #fff; transition: color 0.5s ease; }
+#user-panel span a:hover { color: #3aa91d; }
 #user-panel span:last-child { padding-right: 0; margin-right: 0; border-right: none; }
 
-#username { padding-right: 1em; margin-right: 1em; border-right: 1px solid #fff; }
+#username { padding-right: 1em; margin-right: 1em; border-right: 1px solid white; }
 
 #menu { width: 960px; height: 100px; margin: 0; padding: 0; position: absolute; top: 65px; z-index: 2; border-bottom: 1px white solid; display: table; }
 #menu li { display: table-cell; color: white; text-align: left; margin-right: 39px; height: 100px; transition-property: background; transition-duration: 0.5s; transition-timing-function: ease; }
@@ -29,7 +30,7 @@ body { background-color: #eee; }
 #carousel { margin: 0; position: relative; z-index: 1; cursor: pointer; }
 #carousel div { width: auto; min-height: 700px; background: 50% 50% no-repeat; background-size: cover; display: block; }
 
-.main-video { width: 300px; margin-left: 30px; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; background-color: white; position: relative; margin-top: -121.185px; display: inline-block; z-index: 3; }
+.main-video { width: 300px; margin-left: 30px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; background-color: white; position: relative; margin-top: -121.185px; display: inline-block; z-index: 3; }
 .main-video:first-child { margin-left: 0; }
 .main-video img { width: 300px; }
 .main-video .play { position: absolute; width: 45px; left: 127.5px; top: 62px; }
@@ -55,7 +56,7 @@ body { background-color: #eee; }
 .pet img { width: 280px; }
 .pet .info { margin-top: 1em; display: inline-block; }
 .pet .extra { margin-top: 0.5em; font-size: 0.8em; color: #aaa; }
-.pet .actions { float: right; -moz-transform: translateY(50%); -ms-transform: translateY(50%); -webkit-transform: translateY(50%); transform: translateY(50%); }
+.pet .actions { float: right; -webkit-transform: translateY(50%); -moz-transform: translateY(50%); -ms-transform: translateY(50%); -o-transform: translateY(50%); transform: translateY(50%); }
 
 .blog { background-color: white; padding: 20px; margin-bottom: 10px; }
 .blog img { width: 240px; display: inline-block; }
