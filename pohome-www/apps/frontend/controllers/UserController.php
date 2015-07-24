@@ -280,7 +280,7 @@ class UserController extends BaseController
                         $url = substr($this->session->get('returnURL'), 1);
                         $this->response->redirect($url);
                     } else {
-                        $this->response->redirect('/user/success');
+                        $this->response->redirect('user/success');
                     }
 										
 					// 发送验证邮件
