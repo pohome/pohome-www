@@ -50,6 +50,15 @@ class User extends \Phalcon\Mvc\Model
         }
     }
     
+    public function hasAvatar()
+    {
+        if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/upload/img/user/avatar/small/' . $this->id . '.jpg')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function validation()
     {
         $this->validate(new Uniqueness(array(
