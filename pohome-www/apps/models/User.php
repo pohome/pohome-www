@@ -39,6 +39,17 @@ class User extends \Phalcon\Mvc\Model
         $this->hasMany('id', '\Pohome\Models\UserHasRole', 'user_id', array('alias' => 'role'));
     }
     
+    public function hasIntension($intensionId)
+    {
+        $intension = ServiceIntension::findFirst(array("user_id = $this->id AND intension_id = $intensionId"));
+        
+        if($intension == false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public function validation()
     {
         $this->validate(new Uniqueness(array(
