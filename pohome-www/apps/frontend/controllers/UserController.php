@@ -305,7 +305,8 @@ class UserController extends BaseController
 	
 	public function successAction()
 	{
-		$this->view->meta = '<meta http-equiv="Refresh" content="5;url=/">';
+    	$this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+		//$this->view->meta = '<meta http-equiv="Refresh" content="5;url=/">';
 	}
 	
 	public function forgotAction()

@@ -1,5 +1,5 @@
 <div id="carousel">
-    <div style="background-image: url(/image/carousel/individual-center.jpg);"></div>
+    <div style="background-image: url(/image/carousel/individual-center.jpg);min-height: 450px"></div>
 </div>
 
 <div class="segment">
@@ -10,10 +10,12 @@
                     <a class="item" href="/user/center">基本信息</a>
                     <a class="active item" href="/user/center/edit">编辑基本信息</a>
 <!--                     <a class="item" href="/user/center/favorite-pet">关注的动物</a> -->
+<!--
                     <a class="item" href="/user/center/service-record">义工服务记录</a>
                     <a class="item" href="/user/center/adoption-record">领养申请记录</a>
+-->
                     <a class="item" href="/user/center/service-intension">志愿者服务意向</a>
-                    <a class="item" href="/user/center/change-password">修改密码</a>
+<!--                     <a class="item" href="/user/center/change-password">修改密码</a> -->
                 </div>
             </div>
             <div class="twelve wide column usercenter">
