@@ -1,12 +1,12 @@
 <div id="carousel">
-    <div style="background-image: url(/image/demo/pet-detail-carousel.jpg);min-height: 400px;"></div>
+    <div style="background-image: url(/image/carousel/pet-detail.jpg);min-height: 400px;"></div>
 </div>
 
 <div class="segment">
     <div class="wrap">
         <form class="ui segment form" method="post" id="pet_application_form">
             <a name="error_msg"></a>
-        	<div class="ui yellow message">
+        	<div class="ui red message">
                 <div class="header">领养说明</div>
                 <ul class="list">
                     <li>从汪汪喵呜孤儿院领养狗狗或猫咪不需支付任何费用。</li>
