@@ -203,7 +203,13 @@
     		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.getBreed() }}</span></div>
 		    </div><div class="actions">
     		    <a href="/pet/{{ pet.id }}"><div class="ui tiny green button">详情</div></a>
-    		    {% if pet.taobao_url > 0 %}<a href="{{ pet.getTaobaoUrl() }}" target="_blank"><div class="ui tiny orange button">助养</div></a>{% endif %}
+    		    {% if pet.status_id < 6 %}
+    		        {% if pet.taobao_url > 0 %}<a href="{{ pet.getTaobaoUrl() }}" target="_blank"><div class="ui tiny orange button">助养</div></a>{% endif %}
+    		    {% elseif pet.status_id == 6 %}
+    		    <div class="ui tiny disabled button">已领养</div>
+    		    {% elseif pet.status_id == 9 %}
+    		    <div class="ui tiny disabled button">已预订</div>
+    		    {% endif %}
 		    </div>
 	    </div>{% endfor %}
 	    
