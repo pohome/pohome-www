@@ -42,14 +42,14 @@ class PetController extends BaseController
                 		}
             		} else {
                 		if($v != 'ALL') {
-                    		array_push($conditions, $k . '="' . $v . '"');
+                    		array_push($conditions, $k . "='" . $v . "'");
                 		}
             		}
         		}
     		}
 		}
 		
-		array_push($conditions, "status_id < 6 OR status_id = 6 OR status_id = 9");
+		array_push($conditions, "(status_id < 6 OR status_id = 6 OR status_id = 9)");
 				
 		if(!array_key_exists('sort_by', $query)) {
     		$this->view->sort_by = 'created_at';
