@@ -41,6 +41,11 @@ class PetController extends BaseController
                     		$eye_color |= $c;
                 		}
             		} else {
+                		// 避免在微信转发是自动添加的部分扰乱解析
+                		if($k == "from" || $k == "isappinstalled") {
+                    		continue;
+                		}
+                		
                 		if($v != 'ALL') {
                     		array_push($conditions, $k . "='" . $v . "'");
                 		}
