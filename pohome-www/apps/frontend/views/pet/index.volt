@@ -197,7 +197,7 @@
     <a name="pet-list"></a>
 	<div class="wrap">
 	    {% for pet in page.items %}<div class="pet">
-		    <img src="/upload/image/512/{{ pet.id }}.jpeg">
+		    <img src="/upload/img/pet/avatar/small/{{ pet.id }}.jpeg">
 		    <div class="info">
     		    <div class="name">{{ pet.name }}</div>
     		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.getBreed() }}</span></div>

@@ -12,13 +12,13 @@
     		    <div style="margin-top: 20px">
         		    <a class="ui green button">详细介绍</a>
         		    {% if event.passed() == 1 %}
-                    <a class="ui gray button">活动结束</a>
+                    <a class="ui gray disabled button">活动结束</a>
         		    {% elseif event.applied(userId) == 1 %}
-        		    <a class="ui gray button">已报名</a>
+        		    <a class="ui gray disabled button">已报名</a>
                     {% elseif event.deadlinePassed() == 1 %}
-                    <a class="ui gray button">报名截止</a>
+                    <a class="ui gray disabled button">报名截止</a>
                     {% elseif event.isFull() == 1 %}
-                    <a class="ui gray button">报名已满</a>
+                    <a class="ui gray disabled button">报名已满</a>
                     {% else %}
                     <a class="ui orange button" id="event_apply_button">报名</a>
                     {% endif %}
@@ -28,7 +28,16 @@
         		    <div><img src="image/demo/video-2.jpg"></div>
         		    <div class="intro">{{ event.content }}</div>
         		    <ul>
-            		    <li><div class="join"><img class="ui avatar image" src="image/demo/avatar.jpg"><div class="username">Vivien</div></div></li>
+            		    <li>
+                		    <div class="join">
+                		        {% if user.hasAvatar() %}
+                                <img class="ui avatar image" src="/upload/img/user/avatar/small/{{ userId }}.jpg">
+                                {% else %}
+                                <img class="ui avatar image" src="/image/user-default-avatar-small.png">
+                                {% endif %}
+                                <div class="username">Vivien</div>
+                            </div>
+                        </li>
 <!--
             		    
             		    <li><div class="join"><img class="ui avatar image" src="img/demo/avatar.jpg"><div class="username">Vivien</div></div></li>

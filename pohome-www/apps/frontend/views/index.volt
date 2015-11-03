@@ -38,9 +38,13 @@
         				<span><a href="/user/login">登录</a></span>
         				<span><a href="/user/register">注册</a></span>
         				{% else %}
-        				<img class="ui avatar image" src="/upload/img/user/avatar/small/{{ userId }}.jpg">
-        				<span><a href="/user/center">{{ username }}</a></span>
-        				{% if canVisitBackend %}<span><a href="/admin">后台管理</a></span>{% endif %}
+        				    {% if userHasAvatar %}
+                            <img class="ui avatar image" src="/upload/img/user/avatar/small/{{ userId }}.jpg">
+                            {% else %}
+                            <img class="ui avatar image" src="/image/user-default-avatar-small.png">
+                            {% endif %}
+        				<span><a href="/user/center/{{ userId }}">{{ username }}</a></span>
+        				<span><a href="/admin">后台管理</a></span>
         				<span><a href="/user/logout">退出</a></span>
         				{% endif %}
     				</div>

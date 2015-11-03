@@ -4,7 +4,7 @@
 
 <div class="wrap">
     <div id="pet-detail">
-        <img src="/upload/image/512/{{ pet.id }}.jpeg">
+        <img src="/upload/img/pet/avatar/large/{{ pet.id }}.jpeg">
         <div class="info">
             <div class="name">{{ pet.name }}</div>
             <div>
@@ -43,7 +43,7 @@
     <div class="wrap">
     	<div class="title green">『{{ pet.name }}』的照片</div>
     	<ul id="pet-photo">
-        	{% for photo in pp %}<li><img src="/upload/image/256/{{ photo.file_id }}.jpeg" class="pet_thumbnail" data="{{ photo.file_id }}"></li>{% endfor %}
+        	{% for photo in pp %}<li><img src="/upload/img/pet/photo/thumbnail/{{ photo.file_id }}.jpeg" class="pet_thumbnail" data="{{ photo.file_id }}"></li>{% endfor %}
     	</ul>
 	</div>
 </div>
@@ -57,7 +57,7 @@
 <script>
     $('.modal').modal();
     $(".pet_thumbnail").click(function() {
-        var filename = '/upload/image/1024/' + $(this).attr('data') + '.jpeg';
+        var filename = '/upload/img/pet/photo/full/' + $(this).attr('data') + '.jpg';
         $('.modal img').attr('src', filename);
         $('.modal').modal('refresh').modal('show');
     });
