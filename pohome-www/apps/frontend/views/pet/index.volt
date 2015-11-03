@@ -197,13 +197,19 @@
     <a name="pet-list"></a>
 	<div class="wrap">
 	    {% for pet in page.items %}<div class="pet">
-		    <img src="/upload/image/512/{{ pet.id }}.jpeg">
+		    <img src="/upload/img/pet/avatar/small/{{ pet.id }}.jpeg">
 		    <div class="info">
     		    <div class="name">{{ pet.name }}</div>
     		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.getBreed() }}</span></div>
 		    </div><div class="actions">
     		    <a href="/pet/{{ pet.id }}"><div class="ui tiny green button">详情</div></a>
+    		    {% if pet.status_id < 6 %}
     		    <a href="{{ pet.getTaobaoUrl() }}"><div class="ui tiny orange button">助养</div></a>
+    		    {% elseif pet.status_id == 6 %}
+    		    <div class="ui tiny disabled button">已领养</div>
+    		    {% elseif pet.status_id == 9 %}
+    		    <div class="ui tiny disabled button">已预订</div>
+    		    {% endif %}
 		    </div>
 	    </div>{% endfor %}
 	    

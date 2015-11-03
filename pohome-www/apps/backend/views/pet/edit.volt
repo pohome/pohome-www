@@ -16,7 +16,7 @@
 	
 	<div class="inline field">
 		<label for="avatar" style="vertical-align: top">头像</label>
-		<img src="/upload/image/128/{{ pet.id }}.jpeg" width="128" height="128">
+		<img src="/upload/img/pet/avatar/small/{{ pet.id }}.jpeg" width="128" height="128">
 		<input name="avatar" type="file">
 	</div>
 	
@@ -245,7 +245,6 @@
 		$('form').ajaxForm({
 			dateType : 'json',
 			success : function(responseText) {
-    			console.log($.parseJSON(responseText));
     			if(responseText == '[]') {
 					$(".ui.modal .content").text("修改动物信息成功！");
 					$(".ui.modal").modal({

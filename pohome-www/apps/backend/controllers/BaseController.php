@@ -27,14 +27,14 @@ class BaseController extends \Phalcon\Mvc\Controller
             $url = '/admin/' . $controller . '/' . $action;
             
             // 判断是否有进入后台的权限
-    		if(!$this->hasPermission($userId, '/admin/*')) {
+    		if(!$this->hasPermission($userId, '/admin/index/index')) {
         		$this->securityLog->log($this->session->get('username') . '尝试越权访问' . $url);
         		$this->response->redirect('');
     		}
     		
     		// 判断是否有访问当前页面的权限
     		if(!$this->hasPermission($userId, $url)) {
-        		$this->response->redirect('');
+        		//$this->response->redirect('');
     		}
         }
     }
@@ -91,10 +91,97 @@ class BaseController extends \Phalcon\Mvc\Controller
         }
     }
     
-    protected function saveImage($id = null)
-    {        
+    protected function cropInCenter(&$img, $ratio)
+    {
+        $w = $img->getImageWidth();
+        $h = $img->getImageHeight();
+        $r = $w / $h;
+        
+        if($r != 1) {
+            if($r > $ratio) {
+                $w1 = $h * $ratio;
+                $x = ($w - $w1) / 2;
+                $img->cropImage($w1, $h, $x, 0);
+            } elseif($r < $ratio) {
+                $h1 = $w / $ratio;
+                $y = ($h - $h1) / 2;
+                $img->cropImage($w, $h1, 0, $y);
+            }
+        }
+    }
+    
+    protected function saveImageInfo($file, $id, $type)
+    {
+        $data = array(
+            'id' => $id,
+            'original_filename' => $file->getName(),
+            'file_type' => $type,
+            'file_size' => $file->getSize(),
+            'type' => 'L',
+            'max_size' => '1024',
+            'uploader_id' => $this->session->get('userId')
+        );
+        
+        $f = \Pohome\Models\File::findFirst($id);
+        
+        if(!$f) {
+            $f = new \Pohome\Models\File();
+            $this->saveData($f, $data, 'create');
+        } else {
+            $this->saveData($f, $data, 'update');
+        }
+    }
+    
+    protected function saveImage($spec, $id = null)
+    {
+        $files = $this->request->getUploadedFiles();
+        $root = $_SERVER['DOCUMENT_ROOT'] . '/upload/img';
+        $result = array();
+        
+        foreach($files as $file)
+        {
+            if(preg_match("#^image\/(jpeg|png|gif)$#", $file->getRealType(), $matches) == 0) {
+                continue;
+            }
+            
+            $type = $matches[1];
+            
+            if(is_null($id)) {
+                $id = gen_uuid();
+            }
+            var_dump($id);     
+            $filename = $id . '.' . $type;
+            $img = new \Imagick($file->getTempName());
+            $img->writeImage($root . '/origin/' . $filename);
+            
+            array_push($result, array('id' => $id, 'type' => $type));
+            $this->saveImageInfo($file, $id, $type);
+            
+            foreach($spec as $s)
+            {
+                $w = $img->getImageWidth();
+                $h = $img->getImageHeight();
+                $r = $w / $h;
+                
+                if($s['crop'] == true) {
+                    $this->cropInCenter($img, $s['width'] / $s['height']);
+                }
+                
+                $img->resizeImage($s['width'], $s['height'], \Imagick::FILTER_CATROM, 1, true);
+                $img->writeImage($root . $s['path'] . $filename);
+            }
+        }
+        
+        return $result;
+    }
+    
+    protected function saveBlogImage($id = null)
+    {
         if($this->request->hasFiles())
         {
+            $files = array();
+            $root = $_SERVER['DOCUMENT_ROOT'] . '/upload/img';
+            
             foreach($this->request->getUploadedFiles() as $file)
             {
                 $fileType = $file->getRealType();
@@ -113,12 +200,24 @@ class BaseController extends \Phalcon\Mvc\Controller
                     $fileId = $id;
                 }
                 
-                $files[] = array('id' => $fileId, 'type' => $fileType);
+                array_push($files, array('id' => $fileId, 'type' => $fileType));
                 
                 $filename = $fileId . '.' . $fileType;
                 
                 $img = new \Imagick($file->getTempName());
-                $result = $this->resizeImage($img, $filename);
+                $img->setImageFormat($fileType);
+                
+                // 保存原始图片文件
+                $img->writeImage($root . '/origin/' . $filename);
+
+                $w = $img->getImageWidth();
+                $h = $img->getImageHeight();
+                $r = $w / $h;
+                
+                $width = $r > 1 ? 720 : 480;
+                
+                $result = $img->resizeImage($width, $width / $r, \Imagick::FILTER_CATROM, 1, false);
+                $img->writeImage($root . '/blog/content/' . $filename);
                 
                 $post = array(
                     'id' => $fileId,

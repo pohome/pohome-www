@@ -14,19 +14,25 @@
         <a name="blog-list"></a>
         {% for blog in page.items %}
         <div class="blog">
-		    <img src="/upload/image/256/{{ blog.feature_image }}.jpeg">
-		    <div class="content">
-    		    <div class="main">
-        		    <div class="title">{{ blog.title }}</div>
-        		    <div class="abstract">
-            		    <p>{{ blog.abstract }}</p>
+            <div class="ui relaxed grid">
+                <div class="four wide column">
+                    <div style="text-align: center;"><img src="/upload/img/blog/feature/{{ blog.id }}.jpeg"></div>
+                </div>
+                <div class="twelve wide column">
+                    <div class="content">
+            		    <div class="main">
+                		    <div class="title">{{ blog.title }}</div>
+                		    <div class="abstract">
+                    		    <p>{{ blog.abstract }}</p>
+                		    </div>
+                		    <div class="fadeout" style=""></div>
+            		    </div>
+            		    <div class="readall">
+                		    <a href="/blog/{{ blog.id }}">阅读全文</a>
+            		    </div>
         		    </div>
-        		    <div class="fadeout" style=""></div>
-    		    </div>
-    		    <div class="readall">
-        		    <a href="/blog/{{ blog.id }}"><div class="mini ui green button">阅读全文</div></a>
-    		    </div>
-		    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
         
