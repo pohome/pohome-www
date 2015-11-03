@@ -78,9 +78,7 @@
 		    <div class="title white">最新博文</div>
 		    {% for blog in blogs %}
 		    <div class="blog">
-<!--     		    <div style="width: 240px;text-align: center; display: inline-block"> -->
-        		    <img src="/upload/img/blog/feature/{{ blog.id }}.jpeg">
-<!--                 </div> -->
+    		    <img src="/upload/img/blog/feature/{{ blog.id }}.jpeg">
     		    <div class="content">
         		    <div class="main">
             		    <div class="title">{{ blog.title }}</div>

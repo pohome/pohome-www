@@ -58,9 +58,9 @@ body { background-color: #eee; }
 .pet .extra { margin-top: 0.5em; font-size: 0.8em; color: #aaa; }
 .pet .actions { float: right; -moz-transform: translateY(50%); -ms-transform: translateY(50%); -webkit-transform: translateY(50%); transform: translateY(50%); }
 
-.blog { background-color: white; padding: 20px; margin-bottom: 10px; }
-.blog img { display: inline-block; width: 240px; }
-.blog .content { margin-left: 28px; width: 650px; display: inline-block; vertical-align: top; }
+.blog { background-color: white; padding: 20px; margin-bottom: 10px; display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: flex-start; align-items: flex-start; }
+.blog img { width: 240px; -webkit-flex: none; flex: none; }
+.blog .content { margin-left: 20px; }
 .blog .main { position: relative; color: #000; }
 .blog .title { font-size: 1.5em; color: #000; margin-bottom: 0.3em; text-align: center; }
 .blog .date { font-size: 1em; color: #aaa; }
