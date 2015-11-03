@@ -11,8 +11,8 @@ body { background-color: #eeeeee; }
 
 .ui.icon.input input { width: 200px; }
 
-#user-panel { float: right; margin-top: 15px; margin-left: 20px; color: white; }
-#user-panel span { padding-right: 1em; margin-right: 1em; border-right: 1px solid white; line-height: 35px; }
+#user-panel { float: right; margin-top: 15px; margin-left: 20px; color: #fff; }
+#user-panel span { padding-right: 1em; margin-right: 1em; border-right: 1px solid #fff; line-height: 35px; }
 #user-panel span a { color: #fff; transition: color 0.5s ease; }
 #user-panel span a:hover { color: #3aa91d; }
 #user-panel span:last-child { padding-right: 0; margin-right: 0; border-right: none; }
@@ -58,16 +58,15 @@ body { background-color: #eeeeee; }
 .pet .extra { margin-top: 0.5em; font-size: 0.8em; color: #aaa; }
 .pet .actions { float: right; -webkit-transform: translateY(50%); -moz-transform: translateY(50%); -ms-transform: translateY(50%); -o-transform: translateY(50%); transform: translateY(50%); }
 
-.blog { background-color: white; padding: 20px; margin-bottom: 10px; }
-.blog img { width: 240px; display: inline-block; }
-.blog .content { display: inline-block; width: 600px; margin-left: 1em; vertical-align: top; /* .fadeout { @include background(linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, #ffffff 100%)); width: 600px;  height: 2em;  position: absolute;  bottom: 0; }
-*/ }
+.blog { background-color: white; padding: 20px; margin-bottom: 10px; display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: flex-start; align-items: flex-start; }
+.blog img { width: 240px; -webkit-flex: none; flex: none; }
+.blog .content { margin-left: 20px; }
 .blog .main { position: relative; color: #000; }
 .blog .title { font-size: 1.5em; color: #000; margin-bottom: 0.3em; text-align: center; }
 .blog .date { font-size: 1em; color: #aaa; }
 .blog .abstract { font-family: "Hiragino Sans GB", "Microsoft Yahei", sans-serif; font-size: 14px; text-indent: 2em; -webkit-font-smoothing: antialiased; }
 .blog .abstract p { line-height: 1.5; word-break: break-word; text-align: justify; }
-.blog .readall { font-size: 12px; width: 600px; margin-top: 16px; color: #ff5a5f; text-align: right; }
+.blog .readall { font-size: 12px; margin-top: 16px; color: #ff5a5f; text-align: right; }
 
 .event .intro { width: 300px; height: 100%; display: inline-block; }
 .event .intro .month { color: #3aa91d; font-size: 2em; }
@@ -116,7 +115,7 @@ body { background-color: #eeeeee; }
 .blog.view .title { font-size: 24px; margin: 1.5em 0; }
 .blog.view .content { font-size: 16px; -webkit-font-smoothing: antialiased; width: 40em; margin: 0 auto; }
 .blog.view .content p { line-height: 1.5; text-indent: 2em; }
-.blog.view .content img { width: 480px; margin: 1em auto; display: block; }
+.blog.view .content img { margin: 1em auto; display: block; }
 
 .usercenter .ui.form { padding: 0 !important; margin-left: 40px; }
 .usercenter .ui.form .inline.field label { margin-left: 0 !important; width: 4em !important; text-align: left !important; }

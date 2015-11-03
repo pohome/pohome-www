@@ -19,7 +19,7 @@
 		{% for pet in page.items %}
 		<tr>
     		<td class="table_row_checkbox" style="width: 1em !important"><input type="checkbox" id="pet_{{ pet.id }}" /></td>
-    		<td><img src="/upload/image/64/{{ pet.id }}.jpeg" style="width: 32px"></td>
+    		<td><img src="/upload/img/pet/avatar/small/{{ pet.id }}.jpeg" style="width: 32px"></td>
 			<td>{{ pet.name }}</td>
 			<td>{{ pet.getAge() }}</td>
 			<td>{{ pet.getGender() }}</td>

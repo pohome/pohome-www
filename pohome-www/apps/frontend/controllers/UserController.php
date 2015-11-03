@@ -80,47 +80,72 @@ class UserController extends BaseController
     
     private function editServiceIntension()
     {
-        $post = $this->request->getPost();
-        $userId = $this->session->get('userId');
-        $user = User::findFirst($userId);
-        $extra = UserExtraInfo::findFirst($userId);
-        if(!$extra) {
-            $extra = new UserExtraInfo();
-            $extra->user_id = $userId;
+        if($this->request->isPost()) {
+            $post = $this->request->getPost();
+        
+            $userId = $this->session->get('userId');
+            $user = User::findFirst($userId);
+            $extra = UserExtraInfo::findFirst($userId);
+            if(!$extra) {
+                $extra = new UserExtraInfo();
+                $extra->user_id = $userId;
+            }
+            
+            $user->email = $post['email'];
+            $user->mobile = $post['mobile'];
+            $extra->realname = $post['realname'];
+            $extra->service_intension_remark = $post['remark'];
+            
+            if(!empty($post['birthday'])) {
+                $extra->birthday = $post['birthday'];
+            }
+            
+            if(array_key_exists('gender', $post)) {
+                $extra->gender =$post['gender'];
+            }
+            
+            $this->db->begin();
+            
+            if($user->save() == false) {
+                $this->db->rollback();
+                echo 'failure #0';
+                return;
+            }
+            
+            if($extra->save() == false) {
+                $this->db->rollback();
+                echo 'failure #1';
+                return;
+            }
+            
+            // 删除原来的记录
+            $oldIntensions = ServiceIntension::find("user_id = $userId");
+            
+            foreach($oldIntensions as $o)
+            {
+                if($o->delete() == false) {
+                    $this->db->rollback();
+                    echo 'failure #2';
+                    return;
+                }
+            }
+            
+            foreach($post['intension'] as $intension_id)
+            {
+                $si = new ServiceIntension();
+                $si->user_id = $userId;
+                $si->intension_id = $intension_id;
+                
+                if($si->save() == false) {
+                    $this->db->rollback();
+                    echo 'failure #3';
+                    return;
+                }
+            }
+            
+            $this->db->commit();
+            echo 'success';
         }
-        
-        $user->email = $post['email'];
-        $user->mobile = $post['mobile'];
-        $extra->realname = $post['realname'];
-        $extra->service_intension_remark = $post['remark'];
-        
-        if(!empty($post['birthday'])) {
-            $extra->birthday = $post['birthday'];
-        }
-        
-        if(array_key_exists('gender', $post)) {
-            $extra->gender =$post['gender'];
-        }
-        
-        $user->save();
-        $extra->save();
-        
-        // 删除原来的记录
-        $oldIntensions = ServiceIntension::find("user_id = $userId");
-        foreach($oldIntensions as $o)
-        {
-            $o->delete();
-        }
-        
-        foreach($post['intension'] as $intension_id)
-        {
-            $si = new ServiceIntension();
-            $si->user_id = $userId;
-            $si->intension_id = $intension_id;
-            $si->save();
-        }
-        
-        echo 'success';
     }
     
     public function uploadAvatarAction()
@@ -193,6 +218,7 @@ class UserController extends BaseController
 				$this->session->set('userId', $user->id);
 				$this->session->set('username', $user->username);
 				$this->session->set('permission', $user->permission);
+				$this->session->set('userHasAvatar', $user->hasAvatar());
 				
 				// 如果勾选了7天内免登录
 				if($this->request->getPost('remember_me') == 'on') {

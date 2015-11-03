@@ -83,7 +83,18 @@ class PetController extends BaseController
 			$this->saveData($pet, $post, 'create');
 			
 			// 保存动物头像
-			$this->saveImage($id);
+			$this->saveImage(array(
+			array(
+    			'width' => 360,
+    			'height' => 360,
+    			'path' => '/pet/avatar/large/',
+    			'crop' => true
+			), array(
+    			'width' => 280,
+    			'height' => 280,
+    			'path' => '/pet/avatar/small/',
+    			'crop' => true
+			)), $id);
 			
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
@@ -120,8 +131,21 @@ class PetController extends BaseController
 			$post['taobao_url'] = $this->parseTaobaoId($post['taobao_url']);
 									
 			$this->saveData($pet, $post, 'update');
-			$this->saveImage($petId);
+            
+            $this->saveImage(array(
+            array(
+    			'width' => 360,
+    			'height' => 360,
+    			'path' => '/pet/avatar/large/',
+    			'crop' => true
+			), array(
+    			'width' => 280,
+    			'height' => 280,
+    			'path' => '/pet/avatar/small/',
+    			'crop' => true
+			)), $petId);
 			
+			//echo $this->result;
 			echo json_encode($this->result, JSON_UNESCAPED_UNICODE);
 		}
 		
@@ -365,7 +389,21 @@ class PetController extends BaseController
         );
         
     	if($this->request->isPost()) {
-        	$files = $this->saveImage();
+        	$files = $this->saveImage(array(
+            	array(
+                	'width' => 1080,
+        			'height' => 720,
+        			'path' => '/pet/photo/full/',
+        			'crop' => true
+            	), array(
+    			'width' => 180,
+    			'height' => 120,
+    			'path' => '/pet/photo/thumbnail/',
+    			'crop' => true
+			)));
+        	//$files = $this->saveImage();
+        	
+        	//var_dump($files);
         	
         	foreach($files as $file)
         	{

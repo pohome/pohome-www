@@ -21,9 +21,11 @@ class BaseController extends \Phalcon\Mvc\Controller
             		
             		$this->session->set('userId', $userId);
             		$this->session->set('username', $user->username);
+            		$this->session->set('userHasAvatar', $user->hasAvatar());
         		}
     		}
         } else {
+            $this->view->userHasAvatar = $this->session->get('userHasAvatar');
             $this->view->userId = $this->session->get('userId');
     		$this->view->username = $this->session->get('username');
     		$this->view->canVisitBackend = $this->hasPermission($this->view->userId, '/admin/*');

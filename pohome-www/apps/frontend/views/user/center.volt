@@ -30,8 +30,16 @@
                 <div class="row"><span class="field label">等级：</span><span class="field value"></span></div>
             </div>
             <div class="three wide column" style="text-align: center;">
-                <div><img src="/upload/img/user/avatar/large/{{ userId }}.jpg" id="avatar-image" style="width: 128px;border-radius: 128px"></div>
-                <div><a class="ui tiny green button" style="margin-top: 10px" id="upload_avatar_button">上传头像</a></div>
+                <div>
+                    {% if user.hasAvatar() %}
+                    <img src="/upload/img/user/avatar/large/{{ userId }}.jpg" id="avatar-image" style="width: 128px;border-radius: 128px;">
+                    {% else %}
+                    <img src="/image/user-default-avatar.png" style="width: 128px;border-radius: 128px;">
+                    {% endif %}
+                </div>
+                <div>
+                    <a class="ui tiny green button" style="margin-top: 10px" id="upload_avatar_button">上传头像</a>
+                </div>
                 <input type="file" hidden="" name="avatar" id="upload_avatar_field" />
             </div>
         </div>

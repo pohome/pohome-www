@@ -35,13 +35,14 @@
 	    <div class="wrap">
 		    <div class="title green">领养故事</div>
 		    <div class="story">
-    		    <img src="/upload/image/512/{{ adoptionStory.feature_image }}.jpeg"><div class="content">
+    		    <div style="width: 360px;text-align: center; margin-right: 2em; display: inline-block"><img src="/upload/img/blog/feature/{{ adoptionStory.id }}.jpeg" style="max-width: 360px; max-height: 240px;"></div><div class="content">
         		    <div class="title">{{ adoptionStory.title }}</div>
         		    {{ adoptionStory.abstract }}
                     <div class="readall">
             		    <a href="/blog/{{ adoptionStory.id }}"><div class="mini ui green button">阅读全文</div></a>
         		    </div>
     		    </div>
+    		    <div style="clear: both"></div>
 		    </div>
 	    </div>
     </div>
@@ -77,7 +78,7 @@
 		    <div class="title white">最新博文</div>
 		    {% for blog in blogs %}
 		    <div class="blog">
-    		    <img src="upload/image/512/{{ blog.feature_image }}.jpeg">
+    		    <img src="/upload/img/blog/feature/{{ blog.id }}.jpeg">
     		    <div class="content">
         		    <div class="main">
             		    <div class="title">{{ blog.title }}</div>

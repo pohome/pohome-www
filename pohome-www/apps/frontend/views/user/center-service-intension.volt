@@ -42,7 +42,7 @@
                         <div class="box">
                             {% for key, value in sit %}
                             <div class="field">
-                                <input type="checkbox" name="intension[]" value="{{ key }}" />
+                                <input type="checkbox" name="intension[]" value="{{ key }}" {% if user.hasIntension(key) %}checked="checked"{% endif %} />
                                 <label>{{ value }}</label>
                             </div>
                             {% endfor %}
@@ -59,10 +59,20 @@
     </div>
 </div>
 
-<div class="ui small modal">
+<div class="ui small modal" id="success_modal">
     <div class="header">志愿服务意向更新成功</div>
     <div class="content">
         <p>您的新志愿服务意向已经保存</p>
+    </div>
+    <div class="actions">
+        <div class="ui positive button">确定</div>
+    </div>
+</div>
+
+<div class="ui small modal" id="failed_modal">
+    <div class="header">志愿服务意向更新失败</div>
+    <div class="content">
+        <p>保存志愿服务意向失败，请稍后重试。</p>
     </div>
     <div class="actions">
         <div class="ui positive button">确定</div>
@@ -88,13 +98,15 @@
             console.log(responseText);
             
             if(responseText == 'success') {
-                $(".ui.modal").modal({
+                $("#success_modal").modal({
                     onApprove : function() {
-                        //window.location.href = "http://www.pohome.cn/pet";
                     }
                 }).modal("show");
             } else {
-                // console.log('wrong');
+                $("#failed_modal").modal({
+                    onApprove : function() {
+                    }
+                }).modal("show");
             }
         },
         resetForm : false
