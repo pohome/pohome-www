@@ -57,7 +57,7 @@
 <script>
     $('.modal').modal();
     $(".pet_thumbnail").click(function() {
-        var filename = '/upload/img/pet/photo/full/' + $(this).attr('data') + '.jpg';
+        var filename = '/upload/img/pet/photo/full/' + $(this).attr('data') + '.jpeg';
         $('.modal img').attr('src', filename);
         $('.modal').modal('refresh').modal('show');
     });
