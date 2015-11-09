@@ -59,7 +59,7 @@
             		    {% if pet.status_id == 9 %}
             		    <a class="ui green ribbon label">已预订</a>
             		    {% endif %}
-                        <img src="upload/image/512/{{ pet.id }}.jpeg">
+                        <img src="upload/img/pet/avatar/small/{{ pet.id }}.jpeg">
         		    </div>
         		    <div class="info">
             		    <div class="name">{{ pet.name }}</div>
