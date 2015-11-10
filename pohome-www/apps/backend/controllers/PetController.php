@@ -392,14 +392,14 @@ class PetController extends BaseController
         	$files = $this->saveImage(array(
             	array(
                 	'width' => 1080,
-        			'height' => 720,
+        			'height' => 1080,
         			'path' => '/pet/photo/full/',
-        			'crop' => true
+        			'crop' => false
             	), array(
     			'width' => 180,
-    			'height' => 120,
+    			'height' => 180,
     			'path' => '/pet/photo/thumbnail/',
-    			'crop' => true
+    			'crop' => false
 			)));
         	//$files = $this->saveImage();
         	
