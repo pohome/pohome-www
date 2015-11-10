@@ -375,7 +375,7 @@ class PetController extends BaseController
 	
 	public function photoAction($petId)
 	{
-    	$this->view->title = '添加动物照片 - 汪汪喵呜孤儿院后台管理';
+    	$this->view->title = '管理动物照片 - 汪汪喵呜孤儿院后台管理';
 		
 		$this->view->breadcrumb = array(
             array(
@@ -383,27 +383,29 @@ class PetController extends BaseController
                 'link' => '/admin/pet/index'
             ),
             array(
-                'name' => '添加照片',
+                'name' => '管理照片',
                 'active' => true
             )
         );
+        
+        $this->view->photos = PetPhoto::find(array(
+            'conditions' => "pet_id = ?1",
+            'bind' => array(1 => $petId)
+        ));
         
     	if($this->request->isPost()) {
         	$files = $this->saveImage(array(
             	array(
                 	'width' => 1080,
-        			'height' => 720,
+        			'height' => 1080,
         			'path' => '/pet/photo/full/',
         			'crop' => true
             	), array(
     			'width' => 180,
-    			'height' => 120,
+    			'height' => 180,
     			'path' => '/pet/photo/thumbnail/',
     			'crop' => true
 			)));
-        	//$files = $this->saveImage();
-        	
-        	//var_dump($files);
         	
         	foreach($files as $file)
         	{
@@ -413,6 +415,38 @@ class PetController extends BaseController
             	$pp->create();
         	}
     	}    	
+	}
+	
+	public function deletePhotoAction()
+	{
+    	$this->view->disable();
+    	
+    	if($this->request->isPost())
+    	{
+        	$fileId = $this->request->getPost('fileId');
+	    	$file = \Pohome\Models\File::findFirst($fileId);
+	    	
+/*
+	    	if(!file) {
+    	    	$this->response->setStatusCode(404, "File not found.");
+    	    	return;
+	    	}
+*/
+	    	
+            $filename = $file->id . '.' . $file->file_type;
+            
+            $root = $_SERVER['DOCUMENT_ROOT'];
+            
+            unlink($root . '/upload/img/origin/' . $filename);
+            unlink($root . '/upload/img/pet/photo/full/' . $filename);
+            unlink($root . '/upload/img/pet/photo/thumbnail/' . $filename);
+            
+            $photo = \Pohome\Models\PetPhoto::findFirst("file_id = '$fileId'");
+            $photo->delete();
+            $file->delete();
+    	}
+    	
+
 	}
 	
 	public function getProductAction()
