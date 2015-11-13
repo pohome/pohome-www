@@ -14,7 +14,7 @@
     		{% for photo in photos %}
     		<div class="card">
         		<a class="image">
-            		<img src="/upload/image/256/{{ photo }}" style="max-width: 256px;max-height: 256px;">
+            		<img src="/upload/img/blog/content/{{ photo }}" style="max-width: 128;max-height: 128px;">
         		</a>
         		<div class="content">
             		<input type="radio" name="feature_image" value="{{ photo }}"><label>设为展示图</label>

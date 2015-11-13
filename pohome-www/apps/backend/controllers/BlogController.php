@@ -109,23 +109,21 @@ class BlogController extends BaseController
         
         // 从博文中包含的照片选择展示照片
         $content = $blog->content;
-        preg_match_all('#<img src="/upload/image/\d+?/(\d+?.jpeg)".*?>#', $content, $match);
+        preg_match_all('#<img src="/upload/img/blog/content/(\d+?.jpeg)".*?>#', $content, $match);
         $this->view->photos = $match[1];
         
         
         if($this->request->isPost()) {
             $post = $this->request->getPost();
-            
+ 
             // 从博文中包含的照片选择展示照片
             if(array_key_exists('feature_image', $post)) {
+                $root = $_SERVER['DOCUMENT_ROOT'] . '/upload/img';
                 $filename = $post['feature_image'];
-                $tmp = explode('.', $filename);
-                $post['feature_image'] = $tmp[0];
+                $img = new \Imagick($root . '/blog/content/' . $filename);
+                $img->resizeImage(240, 240, \Imagick::FILTER_CATROM, 1, true);
+                $img->writeImage($root . '/blog/feature/' . $blog->id . '.jpeg');
             }
-                        
-            //$files = $this->saveImage();
-            //$post['author_id'] = $this->session->get('userId');
-            //$post['feature_image'] = $files[0]['id'];
             
             $this->saveData($blog, $post, 'update');
             if(empty($this->result)) {
