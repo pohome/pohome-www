@@ -83,7 +83,7 @@
             	</div>
             	<div style="display: inline-block;text-align: center">
                 	<img src="/image/qrcode-weibo.png" width="85">
-                	<div>微博公众号</div>
+                	<div>微博</div>
             	</div>
         	</div>
             <div>Copyright © 2007 - <?php echo date('Y');?> 汪汪喵呜孤儿院.All right reserved</div>
