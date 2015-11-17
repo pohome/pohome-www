@@ -47,9 +47,9 @@
 	    </div>
     </div>
     
-    <div class="segment">
+    <div class="segment background green">
 	    <div class="wrap">
-		    <div class="title green">领养推荐</div>
+		    <div class="title white">领养推荐</div>
 		    <div>
     		    {% for pet in pets %}<div class="pet">
         		    <div class="ui fluid image">
@@ -59,23 +59,23 @@
             		    {% if pet.status_id == 9 %}
             		    <a class="ui green ribbon label">已预订</a>
             		    {% endif %}
-                        <img src="upload/img/pet/avatar/small/{{ pet.id }}.jpeg">
+                        <img src="upload/image/512/{{ pet.id }}.jpeg">
         		    </div>
         		    <div class="info">
             		    <div class="name">{{ pet.name }}</div>
             		    <div class="extra"><span>{{ pet.getAge() }}</span><span> {{ pet.getGender() }}</span><span> {{ pet.breed }}</span></div>
         		    </div><div class="actions">
             		    <a href="/pet/{{ pet.id }}"><div class="ui tiny green button">详情</div></a>
-                        {% if pet.taobao_url > 0 %}<a href="{{ pet.getTaobaoUrl() }}" target="_blank"><div class="ui tiny orange button">助养</div></a>{% endif %}
+                        <a href="{{ pet.getTaobaoUrl() }}"><div class="ui tiny orange button">助养</div></a>
         		    </div>
     		    </div>{% endfor %}
 		    </div>
 	    </div>
     </div>
     
-    <div class="segment background green">
+    <div class="segment">
 	    <div class="wrap">
-		    <div class="title white">最新博文</div>
+		    <div class="title green">最新博文</div>
 		    {% for blog in blogs %}
 		    <div class="blog">
     		    <img src="/upload/img/blog/feature/{{ blog.id }}.jpeg">
@@ -101,7 +101,7 @@
     
     <div class="segment">
         <div class="wrap">
-            <div class="title">合作伙伴</div>
+            <div class="title green">合作伙伴</div>
             <div id="partner">
                 <div><img src="/image/partner/sunshine-farm.png" /></div>
                 <div><img src="/image/partner/cfx.png" /></div>

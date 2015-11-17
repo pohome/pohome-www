@@ -223,6 +223,10 @@ body {
         border-bottom: 1px solid #eee;
         padding-bottom: 2px;
     }
+
+    .title.green {
+        border-bottom: 1px solid #7bae4f;
+    }
 }
 
 .story {
@@ -612,7 +616,6 @@ body {
         img {
             margin: 1em auto;
             display: block;
-            width: auto;
         }
     }
 }
@@ -798,11 +801,11 @@ footer {
 }
 
 .green {
-    color: $green;
+    color: #7bae4f;
 }
 
 .background.green {
-    background-color: $green;
+    background-color: #7bae4f;
 }
 
 .background.white {
