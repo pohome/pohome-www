@@ -28,7 +28,7 @@
 			<td>{{ pet.viewed }}</td>
 			<td>
 				<a href="\admin\pet\edit\{{ pet.id }}" style="margin-right: 0.5em">编辑</a>
-				<a href="\admin\pet\photo\{{ pet.id }}" style="margin-right: 0.5em">添加照片</a>
+				<a href="\admin\pet\photo\{{ pet.id }}" style="margin-right: 0.5em">管理照片</a>
 				<a href="\admin\pet\story\list\{{ pet.id }}" style="margin-right: 0.5em">添加故事</a>
 				<a href="\admin\pet\medical\{{ pet.id }}" style="margin-right: 0.5em">医疗</a>
 				<a href="\admin\pet\healthcare\{{ pet.id }}" style="margin-right: 0.5em">健康护理</a>

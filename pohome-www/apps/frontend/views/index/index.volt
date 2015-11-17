@@ -95,6 +95,34 @@
             {% endfor %}
 	    </div>
     </div>
+    
+    <div class="segment" style="height: 300px;background-image: url(/image/partner-background.jpg);background-repeat: no-repeat;background-size: cover;background-position-x: center">
+    </div>
+    
+    <div class="segment">
+        <div class="wrap">
+            <div class="title">合作伙伴</div>
+            <div id="partner">
+                <div><img src="/image/partner/sunshine-farm.png" /></div>
+                <div><img src="/image/partner/cfx.png" /></div>
+                <div><img src="/image/partner/xjgy.png" /></div>
+                <div><img src="/image/partner/mzys.png" /></div>
+                <div><img src="/image/partner/jdl.png" /></div>
+                <div><img src="/image/partner/tajijin.png" /></div>
+                <div><img src="/image/partner/GHP.png" /></div>
+                <div><img src="/image/partner/lush.png" /></div>
+                <div><img src="/image/partner/sugar_shack.png" /></div>
+                <div><img src="/image/partner/cwp.jpg" /></div>
+                <div><img src="/image/partner/qingcloud.png" /></div>
+                <div><img src="/image/partner/zimutech.png" /></div>
+                <div><img src="/image/partner/ifaw.jpg" /></div>
+                <div><img src="/image/partner/aaf.png" /></div>
+                <div><img src="/image/partner/hk-spca.png" /></div>
+                <div><img src="/image/partner/mars.png" /></div>
+                <div><img src="/image/partner/helpu.png" /></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

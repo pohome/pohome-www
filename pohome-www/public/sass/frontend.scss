@@ -195,6 +195,24 @@ body {
     visibility: hidden;
 } 
 
+#partner {
+    @include display-flex(flex);
+    @include flex-wrap(wrap);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    
+    div {
+        width: 152px;
+        margin: 20px;
+        text-align: center;
+        
+        img {
+            //max-width: 140px;
+        }
+    }
+    
+}
+
 .segment {
     width: 100%;
     padding: 40px 0px;
