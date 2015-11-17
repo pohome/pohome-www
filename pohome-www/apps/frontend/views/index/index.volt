@@ -96,7 +96,7 @@
 	    </div>
     </div>
     
-    <div class="segment" style="height: 300px;background-image: url(/image/partner-background.jpg);background-repeat: no-repeat;background-size: cover;background-position-x: center">
+    <div class="segment" style="height: 300px;background-image: url(/image/partner-background.png);background-repeat: no-repeat;background-size: cover;background-position-x: center">
     </div>
     
     <div class="segment">
