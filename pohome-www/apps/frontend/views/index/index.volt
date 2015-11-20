@@ -120,6 +120,7 @@
                 <div><img src="/image/partner/hk-spca.png" /></div>
                 <div><img src="/image/partner/mars.png" /></div>
                 <div><img src="/image/partner/helpu.png" /></div>
+                <div><img src="/image/partner/dogoctor.png" /></div>
             </div>
         </div>
     </div>
