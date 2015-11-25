@@ -65,11 +65,11 @@ class BlogController extends BaseController
             $post = $this->request->getPost();
             $blog = new Blog();
             
-            $files = $this->saveImage();
-            $post['author_id'] = $this->session->get('userId');
-            $post['feature_image'] = $files[0]['id'];
             
+            $post['author_id'] = $this->session->get('userId');
+            $post['feature_image'] = 0;
             $this->saveData($blog, $post, 'create');
+            $files = $this->saveImage(array(array('width' => 240, 'height' => 240, 'path' => '/blog/feature/')), $blog->id);
             
             if (!empty($this->result)) {
                 // 返回错误信息
@@ -121,10 +121,12 @@ class BlogController extends BaseController
                 $root = $_SERVER['DOCUMENT_ROOT'] . '/upload/img';
                 $filename = $post['feature_image'];
                 $img = new \Imagick($root . '/blog/content/' . $filename);
+                $this->cropInCenter($img, 1.5);
                 $img->resizeImage(240, 240, \Imagick::FILTER_CATROM, 1, true);
                 $img->writeImage($root . '/blog/feature/' . $blog->id . '.jpeg');
             }
             
+            $post['feature_image'] = 0;
             $this->saveData($blog, $post, 'update');
             if(empty($this->result)) {
                 $this->response->redirect('admin/blog/index/' . floor($blogId / 20));

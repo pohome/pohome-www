@@ -85,6 +85,7 @@ class BaseController extends \Phalcon\Mvc\Controller
         {
             foreach($model->getMessages() as $msg)
             {
+                $this->debug->error($msg->getMessage());
                 $field = $msg->getField();
                 $this->result[] = array('field' => $field, 'type' => $msg->getType(), 'value' => $post[$field]);
             }
@@ -149,7 +150,7 @@ class BaseController extends \Phalcon\Mvc\Controller
             if(is_null($id)) {
                 $id = gen_uuid();
             }
-            var_dump($id);     
+            //var_dump($id);     
             $filename = $id . '.' . $type;
             $img = new \Imagick($file->getTempName());
             $img->writeImage($root . '/origin/' . $filename);
